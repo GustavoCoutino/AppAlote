@@ -89,15 +89,35 @@ struct Map: View {
                             
                            
                 }
-                .fill(Color.black
-                )
+                .fill(Color.black)
                 .onTapGesture {
                     tappedPathName = "IMAX"
                 }
                 
                 
+                // COMPRENDO
+                Path { path in
+                    let width: CGFloat = 1000
+                    let height: CGFloat = 1000
+                    path.move(to: CGPoint(x: 0.3757*width, y: 0.30048*height))
+                    path.addLine(to: CGPoint(x: 0.55743*width, y: 0.23124*height))
+                    path.addLine(to: CGPoint(x: 0.56563*width, y: 0.22304*height))
+                    path.addLine(to: CGPoint(x: 0.56446*width, y: 0.18514*height))
+                    path.addLine(to: CGPoint(x: 0.59993*width, y: 0.18424*height))
+                    path.addLine(to: CGPoint(x: 0.59819*width, y: 0.42482*height))
+                    path.addLine(to: CGPoint(x: 0.61567*width, y: 0.44206*height))
+                    path.addLine(to: CGPoint(x: 0.66361*width, y: 0.45159*height))
+                    path.addLine(to: CGPoint(x: 0.6664*width, y: 0.53268*height))
+                    path.addLine(to: CGPoint(x: 0.59047*width, y: 0.55461*height))
+                    path.addLine(to: CGPoint(x: 0.55357*width, y: 0.55201*height))
+                    path.addLine(to: CGPoint(x: 0.3757*width, y: 0.30048*height))
+                }
+                .fill(Color.purple)
+                .onTapGesture {
+                    tappedPathName = "Comprendo"
+                }
                 
-                
+        
             }
             .offset(offset)
             .simultaneousGesture(
