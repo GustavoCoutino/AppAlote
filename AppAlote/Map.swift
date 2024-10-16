@@ -101,20 +101,53 @@ struct Map: View {
                     let height: CGFloat = 1000
                     path.move(to: CGPoint(x: 0.3757*width, y: 0.30048*height))
                     path.addLine(to: CGPoint(x: 0.55743*width, y: 0.23124*height))
-                    path.addLine(to: CGPoint(x: 0.56563*width, y: 0.22304*height))
+                    path.addCurve(to: CGPoint(x: 0.56563*width, y: 0.22304*height), control1: CGPoint(x: 0.56052*width, y: 0.22979*height), control2: CGPoint(x: 0.56497*width, y: 0.22613*height))
                     path.addLine(to: CGPoint(x: 0.56446*width, y: 0.18514*height))
                     path.addLine(to: CGPoint(x: 0.59993*width, y: 0.18424*height))
                     path.addLine(to: CGPoint(x: 0.59819*width, y: 0.42482*height))
-                    path.addLine(to: CGPoint(x: 0.61567*width, y: 0.44206*height))
+                    path.addCurve(to: CGPoint(x: 0.61567*width, y: 0.44206*height), control1: CGPoint(x: 0.59966*width, y: 0.43194*height), control2: CGPoint(x: 0.60873*width, y: 0.44019*height))
                     path.addLine(to: CGPoint(x: 0.66361*width, y: 0.45159*height))
                     path.addLine(to: CGPoint(x: 0.6664*width, y: 0.53268*height))
                     path.addLine(to: CGPoint(x: 0.59047*width, y: 0.55461*height))
                     path.addLine(to: CGPoint(x: 0.55357*width, y: 0.55201*height))
                     path.addLine(to: CGPoint(x: 0.3757*width, y: 0.30048*height))
+                            
                 }
                 .fill(Color.purple)
                 .onTapGesture {
                     tappedPathName = "Comprendo"
+                }
+                
+                // EXPRESO
+                Path { path in
+                    let width: CGFloat = 1000
+                    let height: CGFloat = 1000
+                    path.move(to: CGPoint(x: 0.66361*width, y: 0.45159*height))
+                    path.addLine(to: CGPoint(x: 0.83257*width, y: 0.48391*height))
+                    path.addCurve(to: CGPoint(x: 0.85556*width, y: 0.46952*height), control1: CGPoint(x: 0.83562*width, y: 0.47445*height), control2: CGPoint(x: 0.84732*width, y: 0.46774*height))
+                    path.addLine(to: CGPoint(x: 0.93642*width, y: 0.48611*height))
+                    path.addCurve(to: CGPoint(x: 0.95089*width, y: 0.50187*height), control1: CGPoint(x: 0.94309*width, y: 0.48767*height), control2: CGPoint(x: 0.94936*width, y: 0.49607*height))
+                    path.addLine(to: CGPoint(x: 0.97413*width, y: 0.65314*height))
+                    path.addCurve(to: CGPoint(x: 0.9675*width, y: 0.67159*height), control1: CGPoint(x: 0.97519*width, y: 0.6593*height), control2: CGPoint(x: 0.97116*width, y: 0.66792*height))
+                    path.addLine(to: CGPoint(x: 0.9649*width, y: 0.67425*height))
+                    path.addLine(to: CGPoint(x: 0.89222*width, y: 0.71337*height))
+                    path.addLine(to: CGPoint(x: 0.86289*width, y: 0.66215*height))
+                    path.addLine(to: CGPoint(x: 0.88266*width, y: 0.65101*height))
+                    path.addCurve(to: CGPoint(x: 0.89694*width, y: 0.61519*height), control1: CGPoint(x: 0.88912*width, y: 0.64669*height), control2: CGPoint(x: 0.89699*width, y: 0.63083*height))
+                    path.addCurve(to: CGPoint(x: 0.86637*width, y: 0.57521*height), control1: CGPoint(x: 0.89774*width, y: 0.59552*height), control2: CGPoint(x: 0.88375*width, y: 0.57661*height))
+                    path.addCurve(to: CGPoint(x: 0.83257*width, y: 0.59999*height), control1: CGPoint(x: 0.85261*width, y: 0.57248*height), control2: CGPoint(x: 0.83893*width, y: 0.58824*height))
+                    path.addCurve(to: CGPoint(x: 0.76504*width, y: 0.63337*height), control1: CGPoint(x: 0.8235*width, y: 0.61696*height), control2: CGPoint(x: 0.78899*width, y: 0.6327*height))
+                    path.addCurve(to: CGPoint(x: 0.68221*width, y: 0.6164*height), control1: CGPoint(x: 0.74564*width, y: 0.63235*height), control2: CGPoint(x: 0.70461*width, y: 0.6231*height))
+                    path.addLine(to: CGPoint(x: 0.65905*width, y: 0.61329*height))
+                    path.addLine(to: CGPoint(x: 0.57124*width, y: 0.61564*height))
+                    path.addLine(to: CGPoint(x: 0.55357*width, y: 0.55201*height))
+                    path.addLine(to: CGPoint(x: 0.59047*width, y: 0.5547*height))
+                    path.addLine(to: CGPoint(x: 0.6664*width, y: 0.53268*height))
+                    path.addLine(to: CGPoint(x: 0.66361*width, y: 0.45159*height))
+                }
+                .fill(Color.orange)
+                .onTapGesture {
+                    tappedPathName = "Expreso"
                 }
                 
         
