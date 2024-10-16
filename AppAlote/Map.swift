@@ -150,6 +150,33 @@ struct Map: View {
                     tappedPathName = "Expreso"
                 }
                 
+                
+                // PEQUEÑOS
+                Path { path in
+                    let width: CGFloat = 1000
+                    let height: CGFloat = 1000
+                    path.move(to: CGPoint(x: 0.76876*width, y: 0.90089*height))
+                    path.addLine(to: CGPoint(x: 0.75629*width, y: 0.83365*height))
+                    path.addLine(to: CGPoint(x: 0.72458*width, y: 0.77699*height))
+                    path.addLine(to: CGPoint(x: 0.70865*width, y: 0.74718*height))
+                    path.addLine(to: CGPoint(x: 0.86289*width, y: 0.66215*height))
+                    path.addLine(to: CGPoint(x: 0.89222*width, y: 0.71337*height))
+                    path.addLine(to: CGPoint(x: 0.83898*width, y: 0.74244*height))
+                    path.addCurve(to: CGPoint(x: 0.83257*width, y: 0.75092*height), control1: CGPoint(x: 0.83656*width, y: 0.74409*height), control2: CGPoint(x: 0.83339*width, y: 0.74835*height))
+                    path.addLine(to: CGPoint(x: 0.82005*width, y: 0.77699*height))
+                    path.addLine(to: CGPoint(x: 0.82268*width, y: 0.79866*height))
+                    path.addLine(to: CGPoint(x: 0.77566*width, y: 0.8952*height))
+                    path.addCurve(to: CGPoint(x: 0.76876*width, y: 0.90089*height), control1: CGPoint(x: 0.77354*width, y: 0.89792*height), control2: CGPoint(x: 0.77082*width, y: 0.90157*height))
+                }
+                .fill(Color.blue)
+                .onTapGesture {
+                    tappedPathName = "Pequeños"
+                }
+                
+                
+        
+                        
+                
         
             }
             .offset(offset)
