@@ -173,9 +173,32 @@ struct Map: View {
                     tappedPathName = "Pequeños"
                 }
                 
-                
-        
+                // SOY
+                Path { path in
+                    let width: CGFloat = 1000
+                    let height: CGFloat = 1000
+                    path.move(to: CGPoint(x: 0.76876*width, y: 0.90085*height))
+                    path.addCurve(to: CGPoint(x: 0.74271*width, y: 0.90948*height), control1: CGPoint(x: 0.76566*width, y: 0.90625*height), control2: CGPoint(x: 0.75299*width, y: 0.9104*height))
+                    path.addLine(to: CGPoint(x: 0.57354*width, y: 0.90906*height))
+                    path.addCurve(to: CGPoint(x: 0.55309*width, y: 0.90078*height), control1: CGPoint(x: 0.56387*width, y: 0.90917*height), control2: CGPoint(x: 0.55723*width, y: 0.90415*height))
+                    path.addLine(to: CGPoint(x: 0.3793*width, y: 0.65741*height))
+                    path.addLine(to: CGPoint(x: 0.43287*width, y: 0.55201*height))
+                    path.addCurve(to: CGPoint(x: 0.44381*width, y: 0.54195*height), control1: CGPoint(x: 0.4384*width, y: 0.54336*height), control2: CGPoint(x: 0.44242*width, y: 0.54289*height))
+                    path.addCurve(to: CGPoint(x: 0.52477*width, y: 0.5608*height), control1: CGPoint(x: 0.4452*width, y: 0.54101*height), control2: CGPoint(x: 0.47234*width, y: 0.54667*height))
+                    path.addLine(to: CGPoint(x: 0.54696*width, y: 0.5547*height))
+                    path.addLine(to: CGPoint(x: 0.55309*width, y: 0.55201*height))
+                    path.addLine(to: CGPoint(x: 0.57124*width, y: 0.61564*height))
+                    path.addCurve(to: CGPoint(x: 0.55309*width, y: 0.68309*height), control1: CGPoint(x: 0.5396*width, y: 0.62358*height), control2: CGPoint(x: 0.52727*width, y: 0.65614*height))
+                    path.addLine(to: CGPoint(x: 0.64898*width, y: 0.73922*height))
+                    path.addCurve(to: CGPoint(x: 0.70865*width, y: 0.74706*height), control1: CGPoint(x: 0.66346*width, y: 0.74462*height), control2: CGPoint(x: 0.69329*width, y: 0.74858*height))
+                    path.addLine(to: CGPoint(x: 0.75629*width, y: 0.83354*height))
+                    path.addLine(to: CGPoint(x: 0.76876*width, y: 0.90085*height))
                         
+                }
+                .fill(Color.red)
+                .onTapGesture {
+                    tappedPathName = "Soy"
+                }
                 
         
             }
