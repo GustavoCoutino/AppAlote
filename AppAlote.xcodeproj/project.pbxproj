@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4DF14F32CC19F530058008F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF14F22CC19F530058008F /* Map.swift */; };
 		F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */; };
 		F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F952CBF299900A1BB94 /* ContentView.swift */; };
 		F4E25F982CBF299A00A1BB94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E25F972CBF299A00A1BB94 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4DF14F22CC19F530058008F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F4E25F902CBF299900A1BB94 /* AppAlote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppAlote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAloteApp.swift; sourceTree = "<group>"; };
 		F4E25F952CBF299900A1BB94 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */,
 				F4E25F952CBF299900A1BB94 /* ContentView.swift */,
+				F4DF14F22CC19F530058008F /* Map.swift */,
 				F4E25F972CBF299A00A1BB94 /* Assets.xcassets */,
 				F4E25F992CBF299A00A1BB94 /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
+				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
