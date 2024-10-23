@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct Home: View {
+struct HomeView: View {
     var body: some View {
         ZStack{
-            
+
             HStack{
                 Image("home")
                     .resizable()
@@ -67,5 +67,5 @@ struct Home: View {
 }
 
 #Preview {
-    Home()
+    HomeView()
 }

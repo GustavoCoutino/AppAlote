@@ -23,6 +23,7 @@ struct Map: View {
 
     var body: some View {
         ZStack {
+            
             SceneView(
                 scene: viewModel.scene,
                 options: [.autoenablesDefaultLighting]
