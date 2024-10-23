@@ -10,6 +10,10 @@
 		F4895CE22CC7F4B5008DDAF2 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */; };
 		F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4895CE32CC815D0008DDAF2 /* SignIn.swift */; };
 		F4B2D4A92CC973BC00CE0906 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D4A82CC973BC00CE0906 /* Triangle.swift */; };
+		F4B2D4AB2CC97C2F00CE0906 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D4AA2CC97C2F00CE0906 /* QuizView.swift */; };
+		F4B2D4AD2CC98B8F00CE0906 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D4AC2CC98B8F00CE0906 /* ProgressBar.swift */; };
+		F4B2D4AF2CC993F200CE0906 /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D4AE2CC993F200CE0906 /* QuizData.swift */; };
+		F4B2D4B12CC9AD4E00CE0906 /* QuestionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D4B02CC9AD4E00CE0906 /* QuestionTitle.swift */; };
 		F4DF14F32CC19F530058008F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF14F22CC19F530058008F /* Map.swift */; };
 		F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */; };
 		F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F952CBF299900A1BB94 /* ContentView.swift */; };
@@ -21,6 +25,10 @@
 		F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		F4895CE32CC815D0008DDAF2 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		F4B2D4A82CC973BC00CE0906 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
+		F4B2D4AA2CC97C2F00CE0906 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		F4B2D4AC2CC98B8F00CE0906 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		F4B2D4AE2CC993F200CE0906 /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
+		F4B2D4B02CC9AD4E00CE0906 /* QuestionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTitle.swift; sourceTree = "<group>"; };
 		F4DF14F22CC19F530058008F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F4E25F902CBF299900A1BB94 /* AppAlote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppAlote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAloteApp.swift; sourceTree = "<group>"; };
@@ -44,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				F4E25F952CBF299900A1BB94 /* ContentView.swift */,
+				F4B2D4AA2CC97C2F00CE0906 /* QuizView.swift */,
 				F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */,
 				F4895CE32CC815D0008DDAF2 /* SignIn.swift */,
 			);
@@ -53,6 +62,7 @@
 		F4B2D4A62CC9376700CE0906 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F4B2D4AE2CC993F200CE0906 /* QuizData.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -61,6 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				F4B2D4A82CC973BC00CE0906 /* Triangle.swift */,
+				F4B2D4B02CC9AD4E00CE0906 /* QuestionTitle.swift */,
+				F4B2D4AC2CC98B8F00CE0906 /* ProgressBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -175,9 +187,13 @@
 			files = (
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
+				F4B2D4B12CC9AD4E00CE0906 /* QuestionTitle.swift in Sources */,
 				F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */,
 				F4B2D4A92CC973BC00CE0906 /* Triangle.swift in Sources */,
+				F4B2D4AB2CC97C2F00CE0906 /* QuizView.swift in Sources */,
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
+				F4B2D4AD2CC98B8F00CE0906 /* ProgressBar.swift in Sources */,
+				F4B2D4AF2CC993F200CE0906 /* QuizData.swift in Sources */,
 				F4895CE22CC7F4B5008DDAF2 /* LogIn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
