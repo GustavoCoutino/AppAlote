@@ -14,7 +14,7 @@ struct QuestionTitle: View {
         Text(title)
             .font(.headline)
             .padding(.top, 10)
-            .multilineTextAlignment(.center)
+            
     }
 }
 

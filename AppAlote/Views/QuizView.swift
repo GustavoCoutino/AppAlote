@@ -10,15 +10,29 @@ struct QuizView: View {
     @State private var currentQuestionIndex = 0
     @State private var selectedAnswer: Int? = nil
     @State private var quizCompleted = false
+    @StateObject private var routeCalculator = RouteCalculator() // Initialize RouteCalculator
     
-    private let squareSize = UIScreen.main.bounds.width / 2 - 40 // Adjust size for padding
+    private let squareSize = UIScreen.main.bounds.width / 2 - 40
 
     var body: some View {
         VStack {
             if quizCompleted {
-                Text("Quiz Completed!")
-                    .font(.largeTitle)
-                    .padding()
+                let finalRoute = routeCalculator.calculateRoute()
+                VStack {
+                    Text("Quiz Completado!")
+                        .font(.largeTitle)
+                        .padding()
+
+                    Text("Tu Ruta:")
+                        .font(.headline)
+                        .padding(.top)
+
+                    ForEach(finalRoute, id: \.self) { step in
+                        Text(step)
+                            .font(.title2)
+                            .padding(.top, 5)
+                    }
+                }
             } else {
                 let question = QuizData.questions[currentQuestionIndex]
                 
@@ -35,19 +49,18 @@ struct QuizView: View {
                             ForEach(0..<2) { column in
                                 let index = row * 2 + column
                                 if index < question.respuestas.count {
+                                    let color = getColor(for: index)
                                     Text(question.respuestas[index])
                                         .frame(width: squareSize, height: squareSize)
                                         .padding()
-                                        .background(getColor(for: index))
+                                        .background(color)
                                         .cornerRadius(10)
                                         .foregroundColor(.white)
                                         .onTapGesture {
                                             selectedAnswer = index
+                                            routeCalculator.recordAnswer(color: color) // Record the selected color
                                             moveToNextQuestion()
                                         }
-                                        .overlay(
-                                            selectedAnswer == index ? RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 2) : nil
-                                        )
                                         .padding(1)
                                 }
                             }
@@ -64,12 +77,12 @@ struct QuizView: View {
 
     private func getColor(for index: Int) -> Color {
         let colors: [Color] = [
-            Color(red: 173/255, green: 216/255, blue: 230/255),
-            Color.green,
-            Color.blue,
-            Color(red: 0/255, green: 0/255, blue: 139/255),
-            Color.orange,
-            Color.red
+            Color(red: 173/255, green: 216/255, blue: 230/255), // Pequeños
+            Color.green, // Pertenezco
+            Color.blue, // Comunico
+            Color(red: 0/255, green: 0/255, blue: 139/255), // Comprendo
+            Color.orange, // Expreso
+            Color.red // Soy
         ]
         return colors[index % colors.count]
     }
@@ -79,7 +92,7 @@ struct QuizView: View {
             currentQuestionIndex += 1
             selectedAnswer = nil
         } else {
-            quizCompleted = true 
+            quizCompleted = true
         }
     }
 }
