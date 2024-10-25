@@ -226,7 +226,7 @@ struct Map: View {
             
             var textGeometry = SCNText(string: "IMAX", extrusionDepth: 0)
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
-            textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             var textNode = SCNNode(geometry: textGeometry)
             textNode.position = SCNVector3(200, -240, 500)
             
@@ -285,7 +285,7 @@ struct Map: View {
             
             textGeometry = SCNText(string: "SOY", extrusionDepth: 0)
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
-            textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             textNode = SCNNode(geometry: textGeometry)
             textNode.position = SCNVector3(580, -630, 500)
             textNode.eulerAngles = SCNVector3(0, 0, 25)
@@ -522,7 +522,7 @@ struct Map: View {
             
             textGeometry = SCNText(string: "PEQUEÑOS", extrusionDepth: 0)
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
-            textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             textNode = SCNNode(geometry: textGeometry)
             textNode.position = SCNVector3(730, -610, 500)
             textNode.eulerAngles = SCNVector3(0, 0, 119.8)
@@ -690,7 +690,7 @@ struct Map: View {
             
             textGeometry = SCNText(string: "EXPRESO", extrusionDepth: 0)
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
-            textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             textNode = SCNNode(geometry: textGeometry)
             textNode.position = SCNVector3(650, -410, 500)
             textNode.eulerAngles = SCNVector3(0, 0, 0)
@@ -1087,7 +1087,7 @@ struct Map: View {
             
             textGeometry = SCNText(string: "COMPRENDO", extrusionDepth: 0)
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
-            textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             textNode = SCNNode(geometry: textGeometry)
             textNode.position = SCNVector3(422, -300, 500)
             textNode.eulerAngles = SCNVector3(0, 0, 119.8)
@@ -1440,6 +1440,15 @@ struct Map: View {
             foregroundNode.eulerAngles = SCNVector3(-0.50, Float(Double.pi), Float(Double.pi))
             foregroundNode.name = "PERTENEZCO"
             scene.rootNode.addChildNode(foregroundNode)
+            
+            var textGeometry = SCNText(string: "PERTENEZCO", extrusionDepth: 0)
+            textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
+            var textNode = SCNNode(geometry: textGeometry)
+            textNode.position = SCNVector3(740, -435, 500)
+            textNode.eulerAngles = SCNVector3(0, 0, 0)
+            textNode.name = "PERTENEZCO"
+            scene.rootNode.addChildNode(textNode)
             
             color = UIColor(red: 65 / 255, green: 130 / 255, blue: 1 / 255, alpha: 1 )
             path = UIBezierPath()
@@ -1852,6 +1861,18 @@ struct Map: View {
             scene.rootNode.addChildNode(foregroundNode)
             
             
+            textGeometry = SCNText(string: "PEQUEÑOS", extrusionDepth: 0)
+            textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
+            textNode = SCNNode(geometry: textGeometry)
+            textNode.position = SCNVector3(660, -690, 500)
+            textNode.eulerAngles = SCNVector3(0, 0, 0)
+            textNode.name = "PEQUEÑOS"
+            scene.rootNode.addChildNode(textNode)
+            
+    
+            
+            
             color = UIColor(red: 0/255, green: 117/255, blue: 135/255, alpha: 1)
             path = UIBezierPath()
             path.move(to: CGPoint(x: 0.69223*width, y: 0.91329*height))
@@ -2010,6 +2031,15 @@ struct Map: View {
             foregroundNode.name = "COMUNICO"
             scene.rootNode.addChildNode(foregroundNode)
             
+            textGeometry = SCNText(string: "COMUNICO", extrusionDepth: 0)
+            textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
+            textNode = SCNNode(geometry: textGeometry)
+            textNode.position = SCNVector3(515, -600, 500)
+            textNode.eulerAngles = SCNVector3(0, 0, -0.8)
+            textNode.name = "COMUNICO"
+            scene.rootNode.addChildNode(textNode)
+            
             color = UIColor(red: 34 / 255, green: 59 / 255, blue: 94 / 255, alpha: 1)
             path = UIBezierPath()
             path.move(to: CGPoint(x: 0.44304*width, y: 0.7468*height))
@@ -2123,6 +2153,15 @@ struct Map: View {
             foregroundNode.name = "TIENDA"
             scene.rootNode.addChildNode(foregroundNode)
             
+            textGeometry = SCNText(string: "TIENDA", extrusionDepth: 0)
+            textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
+            textNode = SCNNode(geometry: textGeometry)
+            textNode.position = SCNVector3(240, -405, 500)
+            textNode.eulerAngles = SCNVector3(0, 0, 0)
+            textNode.name = "TIENDA"
+            scene.rootNode.addChildNode(textNode)
+            
             
             path = UIBezierPath()
             path.move(to: CGPoint(x: 0.33195*width, y: 0.24344*height))
@@ -2142,6 +2181,15 @@ struct Map: View {
             foregroundNode.eulerAngles = SCNVector3(-0.50, Float(Double.pi), Float(Double.pi))
             foregroundNode.name = "EXPOSICIONES TEMPORALES"
             scene.rootNode.addChildNode(foregroundNode)
+            
+            textGeometry = SCNText(string: "EXPOSICIONES TEMPORALES", extrusionDepth: 0)
+            textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
+            textGeometry.firstMaterial?.diffuse.contents = UIColor.black
+            textNode = SCNNode(geometry: textGeometry)
+            textNode.position = SCNVector3(430, -290, 500)
+            textNode.eulerAngles = SCNVector3(0, 0, 0.3)
+            textNode.name = "EXPOSICIONES TEMPORALES"
+            scene.rootNode.addChildNode(textNode)
                     
                     
                     
