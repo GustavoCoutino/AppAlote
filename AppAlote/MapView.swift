@@ -10,7 +10,7 @@ import SwiftUI
 struct MapView: View {
     var body: some View {
         ZStack {
-            Map(focused: nil)
+            Map(focused: "Planta baja")
             VStack {
                 HStack {
                     Image("home")
