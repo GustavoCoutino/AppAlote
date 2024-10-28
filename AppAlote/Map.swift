@@ -11,150 +11,237 @@ class MapViewModel: ObservableObject {
     @Published var scale: CGFloat = 1.0
     @Published var lastScale: CGFloat = 1.0
     @Published var currentFloor: Int = 1
+    @Published var savedOffset: CGSize = .zero
+    
+    func saveCurrentOffset() {
+        savedOffset = offset
+    }
+    
+    func restoreOffset() {
+        offset = savedOffset
+        lastOffset = savedOffset
+    }
 }
 
 struct Map: View {
     let width = CGFloat(2000)
     let height = CGFloat(2000)
     @State var focused: String
-
-    let mapping = ["PEQUEÑOS": (-550, -553, 1), "Planta baja": (-550, -553, 1), "Planta alta": (-550, -553, 2)]
+    
+    
+    // name : (x, y, floor, type)
+    // floor: 1 or 2
+    // type: "Zone", "Exhibition" or "Floor"
+    
+    let mapping = [
+        "Planta baja": (-550, -553, 1, "Floor"),
+        "Planta alta": (-550, -553, 2, "Floor"),
+        "SOY": (-550, -553, 1, "Zone"),
+        "CONECTAR": (1, 1, 1, "Exhibition"),
+        "CONOCER": (1, 1, 1, "Exhibition"),
+        "COMPARAR": (1, 1, 1, "Exhibition"),
+        "SEPARAR": (1, 1, 1, "Exhibition"),
+        "PROTEGER": (1, 1, 1, "Exhibition"),
+        "ACTUAR": (1, 1, 1, "Exhibition"),
+        "DECIDIR": (1, 1, 1, "Exhibition"),
+        "DISMINUIR": (1, 1, 1, "Exhibition"),
+        "DISTRIBUIR": (1, 1, 1, "Exhibition"),
+        "RECICLAR": (1, 1, 1, "Exhibition"),
+        "PEQUEÑOS 1": (-550, -553, 1, "Zone"),
+        "BARCO": (1, 1, 1, "Exhibition"),
+        "AVES": (1, 1, 1, "Exhibition"),
+        "SUBMARINO": (1, 1, 1, "Exhibition"),
+        "TORTUGANERO": (1, 1, 1, "Exhibition"),
+        "SONIDOS PEQUEÑOS": (1, 1, 1, "Exhibition"),
+        "EXPRESO": (-550, -553, 1, "Zone"),
+        "LUZ": (1, 1, 1, "Exhibition"),
+        "PALABRAS": (1, 1, 1, "Exhibition"),
+        "PATRONES": (1, 1, 1, "Exhibition"),
+        "RELIEVE": (1, 1, 1, "Exhibition"),
+        "TEXTURAS": (1, 1, 1, "Exhibition"),
+        "INFOLINK": (1, 1, 1, "Exhibition"),
+        "HISTORIAS": (1, 1, 1, "Exhibition"),
+        "MENSAJES": (1, 1, 1, "Exhibition"),
+        "COLOR": (1, 1, 1, "Exhibition"),
+        "ARTE": (1, 1, 1, "Exhibition"),
+        "COMPOSICIÓN": (1, 1, 1, "Exhibition"),
+        "PROPORCIÓN": (1, 1, 1, "Exhibition"),
+        "FIGURAS": (1, 1, 1, "Exhibition"),
+        "SONIDOS EXPRESO": (1, 1, 1, "Exhibition"),
+        "MOVIMIENTO": (1, 1, 1, "Exhibition"),
+        "COMPRENDO": (-550, -553, 1, "Zone"),
+        "SIMULADOR": (1, 1, 1, "Exhibition"),
+        "EXPLORACIÓN": (1, 1, 1, "Exhibition"),
+        "EVIDENCIAS": (1, 1, 1, "Exhibition"),
+        "ESCENARIOS": (1, 1, 1, "Exhibition"),
+        "FENÓMENOS": (1, 1, 1, "Exhibition"),
+        "INNOVACIÓN": (1, 1, 1, "Exhibition"),
+        "MODELOS": (1, 1, 1, "Exhibition"),
+        "INTERPRETACIÓN": (1, 1, 1, "Exhibition"),
+        "INTERDISCIPLINA": (1, 1, 1, "Exhibition"),
+        "GENERACIÓN": (1, 1, 1, "Exhibition"),
+        "BAYLAB": (1, 1, 1, "Exhibition"),
+        "COMUNICO": (-550, -553, 2, "Zone"),
+        "TELEPRESENCIA": (1, 1, 2, "Exhibition"),
+        "RADIO": (1, 1, 2, "Exhibition"),
+        "TELEVISIÓN": (1, 1, 2, "Exhibition"),
+        "REDES": (1, 1, 2, "Exhibition"),
+        "PEQUEÑOS 2": (-550, -553, 2, "Zone"),
+        "PUENTE": (1, 1, 2, "Exhibition"),
+        "INVERNADERO": (1, 1, 2, "Exhibition"),
+        "CASITA": (1, 1, 2, "Exhibition"),
+        "FLORES": (1, 1, 2, "Exhibition"),
+        "TRONCO": (1, 1, 2, "Exhibition"),
+        "SUBMARINO 2": (1, 1, 2, "Exhibition"),
+        "PERTENEZCO": (-550, -553, 2, "Zone"),
+        "VIENTO": (1, 1, 2, "Exhibition"),
+        "MARIPOSAS": (1, 1, 2, "Exhibition"),
+        "SUCULENTAS": (1, 1, 2, "Exhibition"),
+        "CADENA": (1, 1, 2, "Exhibition"),
+        "ESPECIES": (1, 1, 2, "Exhibition"),
+        "BIODIVERSIDAD": (1, 1, 2, "Exhibition"),
+        "ATMÓSFERA": (1, 1, 2, "Exhibition"),
+        "AIRE": (1, 1, 2, "Exhibition"),
+        "ORGANISMOS": (1, 1, 2, "Exhibition"),
+        "SERVICIOS": (1, 1, 2, "Exhibition"),
+        "LOMBRICOMPOSTA": (1, 1, 2, "Exhibition"),
+        "ROCAS": (1, 1, 2, "Exhibition"),
+        "SUPERFICIE": (1, 1, 2, "Exhibition"),
+        "SUELO": (1, 1, 2, "Exhibition"),
+        "MINERALES": (1, 1, 2, "Exhibition"),
+        "ESTRATOS": (1, 1, 2, "Exhibition"),
+        "NATURALEZA": (1, 1, 2, "Exhibition"),
+        "AGUA": (1, 1, 2, "Exhibition")
+        
+    ]
     @StateObject public var viewModel = MapViewModel()
-    var body: some View {
-        ZStack {
-            ZStack {
-                
-                SceneView(
-                    scene: viewModel.scene,
-                    options: [.autoenablesDefaultLighting]
-                )
-                .onAppear {
-                    if let (x, y, floor) = mapping[focused] {
-                        
-                        let focusOffset = CGSize(
-                            width: CGFloat(x),
-                            height: CGFloat(y)
-                        )
-                        
-                        viewModel.offset = focusOffset
-                        viewModel.lastOffset = focusOffset
-                        viewModel.currentFloor = floor
-                        addAssets(in: viewModel.scene)
 
-                        
-                    }
-                    
-                }
-                .background(GeometryReader { geometry in
-                    Color.clear.onAppear {
-                        viewModel.sceneView = SCNView(frame: geometry.frame(in: .local))
-                        viewModel.sceneView?.scene = viewModel.scene
-                    }
-                })
-                .gesture(
-                    TapGesture(count: 2)
-                        .sequenced(before:
-                            DragGesture(minimumDistance: 0)
-                                .onEnded { gesture in
-                                    guard let sceneView = viewModel.sceneView else {
-                                        print("SceneView not initialized")
-                                        return
-                                    }
-                                    
-                                    let hitResults = sceneView.hitTest(gesture.location, options: [:])
-                                    if let firstHit = hitResults.first, let nodeName = firstHit.node.name {
-                                        print(nodeName)
-                                        viewModel.selectedText = nodeName
-                                        viewModel.selected = true
-                                    }
-                                }
-                        )
-                )
-                .frame(width: width, height: height)
-            }
-            .offset(viewModel.offset)
-            .scaleEffect(viewModel.scale)
-            .gesture(
-                SimultaneousGesture(
-                    DragGesture()
-                        .onChanged { value in
-                            viewModel.offset = CGSize(
-                                width: viewModel.lastOffset.width + value.translation.width,
-                                height: viewModel.lastOffset.height + value.translation.height
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                ZStack {
+                    SceneView(
+                        scene: viewModel.scene,
+                        options: [.autoenablesDefaultLighting]
+                    )
+                    .onAppear {
+                        if let (x, y, floor, _) = mapping[focused] {
+                            let focusOffset = CGSize(
+                                width: CGFloat(x),
+                                height: CGFloat(y)
                             )
-                        }
-                        .onEnded { _ in
-                            viewModel.lastOffset = viewModel.offset
-                            print(viewModel.lastOffset)
-                        },
-                    MagnificationGesture()
-                        .onChanged { value in
-                            let delta = value / viewModel.lastScale
-                            viewModel.lastScale = value
-                            let newScale = viewModel.scale * delta
-                            viewModel.scale = min(max(newScale, 0.5), 3.0)
-                        }
-                        .onEnded { _ in
-                            viewModel.lastScale = 1.0
-                        }
-                )
-            )
-            .sheet(isPresented: $viewModel.selected) {
-                if let text = viewModel.selectedText {
-                    Text(text)
-                } else {
-                    Text("No text available")
-                }
-            }
-                
-            if focused == "Planta baja" || focused == "Planta alta" {
-                VStack {
-                    HStack {
-                        Spacer()
-                        Text(focused)
-                            .font(.system(size: 33))
-                            .fontWeight(.bold)
-                        Spacer()
-                        Button {
-                            let rootNode = viewModel.scene.rootNode
-                            rootNode.childNodes.forEach { node in
-                                node.removeFromParentNode()
-                            }
-                            if focused == "Planta baja"{
-                                focused = "Planta alta"
-                                viewModel.currentFloor = 2
-                                addAssets(in: viewModel.scene)
+                            if viewModel.savedOffset == .zero {
+                                viewModel.offset = focusOffset
+                                viewModel.lastOffset = focusOffset
                             } else {
-                                focused = "Planta baja"
-                                viewModel.currentFloor = 1
-                                addAssets(in: viewModel.scene)
+                                viewModel.restoreOffset()
                             }
-                        } label: {
-                            Text("Cambiar piso")
-                                .font(.system(size: 25))
-                                .foregroundStyle(Color.black)
-                                .fontWeight(.bold)
+                            viewModel.currentFloor = floor
+                            addAssets(in: viewModel.scene)
                         }
-                        .padding(18)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
-                        )
-                        Spacer()
                     }
-                    .padding(.top, 30)
+                    .background(GeometryReader { geometry in
+                        Color.clear.onAppear {
+                            viewModel.sceneView = SCNView(frame: geometry.frame(in: .local))
+                            viewModel.sceneView?.scene = viewModel.scene
+                        }
+                    })
+                    .gesture(
+                        TapGesture(count: 2)
+                            .sequenced(before:
+                                DragGesture(minimumDistance: 0)
+                                    .onEnded { gesture in
+                                        guard let sceneView = viewModel.sceneView else {
+                                            print("SceneView not initialized")
+                                            return
+                                        }
+                                        let hitResults = sceneView.hitTest(gesture.location, options: [:])
+                                        if let firstHit = hitResults.first, let nodeName = firstHit.node.name {
+                                            viewModel.selectedText = nodeName
+                                            viewModel.saveCurrentOffset()
+                                            viewModel.selected = true
+                                        }
+                                    }
+                            )
+                    )
+                    .frame(width: width, height: height)
                 }
-                .frame(width: UIScreen.main.bounds.size.width)
-                .padding(.vertical, 20)
-                .background(Color.purple)
-                .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
-                .ignoresSafeArea()
-            }
+                .offset(viewModel.offset)
+                .scaleEffect(viewModel.scale)
+                .gesture(
+                    SimultaneousGesture(
+                        DragGesture()
+                            .onChanged { value in
+                                viewModel.offset = CGSize(
+                                    width: viewModel.lastOffset.width + value.translation.width,
+                                    height: viewModel.lastOffset.height + value.translation.height
+                                )
+                            }
+                            .onEnded { _ in
+                                viewModel.lastOffset = viewModel.offset
+                            },
+                        MagnificationGesture()
+                            .onChanged { value in
+                                let delta = value / viewModel.lastScale
+                                viewModel.lastScale = value
+                                let newScale = viewModel.scale * delta
+                                viewModel.scale = min(max(newScale, 0.5), 3.0)
+                            }
+                            .onEnded { _ in
+                                viewModel.lastScale = 1.0
+                            }
+                    )
+                )
                 
-            
+                .navigationDestination(isPresented: $viewModel.selected) {
+                        Text(viewModel.selectedText ?? "No text available")
+                    }
+                
+                if focused == "Planta baja" || focused == "Planta alta" {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text(focused)
+                                .font(.system(size: 33))
+                                .fontWeight(.bold)
+                            Spacer()
+                            Button {
+                                let rootNode = viewModel.scene.rootNode
+                                rootNode.childNodes.forEach { node in
+                                    node.removeFromParentNode()
+                                }
+                                if focused == "Planta baja" {
+                                    focused = "Planta alta"
+                                    viewModel.currentFloor = 2
+                                    addAssets(in: viewModel.scene)
+                                } else {
+                                    focused = "Planta baja"
+                                    viewModel.currentFloor = 1
+                                    addAssets(in: viewModel.scene)
+                                }
+                            } label: {
+                                Text("Cambiar piso")
+                                    .font(.system(size: 25))
+                                    .foregroundStyle(Color.black)
+                                    .fontWeight(.bold)
+                            }
+                            .padding(18)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
+                            )
+                            Spacer()
+                        }
+                        .padding(.top, 30)
+                    }
+                    .frame(width: UIScreen.main.bounds.size.width)
+                    .padding(.vertical, 20)
+                    .background(Color.purple)
+                    .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
+                    .ignoresSafeArea()
+                }
+            }
         }
-        
-        
     }
     
 
@@ -517,7 +604,7 @@ struct Map: View {
             foregroundNode = SCNNode(geometry: foregroundShape)
             foregroundNode.position = SCNVector3(0, 30, 40)
             foregroundNode.eulerAngles = SCNVector3(-0.50, Float(Double.pi), Float(Double.pi))
-            foregroundNode.name = "PEQUEÑOS"
+            foregroundNode.name = "PEQUEÑOS 1"
             scene.rootNode.addChildNode(foregroundNode)
             
             textGeometry = SCNText(string: "PEQUEÑOS", extrusionDepth: 0)
@@ -1857,7 +1944,7 @@ struct Map: View {
             foregroundNode = SCNNode(geometry: foregroundShape)
             foregroundNode.position = SCNVector3(0, 20, 40)
             foregroundNode.eulerAngles = SCNVector3(-0.50, Float(Double.pi), Float(Double.pi))
-            foregroundNode.name = "PEQUEÑOS"
+            foregroundNode.name = "PEQUEÑOS 2"
             scene.rootNode.addChildNode(foregroundNode)
             
             
