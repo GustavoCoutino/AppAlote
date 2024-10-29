@@ -11,6 +11,8 @@
 		B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9859C2CC9800600F355F4 /* MapView.swift */; };
 		F4895CE22CC7F4B5008DDAF2 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */; };
 		F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4895CE32CC815D0008DDAF2 /* SignIn.swift */; };
+		F49690C42CD091AF00033F90 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C32CD091AF00033F90 /* Triangle.swift */; };
+		F49690C72CD091D000033F90 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C62CD091D000033F90 /* UserManager.swift */; };
 		F4DF14F32CC19F530058008F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF14F22CC19F530058008F /* Map.swift */; };
 		F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */; };
 		F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F952CBF299900A1BB94 /* ContentView.swift */; };
@@ -23,6 +25,8 @@
 		B3E9859C2CC9800600F355F4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		F4895CE32CC815D0008DDAF2 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		F49690C32CD091AF00033F90 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
+		F49690C62CD091D000033F90 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		F4DF14F22CC19F530058008F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F4E25F902CBF299900A1BB94 /* AppAlote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppAlote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAloteApp.swift; sourceTree = "<group>"; };
@@ -42,6 +46,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F49690C22CD0919F00033F90 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F49690C32CD091AF00033F90 /* Triangle.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F49690C52CD091C000033F90 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				F49690C62CD091D000033F90 /* UserManager.swift */,
+			);
+			path = DataManagers;
+			sourceTree = "<group>";
+		};
 		F4E25F872CBF299900A1BB94 = {
 			isa = PBXGroup;
 			children = (
@@ -62,9 +82,11 @@
 			isa = PBXGroup;
 			children = (
 				F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */,
+				F49690C22CD0919F00033F90 /* Components */,
 				F4E25F952CBF299900A1BB94 /* ContentView.swift */,
 				F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */,
 				F4895CE32CC815D0008DDAF2 /* SignIn.swift */,
+				F49690C52CD091C000033F90 /* DataManagers */,
 				F4DF14F22CC19F530058008F /* Map.swift */,
 				B3BE803D2CC963A1001BE5BE /* HomeView.swift */,
 				B3E9859C2CC9800600F355F4 /* MapView.swift */,
@@ -152,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F49690C72CD091D000033F90 /* UserManager.swift in Sources */,
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
@@ -159,6 +182,7 @@
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
 				B3BE803E2CC963A1001BE5BE /* HomeView.swift in Sources */,
 				F4895CE22CC7F4B5008DDAF2 /* LogIn.swift in Sources */,
+				F49690C42CD091AF00033F90 /* Triangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
