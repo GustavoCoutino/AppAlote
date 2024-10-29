@@ -77,17 +77,21 @@ struct LogIn: View {
                                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
                         }
                         
-                        NavigationLink(destination: SignIn().environmentObject(userManager)) {
-                            Text("Crear Cuenta")
-                                .foregroundColor(.black)
-                                .frame(width: 150)
-                                .padding()
-                                .background(Color(red: 134/255, green: 88/255, blue: 173/255))
-                                .cornerRadius(8)
-                                .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                        }
+                        
                     }
                     .padding(.top, 50)
+                    
+                    Divider().padding(.vertical, 40)
+                    
+                    NavigationLink(destination: SignIn().environmentObject(userManager)) {
+                        Text("Crear Cuenta")
+                            .foregroundColor(.black)
+                            .frame(width: 150)
+                            .padding()
+                            .background(Color(red: 134/255, green: 88/255, blue: 173/255))
+                            .cornerRadius(8)
+                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                    }
                     
                     NavigationLink(
                         destination: ViewController(),
