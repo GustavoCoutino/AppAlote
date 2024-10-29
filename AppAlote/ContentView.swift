@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var codigo: String = ""
     @State private var showAlert = false
+    @State private var navigateToLogin = false
     @EnvironmentObject var userManager: UserManager
     
     var body: some View {
@@ -53,6 +54,7 @@ struct ContentView: View {
                     Button(action: {
                         if userManager.validateCode(codigo) {
                             userManager.showErrorMessage = false
+                            navigateToLogin = true // Set navigation to true if code is correct
                         } else {
                             userManager.showErrorMessage = true
                             showAlert = true
@@ -70,7 +72,7 @@ struct ContentView: View {
                     .padding(.top, 50)
                     
                     
-                    NavigationLink(destination: LogIn(), isActive: .constant(!showAlert && !userManager.showErrorMessage)) {
+                    NavigationLink(destination: LogIn(), isActive: $navigateToLogin) {
                         EmptyView()
                     }
                 }
