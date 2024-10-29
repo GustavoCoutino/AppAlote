@@ -251,7 +251,7 @@ struct Map: View {
                         .padding(.top, 30)
                     }
                     .frame(width: UIScreen.main.bounds.size.width)
-                    .padding(.vertical, 20)
+                    .padding(.vertical, 31.5)
                     .background(Color.purple)
                     .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
                     .ignoresSafeArea()

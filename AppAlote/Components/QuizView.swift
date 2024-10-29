@@ -11,7 +11,7 @@ struct QuizView: View {
     @State private var selectedAnswer: Int? = nil
     @State private var navigateToHome = false
     @StateObject private var routeCalculator = RouteCalculator()
-    
+    @Binding var completed : Bool
     private let squareSize = UIScreen.main.bounds.width / 2 - 40
 
     var body: some View {
@@ -55,9 +55,6 @@ struct QuizView: View {
                 Spacer()
             }
             .padding()
-            .navigationDestination(isPresented: $navigateToHome) {
-                HomeView()
-            }
         }.navigationBarBackButtonHidden(true)
     }
 
@@ -78,11 +75,11 @@ struct QuizView: View {
             currentQuestionIndex += 1
             selectedAnswer = nil
         } else {
-            navigateToHome = true 
+            completed = true
         }
     }
 }
 
 #Preview {
-    QuizView()
+    QuizView(completed: .constant(false))
 }

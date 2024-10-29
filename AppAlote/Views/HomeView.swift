@@ -12,25 +12,6 @@ struct HomeView: View {
             // Contenido principal con desplazamiento
             ScrollView {
                 VStack {
-                    // Encabezado
-                    HStack {
-                        
-                        Image(systemName: "bell")
-                            .foregroundColor(.black)
-                            .font(.system(size: 50))
-                            .padding()
-                        Spacer()
-                        Image("Logo")
-                        Spacer()
-                        Image("menu")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding()
-                        
-                    }
-                    .background(Color(red: 210/255, green: 210/255, blue: 73/255).frame(height: 100))
-                    
-                    
                     // Bienvenida personalizada
                     HStack {
                         Image("profile_picture")
@@ -43,13 +24,14 @@ struct HomeView: View {
                             .padding(.leading,10)
                         Spacer()
                     }
-                    .frame(height: 60)
+                    .frame(height: 100)
                     .background(
                         RoundedRectangle(cornerRadius: 15)
                             .fill(Color.blue.opacity(0.6))
                             .shadow(radius: 5)
                     )
-                    .padding(.horizontal,20)
+                    .padding(.vertical,40)
+                    .padding(.horizontal, 10)
                     
                     // Icono de museo
                     Image("Logo-Bienvenida")
@@ -93,9 +75,31 @@ struct HomeView: View {
                 }
                 .padding(.bottom, 150) // Deja espacio para la barra de navegación
             }
+            .padding(.top, 100)
             
+            VStack {
+                HStack {
+                    Image(systemName: "bell")
+                        .foregroundColor(.black)
+                        .font(.system(size: 50))
+                        .padding()
+                    Spacer()
+                    Image("Logo")
+                    Spacer()
+                    Image("menu")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .padding()
+                    
+                }
+                .padding(.top, 30)
+            }
+            .frame(width: UIScreen.main.bounds.size.width)
+            .padding(.vertical, 20)
+            .background(Color(red: 210/255, green: 210/255, blue: 73/255))
+            .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
+            .ignoresSafeArea()
         }
-        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
