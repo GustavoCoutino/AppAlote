@@ -22,6 +22,11 @@
 		F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F952CBF299900A1BB94 /* ContentView.swift */; };
 		F4E25F982CBF299A00A1BB94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E25F972CBF299A00A1BB94 /* Assets.xcassets */; };
 		F4E25F9B2CBF299A00A1BB94 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E25F9A2CBF299A00A1BB94 /* Preview Assets.xcassets */; };
+		F4FBF7F52CD13F1E00B75685 /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7F42CD13F1E00B75685 /* QuizData.swift */; };
+		F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */; };
+		F4FBF7F92CD13FB500B75685 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */; };
+		F4FBF7FB2CD13FC700B75685 /* QuestionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7FA2CD13FC700B75685 /* QuestionTitle.swift */; };
+		F4FBF7FD2CD1400700B75685 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7FC2CD1400700B75685 /* QuizView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +46,11 @@
 		F4E25F952CBF299900A1BB94 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F4E25F972CBF299A00A1BB94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4E25F9A2CBF299A00A1BB94 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F4FBF7F42CD13F1E00B75685 /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
+		F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCalculator.swift; sourceTree = "<group>"; };
+		F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		F4FBF7FA2CD13FC700B75685 /* QuestionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTitle.swift; sourceTree = "<group>"; };
+		F4FBF7FC2CD1400700B75685 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +68,10 @@
 			isa = PBXGroup;
 			children = (
 				F4DF14F22CC19F530058008F /* Map.swift */,
+				F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */,
+				F4FBF7FA2CD13FC700B75685 /* QuestionTitle.swift */,
 				F49690C32CD091AF00033F90 /* Triangle.swift */,
+				F4FBF7FC2CD1400700B75685 /* QuizView.swift */,
 				F49690C82CD0979200033F90 /* Navbar.swift */,
 			);
 			path = Components;
@@ -106,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */,
+				F4FBF7F32CD13F0F00B75685 /* Classes */,
 				F49690CA2CD09D0300033F90 /* Views */,
 				F49690C22CD0919F00033F90 /* Components */,
 				F4E25F952CBF299900A1BB94 /* ContentView.swift */,
@@ -122,6 +136,15 @@
 				F4E25F9A2CBF299A00A1BB94 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F4FBF7F32CD13F0F00B75685 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F4FBF7F42CD13F1E00B75685 /* QuizData.swift */,
+				F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,13 +217,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4FBF7F52CD13F1E00B75685 /* QuizData.swift in Sources */,
+				F4FBF7FB2CD13FC700B75685 /* QuestionTitle.swift in Sources */,
 				F49690C72CD091D000033F90 /* UserManager.swift in Sources */,
+				F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */,
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
+				F4FBF7F92CD13FB500B75685 /* ProgressBar.swift in Sources */,
 				B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
 				F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */,
+				F4FBF7FD2CD1400700B75685 /* QuizView.swift in Sources */,
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
 				B3BE803E2CC963A1001BE5BE /* HomeView.swift in Sources */,
 				B3B63D722CD0BA2200394294 /* ZoneView.swift in Sources */,

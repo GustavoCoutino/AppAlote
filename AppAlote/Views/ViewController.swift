@@ -18,6 +18,8 @@ struct ViewController: View {
                 MapView()
             case "Code":
                 EmptyView()
+            case "Quiz":
+                QuizView()
             case "Profile":
                 EmptyView()
             default:
