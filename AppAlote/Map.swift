@@ -21,6 +21,12 @@ class MapViewModel: ObservableObject {
         offset = savedOffset
         lastOffset = savedOffset
     }
+    
+    func restartScene() {
+        let newScene = SCNScene()
+        scene = newScene
+        sceneView?.scene = scene
+    }
 }
 
 struct Map: View {
@@ -157,6 +163,7 @@ struct Map: View {
                                         }
                                         let hitResults = sceneView.hitTest(gesture.location, options: [:])
                                         if let firstHit = hitResults.first, let nodeName = firstHit.node.name {
+                                            print(nodeName)
                                             viewModel.selectedText = nodeName
                                             viewModel.saveCurrentOffset()
                                             viewModel.selected = true
@@ -206,19 +213,18 @@ struct Map: View {
                                 .fontWeight(.bold)
                             Spacer()
                             Button {
-                                let rootNode = viewModel.scene.rootNode
-                                rootNode.childNodes.forEach { node in
-                                    node.removeFromParentNode()
-                                }
+                                
+
                                 if focused == "Planta baja" {
                                     focused = "Planta alta"
                                     viewModel.currentFloor = 2
-                                    addAssets(in: viewModel.scene)
                                 } else {
                                     focused = "Planta baja"
                                     viewModel.currentFloor = 1
-                                    addAssets(in: viewModel.scene)
                                 }
+                                viewModel.restartScene()
+                                addAssets(in: viewModel.scene)
+
                             } label: {
                                 Text("Cambiar piso")
                                     .font(.system(size: 25))
