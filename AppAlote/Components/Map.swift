@@ -40,84 +40,84 @@ struct Map: View {
     // type: "Zone", "Exhibition" or "Floor"
     
     let mapping = [
-        "Planta baja": (-550, -553, 1, "Floor"),
-        "Planta alta": (-550, -553, 2, "Floor"),
-        "SOY": (-550, -553, 1, "Zone"),
-        "CONECTAR": (1, 1, 1, "Exhibition"),
-        "CONOCER": (1, 1, 1, "Exhibition"),
-        "COMPARAR": (1, 1, 1, "Exhibition"),
-        "SEPARAR": (1, 1, 1, "Exhibition"),
-        "PROTEGER": (1, 1, 1, "Exhibition"),
-        "ACTUAR": (1, 1, 1, "Exhibition"),
-        "DECIDIR": (1, 1, 1, "Exhibition"),
-        "DISMINUIR": (1, 1, 1, "Exhibition"),
-        "DISTRIBUIR": (1, 1, 1, "Exhibition"),
-        "RECICLAR": (1, 1, 1, "Exhibition"),
-        "PEQUEÑOS 1": (-550, -553, 1, "Zone"),
-        "BARCO": (1, 1, 1, "Exhibition"),
-        "AVES": (1, 1, 1, "Exhibition"),
-        "SUBMARINO": (1, 1, 1, "Exhibition"),
-        "TORTUGANERO": (1, 1, 1, "Exhibition"),
-        "SONIDOS PEQUEÑOS": (1, 1, 1, "Exhibition"),
-        "EXPRESO": (-550, -553, 1, "Zone"),
-        "LUZ": (1, 1, 1, "Exhibition"),
-        "PALABRAS": (1, 1, 1, "Exhibition"),
-        "PATRONES": (1, 1, 1, "Exhibition"),
-        "RELIEVE": (1, 1, 1, "Exhibition"),
-        "TEXTURAS": (1, 1, 1, "Exhibition"),
-        "INFOLINK": (1, 1, 1, "Exhibition"),
-        "HISTORIAS": (1, 1, 1, "Exhibition"),
-        "MENSAJES": (1, 1, 1, "Exhibition"),
-        "COLOR": (1, 1, 1, "Exhibition"),
-        "ARTE": (1, 1, 1, "Exhibition"),
-        "COMPOSICIÓN": (1, 1, 1, "Exhibition"),
-        "PROPORCIÓN": (1, 1, 1, "Exhibition"),
-        "FIGURAS": (1, 1, 1, "Exhibition"),
-        "SONIDOS EXPRESO": (1, 1, 1, "Exhibition"),
-        "MOVIMIENTO": (1, 1, 1, "Exhibition"),
-        "COMPRENDO": (-550, -553, 1, "Zone"),
-        "SIMULADOR": (1, 1, 1, "Exhibition"),
-        "EXPLORACIÓN": (1, 1, 1, "Exhibition"),
-        "EVIDENCIAS": (1, 1, 1, "Exhibition"),
-        "ESCENARIOS": (1, 1, 1, "Exhibition"),
-        "FENÓMENOS": (1, 1, 1, "Exhibition"),
-        "INNOVACIÓN": (1, 1, 1, "Exhibition"),
-        "MODELOS": (1, 1, 1, "Exhibition"),
-        "INTERPRETACIÓN": (1, 1, 1, "Exhibition"),
-        "INTERDISCIPLINA": (1, 1, 1, "Exhibition"),
-        "GENERACIÓN": (1, 1, 1, "Exhibition"),
-        "BAYLAB": (1, 1, 1, "Exhibition"),
-        "COMUNICO": (-550, -553, 2, "Zone"),
-        "TELEPRESENCIA": (1, 1, 2, "Exhibition"),
-        "RADIO": (1, 1, 2, "Exhibition"),
-        "TELEVISIÓN": (1, 1, 2, "Exhibition"),
-        "REDES": (1, 1, 2, "Exhibition"),
-        "PEQUEÑOS 2": (-550, -553, 2, "Zone"),
-        "PUENTE": (1, 1, 2, "Exhibition"),
-        "INVERNADERO": (1, 1, 2, "Exhibition"),
-        "CASITA": (1, 1, 2, "Exhibition"),
-        "FLORES": (1, 1, 2, "Exhibition"),
-        "TRONCO": (1, 1, 2, "Exhibition"),
-        "SUBMARINO 2": (1, 1, 2, "Exhibition"),
-        "PERTENEZCO": (-550, -553, 2, "Zone"),
-        "VIENTO": (1, 1, 2, "Exhibition"),
-        "MARIPOSAS": (1, 1, 2, "Exhibition"),
-        "SUCULENTAS": (1, 1, 2, "Exhibition"),
-        "CADENA": (1, 1, 2, "Exhibition"),
-        "ESPECIES": (1, 1, 2, "Exhibition"),
-        "BIODIVERSIDAD": (1, 1, 2, "Exhibition"),
-        "ATMÓSFERA": (1, 1, 2, "Exhibition"),
-        "AIRE": (1, 1, 2, "Exhibition"),
-        "ORGANISMOS": (1, 1, 2, "Exhibition"),
-        "SERVICIOS": (1, 1, 2, "Exhibition"),
-        "LOMBRICOMPOSTA": (1, 1, 2, "Exhibition"),
-        "ROCAS": (1, 1, 2, "Exhibition"),
-        "SUPERFICIE": (1, 1, 2, "Exhibition"),
-        "SUELO": (1, 1, 2, "Exhibition"),
-        "MINERALES": (1, 1, 2, "Exhibition"),
-        "ESTRATOS": (1, 1, 2, "Exhibition"),
-        "NATURALEZA": (1, 1, 2, "Exhibition"),
-        "AGUA": (1, 1, 2, "Exhibition")
+        "Planta baja": (-550, -553, 1, "Floor", ""),
+        "Planta alta": (-550, -553, 2, "Floor", ""),
+        "SOY": (-550, -553, 1, "Zone", ""),
+        "CONECTAR": (1, 1, 1, "Exhibition", "SOY"),
+        "CONOCER": (1, 1, 1, "Exhibition", "SOY"),
+        "COMPARAR": (1, 1, 1, "Exhibition", "SOY"),
+        "SEPARAR": (1, 1, 1, "Exhibition", "SOY"),
+        "PROTEGER": (1, 1, 1, "Exhibition", "SOY"),
+        "ACTUAR": (1, 1, 1, "Exhibition", "SOY"),
+        "DECIDIR": (1, 1, 1, "Exhibition", "SOY"),
+        "DISMINUIR": (1, 1, 1, "Exhibition", "SOY"),
+        "DISTRIBUIR": (1, 1, 1, "Exhibition", "SOY"),
+        "RECICLAR": (1, 1, 1, "Exhibition", "SOY"),
+        "PEQUEÑOS 1": (-550, -553, 1, "Zone", ""),
+        "BARCO": (1, 1, 1, "Exhibition", "PEQUEÑOS 1"),
+        "AVES": (1, 1, 1, "Exhibition", "PEQUEÑOS 1"),
+        "SUBMARINO": (1, 1, 1, "Exhibition", "PEQUEÑOS 1"),
+        "TORTUGANERO": (1, 1, 1, "Exhibition", "PEQUEÑOS 1"),
+        "SONIDOS PEQUEÑOS": (1, 1, 1, "Exhibition", "PEQUEÑOS 1"),
+        "EXPRESO": (-550, -553, 1, "Zone", ""),
+        "LUZ": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "PALABRAS": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "PATRONES": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "RELIEVE": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "TEXTURAS": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "INFOLINK": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "HISTORIAS": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "MENSAJES": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "COLOR": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "ARTE": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "COMPOSICIÓN": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "PROPORCIÓN": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "FIGURAS": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "SONIDOS EXPRESO": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "MOVIMIENTO": (1, 1, 1, "Exhibition", "EXPRESO"),
+        "COMPRENDO": (-550, -553, 1, "Zone", ""),
+        "SIMULADOR": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "EXPLORACIÓN": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "EVIDENCIAS": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "ESCENARIOS": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "FENÓMENOS": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "INNOVACIÓN": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "MODELOS": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "INTERPRETACIÓN": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "INTERDISCIPLINA": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "GENERACIÓN": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "BAYLAB": (1, 1, 1, "Exhibition", "COMPRENDO"),
+        "COMUNICO": (-550, -553, 2, "Zone", ""),
+        "TELEPRESENCIA": (1, 1, 2, "Exhibition", "COMUNICO"),
+        "RADIO": (1, 1, 2, "Exhibition", "COMUNICO"),
+        "TELEVISIÓN": (1, 1, 2, "Exhibition", "COMUNICO"),
+        "REDES": (1, 1, 2, "Exhibition", "COMUNICO"),
+        "PEQUEÑOS 2": (-550, -553, 2, "Zone", ""),
+        "PUENTE": (1, 1, 2, "Exhibition", "PEQUEÑOS 2"),
+        "INVERNADERO": (1, 1, 2, "Exhibition", "PEQUEÑOS 2"),
+        "CASITA": (1, 1, 2, "Exhibition", "PEQUEÑOS 2"),
+        "FLORES": (1, 1, 2, "Exhibition", "PEQUEÑOS 2"),
+        "TRONCO": (1, 1, 2, "Exhibition", "PEQUEÑOS 2"),
+        "SUBMARINO 2": (1, 1, 2, "Exhibition", "PEQUEÑOS 2"),
+        "PERTENEZCO": (-550, -553, 2, "Zone", ""),
+        "VIENTO": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "MARIPOSAS": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "SUCULENTAS": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "CADENA": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "ESPECIES": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "BIODIVERSIDAD": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "ATMÓSFERA": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "AIRE": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "ORGANISMOS": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "SERVICIOS": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "LOMBRICOMPOSTA": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "ROCAS": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "SUPERFICIE": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "SUELO": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "MINERALES": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "ESTRATOS": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "NATURALEZA": (1, 1, 2, "Exhibition", "PERTENEZCO"),
+        "AGUA": (1, 1, 2, "Exhibition", "PERTENEZCO")
         
     ]
     @StateObject public var viewModel = MapViewModel()
@@ -131,7 +131,7 @@ struct Map: View {
                         options: [.autoenablesDefaultLighting]
                     )
                     .onAppear {
-                        if let (x, y, floor, _) = mapping[focused] {
+                        if let (x, y, floor, _, _) = mapping[focused] {
                             let focusOffset = CGSize(
                                 width: CGFloat(x),
                                 height: CGFloat(y)
@@ -163,10 +163,12 @@ struct Map: View {
                                         }
                                         let hitResults = sceneView.hitTest(gesture.location, options: [:])
                                         if let firstHit = hitResults.first, let nodeName = firstHit.node.name {
-                                            print(nodeName)
                                             viewModel.selectedText = nodeName
                                             viewModel.saveCurrentOffset()
                                             viewModel.selected = true
+                                            
+                                            
+                                            
                                         }
                                     }
                             )
@@ -201,7 +203,15 @@ struct Map: View {
                 )
                 
                 .navigationDestination(isPresented: $viewModel.selected) {
-                        Text(viewModel.selectedText ?? "No text available")
+                    if let (_, _, floor, type, zone) = mapping[viewModel.selectedText ?? "Pertenezco"] {
+                            
+                            if type == "Zone"{
+                                ZoneView(name: viewModel.selectedText ?? "PERTENEZCO")
+                            } else {
+                                ExhibitionView(name: viewModel.selectedText ?? "ATRATOS", zone: zone, floor: floor)
+                            }
+                        }
+                        // Text(viewModel.selectedText ?? "No text available")
                     }
                 
                 if focused == "Planta baja" || focused == "Planta alta" {
@@ -2283,8 +2293,6 @@ struct Map: View {
             textNode.eulerAngles = SCNVector3(0, 0, 0.3)
             textNode.name = "EXPOSICIONES TEMPORALES"
             scene.rootNode.addChildNode(textNode)
-                    
-                    
                     
         }
         

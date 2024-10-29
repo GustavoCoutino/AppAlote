@@ -90,7 +90,7 @@ struct LogIn: View {
                     .padding(.top, 50)
                     
                     NavigationLink(
-                        destination: HomeView(),
+                        destination: ViewController(),
                         isActive: $userManager.isAuthenticated
                     ) {
                         EmptyView()

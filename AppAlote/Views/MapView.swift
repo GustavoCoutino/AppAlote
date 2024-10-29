@@ -9,12 +9,7 @@ import SwiftUI
 
 struct MapView: View {
     var body: some View {
-        ZStack {
-            Map(focused: "Planta baja")
-            Navbar()
-            
-            
-        }
+        Map(focused: "Planta baja")
     }
 }
 

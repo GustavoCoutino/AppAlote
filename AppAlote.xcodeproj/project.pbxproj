@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B63D6D2CD0ADAE00394294 /* ViewController.swift */; };
+		B3B63D702CD0B6EB00394294 /* ExhibitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */; };
+		B3B63D722CD0BA2200394294 /* ZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B63D712CD0BA2200394294 /* ZoneView.swift */; };
 		B3BE803E2CC963A1001BE5BE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BE803D2CC963A1001BE5BE /* HomeView.swift */; };
 		B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9859C2CC9800600F355F4 /* MapView.swift */; };
 		F4895CE22CC7F4B5008DDAF2 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3B63D6D2CD0ADAE00394294 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionView.swift; sourceTree = "<group>"; };
+		B3B63D712CD0BA2200394294 /* ZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneView.swift; sourceTree = "<group>"; };
 		B3BE803D2CC963A1001BE5BE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B3E9859C2CC9800600F355F4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
@@ -70,9 +76,12 @@
 			isa = PBXGroup;
 			children = (
 				F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */,
+				B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */,
 				F4895CE32CC815D0008DDAF2 /* SignIn.swift */,
 				B3BE803D2CC963A1001BE5BE /* HomeView.swift */,
 				B3E9859C2CC9800600F355F4 /* MapView.swift */,
+				B3B63D6D2CD0ADAE00394294 /* ViewController.swift */,
+				B3B63D712CD0BA2200394294 /* ZoneView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,10 +198,13 @@
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
+				B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
 				F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */,
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
 				B3BE803E2CC963A1001BE5BE /* HomeView.swift in Sources */,
+				B3B63D722CD0BA2200394294 /* ZoneView.swift in Sources */,
+				B3B63D702CD0B6EB00394294 /* ExhibitionView.swift in Sources */,
 				F4895CE22CC7F4B5008DDAF2 /* LogIn.swift in Sources */,
 				F49690C42CD091AF00033F90 /* Triangle.swift in Sources */,
 			);

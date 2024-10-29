@@ -94,8 +94,6 @@ struct HomeView: View {
                 .padding(.bottom, 150) // Deja espacio para la barra de navegación
             }
             
-            
-            Navbar()
         }
         .edgesIgnoringSafeArea(.bottom)
     }
