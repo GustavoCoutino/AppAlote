@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+struct NoHoverButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+    }
+}
+
 struct Navbar: View {
     @Binding var selectedView : String
     var body: some View {
@@ -25,6 +32,7 @@ struct Navbar: View {
                         .padding(.leading, 35)
                     .offset(x: 0, y: selectedView == "Home" ? -15 : 0)
                 }
+                .buttonStyle(NoHoverButtonStyle())
                 
                 
                 Spacer()
@@ -40,6 +48,7 @@ struct Navbar: View {
                         )
                         .offset(x: 0, y: selectedView == "Map" ? -15 : 0)
                 }
+                .buttonStyle(NoHoverButtonStyle())
                 
                 Spacer()
                 Button(action: { selectedView = "Code" }) {
@@ -54,6 +63,7 @@ struct Navbar: View {
                         )
                         .offset(x: 0, y: selectedView == "Code" ? -15 : 0)
                 }
+                .buttonStyle(NoHoverButtonStyle())
                 
                 Spacer()
                 Button(action: { selectedView = "Profile" }) {
@@ -69,6 +79,7 @@ struct Navbar: View {
                         .padding(.trailing, 35)
                     .offset(x: 0, y: selectedView == "Profile" ? -15 : 0)
                 }
+                .buttonStyle(NoHoverButtonStyle())
             }
             .frame(width: UIScreen.main.bounds.size.width)
             .padding(.vertical, 50)
