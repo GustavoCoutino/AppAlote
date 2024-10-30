@@ -4,8 +4,9 @@ struct LogIn: View {
     @State private var correo: String = ""
     @State private var password: String = ""
     @EnvironmentObject var userManager: UserManager
-    @State private var showAlert = false
-
+    @Binding var selectedView : String
+    @State var showAlert = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -65,8 +66,10 @@ struct LogIn: View {
                     
                     HStack {
                         Button(action: {
-                            userManager.login(correo: correo, password: password)
-                            showAlert = userManager.showErrorMessage
+                            userManager.logIn(email: correo, password: password)
+                            if userManager.errorMessage != nil {
+                                showAlert = true
+                            }
                         }) {
                             Text("Iniciar Sesión")
                                 .foregroundColor(.black)
@@ -83,37 +86,37 @@ struct LogIn: View {
                     
                     Divider().padding(.vertical, 40)
                     
-                    NavigationLink(destination: SignIn().environmentObject(userManager)) {
+                    Button(action: {
+                        selectedView = "SignIn"
+                    }) {
                         Text("Crear Cuenta")
                             .foregroundColor(.black)
                             .frame(width: 150)
                             .padding()
-                            .background(Color(red: 134/255, green: 88/255, blue: 173/255))
+                            .background(Color(red: 210/255, green: 223/255, blue: 73/255))
                             .cornerRadius(8)
                             .shadow(color: .gray, radius: 5, x: 0, y: 5)
                     }
                     
-                    NavigationLink(
-                        destination: ViewController(),
-                        isActive: $userManager.isAuthenticated
-                    ) {
-                        EmptyView()
-                    }
                 }
                 .padding()
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("Error de Inicio de Sesión"),
-                        message: Text(userManager.errorMessage),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
+               
             }
         }
         .navigationBarBackButtonHidden(true)
+        .alert(isPresented: $showAlert) 
+        {
+            Alert(
+                title: Text("Error"),
+                message: Text(userManager.errorMessage ?? "Error desconocido"),
+                dismissButton: .default(Text("OK"), action: {
+                    userManager.clearError()
+                })
+            )
+        }
     }
 }
 
 #Preview {
-    LogIn().environmentObject(UserManager())
+    LogIn(selectedView: .constant("LogIn")).environmentObject(UserManager())
 }

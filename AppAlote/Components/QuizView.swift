@@ -7,11 +7,11 @@
 import SwiftUI
 
 struct QuizView: View {
+    @EnvironmentObject var userManager: UserManager
     @State private var currentQuestionIndex = 0
     @State private var selectedAnswer: Int? = nil
     @State private var navigateToHome = false
     @StateObject private var routeCalculator = RouteCalculator()
-    @Binding var completed : Bool
     private let squareSize = UIScreen.main.bounds.width / 2 - 40
 
     var body: some View {
@@ -75,11 +75,11 @@ struct QuizView: View {
             currentQuestionIndex += 1
             selectedAnswer = nil
         } else {
-            completed = true
+            userManager.setQuizCompleted()
         }
     }
 }
 
 #Preview {
-    QuizView(completed: .constant(false))
+    QuizView()
 }

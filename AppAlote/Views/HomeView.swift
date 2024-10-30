@@ -30,20 +30,15 @@ struct HomeView: View {
                             .fill(Color.blue.opacity(0.6))
                             .shadow(radius: 5)
                     )
-                    .padding(.vertical,40)
+                    .padding(.top,40)
                     .padding(.horizontal, 10)
                     
-                    // Icono de museo
-                    Image("Logo-Bienvenida")
-                        .resizable()
-                        .frame(width: 300, height: 300)
-                        .padding()
-                    
+                   
                     // Zonas para ti
                     Image("ZONAS PARA TI")
                         .resizable()
                         .frame(width: 250, height: 200)
-                        .padding(.top, 16)
+                        .padding(.vertical, 16)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
@@ -73,7 +68,7 @@ struct HomeView: View {
                     .cornerRadius(12)
                     .shadow(radius: 4)
                 }
-                .padding(.bottom, 150) // Deja espacio para la barra de navegación
+                .padding(.bottom, 150)
             }
             .padding(.top, 100)
             
@@ -127,6 +122,6 @@ struct ZonaCardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView().environmentObject(UserManager())
     }
 }

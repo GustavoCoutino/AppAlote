@@ -14,5 +14,5 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView()
+    MapView().environmentObject(UserManager())
 }

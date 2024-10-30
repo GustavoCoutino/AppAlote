@@ -66,7 +66,7 @@ struct Navbar: View {
                 .buttonStyle(NoHoverButtonStyle())
                 
                 Spacer()
-                Button(action: { selectedView = "Profile" }) {
+                Button(action: { selectedView = "Social" }) {
                     Image("profile")
                         .resizable()
                         .scaledToFit()
@@ -77,7 +77,7 @@ struct Navbar: View {
                                 .frame(width: 75, height: 75)
                         )
                         .padding(.trailing, 35)
-                    .offset(x: 0, y: selectedView == "Profile" ? -15 : 0)
+                    .offset(x: 0, y: selectedView == "Social" ? -15 : 0)
                 }
                 .buttonStyle(NoHoverButtonStyle())
             }

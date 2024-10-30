@@ -8,31 +8,52 @@
 import SwiftUI
 
 struct ViewController: View {
-    @State private var selectedView: String = "Home"
-    @State private var quizAnswered = false
+    @EnvironmentObject var userManager: UserManager
+    @State var selectedView: String = "Home"
+    @State var selectedAuthView : String = "LogIn"
+    
     var body: some View {
-        if quizAnswered {
-            ZStack {
-                switch selectedView {
-                case "Home":
-                    HomeView()
-                case "Map":
-                    MapView()
-                case "Code":
-                    EmptyView()
-                case "Profile":
-                    EmptyView()
-                default:
-                    HomeView()
+        NavigationStack{
+            if userManager.isAuthenticated {
+                if userManager.hasRecentAccessCode {
+                    if userManager.hasAnsweredQuiz {
+                        ZStack {
+                            switch selectedView {
+                                case "Home":
+                                    HomeView()
+                                case "Map":
+                                    MapView()
+                                case "Code":
+                                    CodeView()
+                                case "Social":
+                                    SocialView()
+                                default:
+                                    HomeView()
+                            }
+                            Navbar(selectedView: $selectedView)
+                        }
+                    } else {
+                        QuizView()
+                    }
+                    
+                } else {
+                    AccessCodeView()
                 }
-                Navbar(selectedView: $selectedView)
+                
+            } else {
+                switch selectedAuthView {
+                    case "LogIn":
+                        LogIn(selectedView: $selectedAuthView)
+                    case "SignIn":
+                        SignIn(selectedView: $selectedAuthView)
+                    default:
+                        LogIn(selectedView: $selectedAuthView)
+                }
             }
-        } else {
-            QuizView(completed: $quizAnswered)
         }
     }
 }
 
 #Preview {
-    ViewController()
+    ViewController().environmentObject(UserManager())
 }

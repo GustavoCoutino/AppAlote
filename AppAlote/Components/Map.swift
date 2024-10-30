@@ -2260,7 +2260,7 @@ struct Map: View {
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
             textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             textNode = SCNNode(geometry: textGeometry)
-            textNode.position = SCNVector3(240, -405, 500)
+            textNode.position = SCNVector3(225, -405, 500)
             textNode.eulerAngles = SCNVector3(0, 0, 0)
             textNode.name = "TIENDA"
             scene.rootNode.addChildNode(textNode)
@@ -2289,7 +2289,7 @@ struct Map: View {
             textGeometry.font = UIFont.boldSystemFont(ofSize: 11)
             textGeometry.firstMaterial?.diffuse.contents = UIColor.black
             textNode = SCNNode(geometry: textGeometry)
-            textNode.position = SCNVector3(430, -290, 500)
+            textNode.position = SCNVector3(422, -290, 500)
             textNode.eulerAngles = SCNVector3(0, 0, 0.3)
             textNode.name = "EXPOSICIONES TEMPORALES"
             scene.rootNode.addChildNode(textNode)
