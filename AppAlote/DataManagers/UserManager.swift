@@ -35,13 +35,63 @@ class UserManager: ObservableObject {
         print(userID)
     }
     
-    func signIn(name: String, date: Date, email: String, password: String) {
-        // TODO: create user
+    func signIn(name: String, date: Date, email: String, password: String) async {
+        if name.isEmpty || email.isEmpty || password.isEmpty {
+            errorMessage = "Campos faltantes"
+            return
+        }
         
+        let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        self.userID = "1" // TODO: get the user ID
-        defaults.set(userID, forKey: "userID")
-        isAuthenticated = true
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        
+        print(dateString)
+        
+        let parameters: [String: String] = [
+            "nombre": name,
+            "apellido": name,
+            "correo": email,
+            "password_hash": password,
+            "fecha_nacimiento": dateString
+        ]
+        
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            errorMessage = "Error al procesar los datos de inicio de sesión."
+            return
+        }
+        request.httpBody = httpBody
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse {
+                print("HTTP Status Code: \(httpResponse)")
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+                    print(json, "iejisje")
+                    if let userID = json["id_usuario"] as? String {
+                        self.userID = userID
+                        defaults.set(userID, forKey: "userID")
+                        isAuthenticated = true
+                        print("User ID:", self.userID, "Authenticated:", isAuthenticated)
+                    } else {
+                        if let detail = json["correo"] as? [String] {
+                             errorMessage = detail[0]
+                         }
+                    }
+                } else {
+                    errorMessage = "Error en la respuesta del servidor."
+                }
+            } else {
+                errorMessage = "Error en la respuesta del servidor."
+            }
+        } catch {
+            errorMessage = "Error en la solicitud: \(error.localizedDescription)"
+        }
+
     }
     
     func logIn(email: String, password: String) async {

@@ -7,6 +7,7 @@ struct SignIn: View {
     @State private var codigo: String = ""
     @State private var fechaNacimiento = Date()
     @Binding var selectedView : String
+    @State var showAlert = false
     
     var body: some View {
         NavigationStack {
@@ -53,17 +54,6 @@ struct SignIn: View {
                         }
                         .padding(.horizontal).padding(.top, 20)
                         
-                        VStack(alignment: .leading) {
-                            Text("Correo electrónico")
-                                .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
-                            
-                            TextField("", text: $correo)
-                                .padding(.horizontal).bold()
-                                .frame(height: 35)
-                                .background(Color(red:243/255, green: 246/255, blue: 205/255))
-                                .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
-                        }
-                        .padding(.horizontal).padding(.top, 20)
                         
                         VStack(alignment: .leading) {
                             Text("Fecha de nacimiento")
@@ -79,10 +69,41 @@ struct SignIn: View {
                         }
                         .padding(.horizontal).padding(.top, 20)
                         
+                        VStack(alignment: .leading) {
+                            Text("Correo electrónico")
+                                .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
+                            
+                            TextField("", text: $correo)
+                                .padding(.horizontal).bold()
+                                .frame(height: 35)
+                                .background(Color(red:243/255, green: 246/255, blue: 205/255))
+                                .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+                        }
+                        .padding(.horizontal).padding(.top, 20)
+                        
+                        VStack(alignment: .leading) {
+                            Text("Contraseña")
+                                .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
+                            
+                            SecureField("", text: $codigo)
+                                .padding(.horizontal).bold()
+                                .frame(height: 35)
+                                .background(Color(red:243/255, green: 246/255, blue: 205/255))
+                                .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+                        }
+                        .padding(.horizontal).padding(.top, 20)
+                        
+                        
+                        
                         
                         HStack {
                             Button(action: {
-                                userManager.signIn(name: nombre, date: fechaNacimiento, email: correo, password: "123")
+                                Task {
+                                    await userManager.signIn(name: nombre, date: fechaNacimiento, email: correo, password: codigo)
+                                    if userManager.errorMessage != nil {
+                                        showAlert = true
+                                    }
+                                }
                             }) {
                                 Text("Crear Cuenta")
                                     .foregroundColor(.black)
@@ -118,6 +139,16 @@ struct SignIn: View {
                 .navigationBarBackButtonHidden(true)
             }
             
+        }
+        .alert(isPresented: $showAlert)
+        {
+            Alert(
+                title: Text("Error"),
+                message: Text(userManager.errorMessage ?? "Error desconocido"),
+                dismissButton: .default(Text("OK"), action: {
+                    userManager.clearError()
+                })
+            )
         }
     }
 }

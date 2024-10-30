@@ -77,7 +77,7 @@ struct LogIn: View {
                                 .foregroundColor(.black)
                                 .frame(width: 150)
                                 .padding()
-                                .background(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                .background(Color(red: 134/255, green: 88/255, blue: 173/255))
                                 .cornerRadius(8)
                                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
                         }
