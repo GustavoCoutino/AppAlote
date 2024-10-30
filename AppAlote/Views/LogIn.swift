@@ -66,9 +66,11 @@ struct LogIn: View {
                     
                     HStack {
                         Button(action: {
-                            userManager.logIn(email: correo, password: password)
-                            if userManager.errorMessage != nil {
-                                showAlert = true
+                            Task {
+                                await userManager.logIn(email: correo, password: password)
+                                if userManager.errorMessage != nil {
+                                    showAlert = true
+                                }
                             }
                         }) {
                             Text("Iniciar Sesión")
