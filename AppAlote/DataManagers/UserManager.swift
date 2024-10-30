@@ -13,11 +13,12 @@ class UserManager: ObservableObject {
     @Published var hasRecentAccessCode = false
     @Published var userID = ""
     @Published var errorMessage: String?
+    @Published var isLoading = true
     
     private let defaults = UserDefaults.standard
     
     init() {
-        // resetAllDefaults() // DELETE THIS LINE IN PRODUCTION
+        // resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
         }
@@ -63,6 +64,7 @@ class UserManager: ObservableObject {
         }
         
         hasAnsweredQuiz = defaults.bool(forKey: "hasAnsweredQuiz")
+        isLoading = false
     }
     
     func signIn(name: String, date: Date, email: String, password: String) async {

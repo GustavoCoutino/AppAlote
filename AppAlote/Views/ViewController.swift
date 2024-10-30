@@ -14,42 +14,48 @@ struct ViewController: View {
     
     var body: some View {
         NavigationStack{
-            if userManager.isAuthenticated {
-                if userManager.hasRecentAccessCode {
-                    if userManager.hasAnsweredQuiz {
-                        ZStack {
-                            switch selectedView {
-                                case "Home":
-                                    HomeView()
-                                case "Map":
-                                    MapView()
-                                case "Code":
-                                    CodeView()
-                                case "Social":
-                                    SocialView()
-                                default:
-                                    HomeView()
+            if userManager.isLoading {
+                LoadingView()
+            } else {
+                if userManager.isAuthenticated {
+                    if userManager.hasRecentAccessCode {
+                        if userManager.hasAnsweredQuiz {
+                            ZStack {
+                                switch selectedView {
+                                    case "Home":
+                                        HomeView()
+                                    case "Map":
+                                        MapView()
+                                    case "Code":
+                                        CodeView()
+                                    case "Social":
+                                        SocialView()
+                                    default:
+                                        HomeView()
+                                }
+                                Navbar(selectedView: $selectedView)
                             }
-                            Navbar(selectedView: $selectedView)
+                        } else {
+                            QuizView()
                         }
+                        
                     } else {
-                        QuizView()
+                        AccessCodeView()
                     }
                     
                 } else {
-                    AccessCodeView()
+                    switch selectedAuthView {
+                        case "LogIn":
+                            LogIn(selectedView: $selectedAuthView)
+                        case "SignIn":
+                            SignIn(selectedView: $selectedAuthView)
+                        default:
+                            LogIn(selectedView: $selectedAuthView)
+                    }
                 }
-                
-            } else {
-                switch selectedAuthView {
-                    case "LogIn":
-                        LogIn(selectedView: $selectedAuthView)
-                    case "SignIn":
-                        SignIn(selectedView: $selectedAuthView)
-                    default:
-                        LogIn(selectedView: $selectedAuthView)
-                }
+
             }
+            
         }
     }
 }
