@@ -17,8 +17,10 @@ class UserManager: ObservableObject {
     private let defaults = UserDefaults.standard
     
     init() {
-        resetAllDefaults() // DELETE THIS LINE IN PRODUCTION
-        loadStoredSession()
+        // resetAllDefaults() // DELETE THIS LINE IN PRODUCTION
+        Task {
+            await loadStoredSession()
+        }
     }
     
     func resetAllDefaults() {
@@ -27,12 +29,40 @@ class UserManager: ObservableObject {
         }
     }
     
-    private func loadStoredSession() {
+    private func loadStoredSession() async {
         userID = defaults.string(forKey: "userID") ?? ""
         isAuthenticated = !userID.isEmpty
-        hasRecentAccessCode = false // TODO: check if its the same as in the DB
+        
+        
+        hasRecentAccessCode = false
+        let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]],
+                   let firstObject = jsonArray.first,
+                   let code = firstObject["codigo_acceso"] as? String {
+                    
+                    let savedCode = defaults.string(forKey: "accessCode") ?? ""
+                    if savedCode == code {
+                        print("Access Code: \(code), Saved Code: \(savedCode)")
+                        defaults.set(code, forKey: "accessCode")
+                        hasRecentAccessCode = true
+                    }
+                } else {
+                    print("No access code found in JSON.")
+                }
+            } else {
+                print("Error in server response:")
+            }
+        } catch {
+            print("Error in the request: \(error.localizedDescription)")
+        }
+        
         hasAnsweredQuiz = defaults.bool(forKey: "hasAnsweredQuiz")
-        print(userID)
     }
     
     func signIn(name: String, date: Date, email: String, password: String) async {
@@ -71,12 +101,10 @@ class UserManager: ObservableObject {
             if let httpResponse = response as? HTTPURLResponse {
                 print("HTTP Status Code: \(httpResponse)")
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
-                    print(json, "iejisje")
                     if let userID = json["id_usuario"] as? String {
                         self.userID = userID
                         defaults.set(userID, forKey: "userID")
                         isAuthenticated = true
-                        print("User ID:", self.userID, "Authenticated:", isAuthenticated)
                     } else {
                         if let detail = json["correo"] as? [String] {
                              errorMessage = detail[0]
@@ -141,9 +169,40 @@ class UserManager: ObservableObject {
         }
     }
     
-    func enterAccessCode(_ code: String) {
-        hasRecentAccessCode = true // TODO: check if the access code is the same one as in DB
-        defaults.set(true, forKey: "accessCode")
+    func enterAccessCode(_ code: String) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]],
+                   let firstObject = jsonArray.first,
+                   let currentCode = firstObject["codigo_acceso"] as? String {
+                    
+                    if currentCode == code {
+                        print("Access Code: \(code), Saved Code: \(currentCode)")
+                        defaults.set(code, forKey: "accessCode")
+                        hasRecentAccessCode = true
+                        return
+                    } else {
+                        hasRecentAccessCode = false
+                        errorMessage = "Código de acceso incorrecto"
+                    }
+                } else {
+                    print("No access code found in JSON.")
+                }
+            } else {
+                print("Error in server response:")
+            }
+        } catch {
+            print("Error in the request: \(error.localizedDescription)")
+        }
+        
+        hasRecentAccessCode = false
     }
     
     func setQuizCompleted() {

@@ -52,7 +52,12 @@ struct AccessCodeView: View {
                     .padding(.horizontal).padding(.top, 20)
                     
                     Button(action: {
-                        userManager.enterAccessCode(codigo)
+                        Task {
+                            await userManager.enterAccessCode(codigo)
+                            if userManager.errorMessage != nil {
+                                showAlert = true
+                            }
+                        }
                     }) {
                         Text("Acceder")
                             .foregroundColor(Color(red: 0/255, green: 0/255, blue: 0/255))
@@ -68,11 +73,14 @@ struct AccessCodeView: View {
             
                 }
                 .padding()
-                .alert(isPresented: $showAlert) {
+                .alert(isPresented: $showAlert)
+                {
                     Alert(
                         title: Text("Error"),
-                        message: Text("Código de acceso incorrecto"),
-                        dismissButton: .default(Text("OK"))
+                        message: Text(userManager.errorMessage ?? "Error desconocido"),
+                        dismissButton: .default(Text("OK"), action: {
+                            userManager.clearError()
+                        })
                     )
                 }
             }
