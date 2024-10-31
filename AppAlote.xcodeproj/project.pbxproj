@@ -89,7 +89,6 @@
 				F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */,
 				F4FBF7FA2CD13FC700B75685 /* QuestionTitle.swift */,
 				F49690C32CD091AF00033F90 /* Triangle.swift */,
-				F4FBF7FC2CD1400700B75685 /* QuizView.swift */,
 				F49690C82CD0979200033F90 /* Navbar.swift */,
 			);
 			path = Components;
@@ -122,6 +121,7 @@
 				B3B63D712CD0BA2200394294 /* ZoneView.swift */,
 				B3B63D832CD1C31900394294 /* AccessCodeView.swift */,
 				B3B63D852CD2DF1300394294 /* LoadingView.swift */,
+				F4FBF7FC2CD1400700B75685 /* QuizView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

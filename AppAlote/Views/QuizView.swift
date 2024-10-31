@@ -15,7 +15,6 @@ struct QuizView: View {
     private let squareSize = UIScreen.main.bounds.width / 2 - 40
 
     var body: some View {
-        NavigationStack {
             VStack {
                 let question = QuizData.questions[currentQuestionIndex]
                 
@@ -50,12 +49,12 @@ struct QuizView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 20).id(currentQuestionIndex)
+                .animation(.easeInOut(duration: 0.5), value: currentQuestionIndex)
                 
                 Spacer()
             }
             .padding()
-        }.navigationBarBackButtonHidden(true)
     }
 
     private func getColor(for index: Int) -> Color {
@@ -72,8 +71,10 @@ struct QuizView: View {
     
     private func moveToNextQuestion() {
         if currentQuestionIndex < QuizData.questions.count - 1 {
-            currentQuestionIndex += 1
-            selectedAnswer = nil
+            withAnimation(.easeInOut(duration: 0.5)) {
+                currentQuestionIndex += 1
+                selectedAnswer = nil
+            }
         } else {
             userManager.setQuizCompleted()
         }
