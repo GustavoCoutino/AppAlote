@@ -220,7 +220,7 @@ struct Map: View {
                             Spacer()
                             Text(focused)
                                 .font(.system(size: 33))
-                                .fontWeight(.bold)
+                                .fixedSize(horizontal: true, vertical: false)
                             Spacer()
                             Button {
                                 
@@ -239,19 +239,19 @@ struct Map: View {
                                 Text("Cambiar piso")
                                     .font(.system(size: 25))
                                     .foregroundStyle(Color.black)
-                                    .fontWeight(.bold)
+                                    .fixedSize(horizontal: true, vertical: false)
                             }
-                            .padding(18)
+                            .padding(15)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
                             )
                             Spacer()
                         }
-                        .padding(.top, 30)
+                        .padding(.top, 40)
                     }
                     .frame(width: UIScreen.main.bounds.size.width)
-                    .padding(.vertical, 31.5)
+                    .padding(.vertical, 33)
                     .background(Color.purple)
                     .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
                     .ignoresSafeArea()
@@ -752,7 +752,7 @@ struct Map: View {
             foregroundNode = SCNNode(geometry: foregroundShape)
             foregroundNode.position = SCNVector3(0, 40, 70)
             foregroundNode.eulerAngles = SCNVector3(-0.50, Float(Double.pi), Float(Double.pi))
-            foregroundNode.name = "SONIDOS"
+            foregroundNode.name = "SONIDOS PEQUEÑOS"
             scene.rootNode.addChildNode(foregroundNode)
             
             
@@ -1129,7 +1129,7 @@ struct Map: View {
             foregroundNode = SCNNode(geometry: foregroundShape)
             foregroundNode.position = SCNVector3(0, 40, 70)
             foregroundNode.eulerAngles = SCNVector3(-0.50, Float(Double.pi), Float(Double.pi))
-            foregroundNode.name = "SONIDOS"
+            foregroundNode.name = "SONIDOS EXPRESO"
             scene.rootNode.addChildNode(foregroundNode)
             
             path = UIBezierPath()

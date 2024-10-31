@@ -30,7 +30,7 @@ struct HomeView: View {
                             .fill(Color.blue.opacity(0.6))
                             .shadow(radius: 5)
                     )
-                    .padding(.top,40)
+                    .padding(.top, 40)
                     .padding(.horizontal, 10)
                     
                    
@@ -58,7 +58,7 @@ struct HomeView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 400, height: 230)
                             .clipped()
-                        Text("Nombre de exhibicion")
+                        Text("Exhibición temporal")
                             .font(.subheadline)
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity, maxHeight: 100)
@@ -74,24 +74,46 @@ struct HomeView: View {
             
             VStack {
                 HStack {
-                    Image(systemName: "bell")
-                        .foregroundColor(.black)
-                        .font(.system(size: 50))
-                        .padding()
+                    Spacer()
+                    Button(action: {print("notificiation")}) {
+                        Image("notification-2")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .background(
+                                Circle()
+                                    .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                    .frame(width: 75, height: 75)
+                            )
+                        
+                    }
+                    
+                        
+                    Spacer()
                     Spacer()
                     Image("Logo")
+                        .padding(.leading, 10)
                     Spacer()
-                    Image("menu")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .padding()
+                    Spacer()
+                    Button(action: {print("menu")}){
+                        Image("menu 1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .background(
+                                Circle()
+                                    .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                    .frame(width: 75, height: 75)
+                            )
+                    }
+                    Spacer()
                     
                 }
-                .padding(.top, 30)
+                .padding(.top, 40)
             }
             .frame(width: UIScreen.main.bounds.size.width)
             .padding(.vertical, 20)
-            .background(Color(red: 210/255, green: 210/255, blue: 73/255))
+            .background(Color(red: 210/255, green: 223/255, blue: 73/255))
             .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
             .ignoresSafeArea()
         }
