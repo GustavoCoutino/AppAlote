@@ -207,6 +207,26 @@ class UserManager: ObservableObject {
         hasRecentAccessCode = false
     }
     
+    
+    func fetchUsername() async -> String {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+                    if let name = json["nombre"] as? String{
+                        return name
+                    }
+                }
+            }
+        } catch {
+            print("Error in the request: \(error.localizedDescription)")
+        }
+        return ""
+    }
+    
     func setQuizCompleted() {
         hasAnsweredQuiz = true
         defaults.set(true, forKey: "hasAnsweredQuiz")

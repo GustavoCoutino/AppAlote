@@ -7,6 +7,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var userManager: UserManager
+    @State var name : String = ""
+    
     var body: some View {
         ZStack {
             // Contenido principal con desplazamiento
@@ -19,7 +22,7 @@ struct HomeView: View {
                             .frame(width: 50, height: 50)
                             .clipShape(Circle())
                             .padding(.leading,10)
-                        Text("Gustavo Coutiño")
+                        Text(name)
                             .font(.headline)
                             .padding(.leading,10)
                         Spacer()
@@ -116,6 +119,11 @@ struct HomeView: View {
             .background(Color(red: 210/255, green: 223/255, blue: 73/255))
             .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
             .ignoresSafeArea()
+        }
+        .onAppear{
+            Task{
+                name = await userManager.fetchUsername()
+            }
         }
     }
 }
