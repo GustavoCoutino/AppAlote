@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B374125E2CD3DE4D00717C18 /* InsigniasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125D2CD3DE4D00717C18 /* InsigniasView.swift */; };
+		B37412602CD3DE8300717C18 /* LogrosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125F2CD3DE8300717C18 /* LogrosView.swift */; };
+		B37412642CD3DEFF00717C18 /* TarjetasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37412632CD3DEFF00717C18 /* TarjetasView.swift */; };
+		B37412662CD3DF6100717C18 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37412652CD3DF6100717C18 /* ProfileView.swift */; };
+		B37412682CD3DFAD00717C18 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37412672CD3DFAD00717C18 /* TabButton.swift */; };
 		B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B63D6D2CD0ADAE00394294 /* ViewController.swift */; };
 		B3B63D702CD0B6EB00394294 /* ExhibitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */; };
 		B3B63D722CD0BA2200394294 /* ZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B63D712CD0BA2200394294 /* ZoneView.swift */; };
@@ -34,6 +39,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B374125D2CD3DE4D00717C18 /* InsigniasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsigniasView.swift; sourceTree = "<group>"; };
+		B374125F2CD3DE8300717C18 /* LogrosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogrosView.swift; sourceTree = "<group>"; };
+		B37412632CD3DEFF00717C18 /* TarjetasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarjetasView.swift; sourceTree = "<group>"; };
+		B37412652CD3DF6100717C18 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B37412672CD3DFAD00717C18 /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		B3B63D6D2CD0ADAE00394294 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionView.swift; sourceTree = "<group>"; };
 		B3B63D712CD0BA2200394294 /* ZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneView.swift; sourceTree = "<group>"; };
@@ -100,6 +110,11 @@
 				B3B63D7F2CD1C0B100394294 /* CodeView.swift */,
 				B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */,
 				F4895CE32CC815D0008DDAF2 /* SignIn.swift */,
+				B374125D2CD3DE4D00717C18 /* InsigniasView.swift */,
+				B374125F2CD3DE8300717C18 /* LogrosView.swift */,
+				B37412632CD3DEFF00717C18 /* TarjetasView.swift */,
+				B37412652CD3DF6100717C18 /* ProfileView.swift */,
+				B37412672CD3DFAD00717C18 /* TabButton.swift */,
 				B3BE803D2CC963A1001BE5BE /* HomeView.swift */,
 				B3E9859C2CC9800600F355F4 /* MapView.swift */,
 				B3B63D6D2CD0ADAE00394294 /* ViewController.swift */,
@@ -238,10 +253,15 @@
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
+				B37412682CD3DFAD00717C18 /* TabButton.swift in Sources */,
 				F4FBF7F92CD13FB500B75685 /* ProgressBar.swift in Sources */,
 				B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
+				B37412602CD3DE8300717C18 /* LogrosView.swift in Sources */,
 				F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */,
+				B37412662CD3DF6100717C18 /* ProfileView.swift in Sources */,
+				B374125E2CD3DE4D00717C18 /* InsigniasView.swift in Sources */,
+				B37412642CD3DEFF00717C18 /* TarjetasView.swift in Sources */,
 				F4FBF7FD2CD1400700B75685 /* QuizView.swift in Sources */,
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
 				B3B63D842CD1C31900394294 /* AccessCodeView.swift in Sources */,
