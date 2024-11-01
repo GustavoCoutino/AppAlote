@@ -185,6 +185,7 @@ struct Map: View {
                                     width: viewModel.lastOffset.width + value.translation.width,
                                     height: viewModel.lastOffset.height + value.translation.height
                                 )
+                                print(viewModel.offset)
                             }
                             .onEnded { _ in
                                 viewModel.lastOffset = viewModel.offset
