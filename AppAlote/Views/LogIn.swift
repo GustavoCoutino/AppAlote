@@ -4,8 +4,15 @@ struct LogIn: View {
     @State private var correo: String = ""
     @State private var password: String = ""
     @EnvironmentObject var userManager: UserManager
+    @State private var alertMessage = ""
     @Binding var selectedView : String
     @State var showAlert = false
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
     var body: some View {
         NavigationStack {
@@ -66,11 +73,17 @@ struct LogIn: View {
                     
                     HStack {
                         Button(action: {
-                            Task {
-                                await userManager.logIn(email: correo, password: password)
-                                if userManager.errorMessage != nil {
-                                    showAlert = true
+                            if isValidEmail(correo) {
+                                Task {
+                                    await userManager.logIn(email: correo, password: password)
+                                    if userManager.errorMessage != nil {
+                                        alertMessage = userManager.errorMessage ?? "Error desconocido"
+                                        showAlert = true
+                                    }
                                 }
+                            } else {
+                                alertMessage = "Correo electrónico inválido"
+                                showAlert = true
                             }
                         }) {
                             Text("Iniciar Sesión")
@@ -110,7 +123,7 @@ struct LogIn: View {
         {
             Alert(
                 title: Text("Error"),
-                message: Text(userManager.errorMessage ?? "Error desconocido"),
+                message: Text(alertMessage),
                 dismissButton: .default(Text("OK"), action: {
                     userManager.clearError()
                 })
