@@ -11,7 +11,10 @@ struct QuizView: View {
     @State private var currentQuestionIndex = 0
     @State private var selectedAnswer: Int? = nil
     @State private var navigateToHome = false
-    @StateObject private var routeCalculator = RouteCalculator()
+    @StateObject private var routeCalculator : RouteCalculator
+    init(userManager: UserManager) {
+        _routeCalculator = StateObject(wrappedValue: RouteCalculator(userManager: userManager))
+    }
     private let squareSize = UIScreen.main.bounds.width / 2 - 40
 
     var body: some View {
@@ -41,7 +44,9 @@ struct QuizView: View {
                                         .onTapGesture {
                                             selectedAnswer = index
                                             routeCalculator.recordAnswer(color: color) 
-                                            moveToNextQuestion()
+                                            Task {
+                                                                                        await moveToNextQuestion()
+                                                                        }
                                         }
                                         .padding(1)
                                 }
@@ -69,18 +74,20 @@ struct QuizView: View {
         return colors[index % colors.count]
     }
     
-    private func moveToNextQuestion() {
+    private func moveToNextQuestion() async {
         if currentQuestionIndex < QuizData.questions.count - 1 {
             withAnimation(.easeInOut(duration: 0.5)) {
                 currentQuestionIndex += 1
                 selectedAnswer = nil
             }
         } else {
+            await routeCalculator.submitQuizResults()
             userManager.setQuizCompleted()
         }
     }
 }
 
 #Preview {
-    QuizView()
+    let userManager = UserManager()
+    return QuizView(userManager: userManager).environmentObject(userManager)
 }

@@ -18,7 +18,7 @@ class UserManager: ObservableObject {
     private let defaults = UserDefaults.standard
     
     init() {
-        // resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
+        resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
         }
@@ -32,6 +32,7 @@ class UserManager: ObservableObject {
     
     private func loadStoredSession() async {
         userID = defaults.string(forKey: "userID") ?? ""
+        print(userID)
         isAuthenticated = !userID.isEmpty
         
         
@@ -111,6 +112,9 @@ class UserManager: ObservableObject {
                         if let detail = json["correo"] as? [String] {
                              errorMessage = detail[0]
                          }
+                        if (errorMessage == "usuario with this correo already exists."){
+                            errorMessage = "Usuario con este correo ya existe"
+                        }
                     }
                 } else {
                     errorMessage = "Error en la respuesta del servidor."
@@ -207,6 +211,41 @@ class UserManager: ObservableObject {
         hasRecentAccessCode = false
     }
     
+    func postZoneScore(score: Int, zona: Zona) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/preferencias/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type") 
+        
+        let payload: [String: Any] = [
+            "puntaje_quiz": score,
+            "usuario": userID,
+            "zona": zona.id
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+        } catch {
+            errorMessage = "Error serializing JSON: \(error.localizedDescription)"
+            print("Problema en la serializacion")
+            return
+        }
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                
+                if (200...299).contains(httpResponse.statusCode) {
+                    print("POST request successful for zona:", zona.nombre)
+                } else {
+                    errorMessage = "Hubo un error al terminar el quiz: \(httpResponse.statusCode)"
+                }
+            }
+        } catch {
+            errorMessage = "Hubo un error al terminar el quiz: \(error.localizedDescription)"
+        }
+    }
     
     func fetchUsername() async -> String {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!

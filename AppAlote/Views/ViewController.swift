@@ -36,7 +36,7 @@ struct ViewController: View {
                                 Navbar(selectedView: $selectedView)
                             }
                         } else {
-                            QuizView()
+                            QuizView(userManager: userManager).environmentObject(userManager)
                         }
                         
                     } else {
