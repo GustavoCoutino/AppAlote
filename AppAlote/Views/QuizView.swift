@@ -82,6 +82,8 @@ struct QuizView: View {
             }
         } else {
             await routeCalculator.submitQuizResults()
+            let results = await routeCalculator.getSortedUserQuizScores()
+            print(results)
             userManager.setQuizCompleted()
         }
     }

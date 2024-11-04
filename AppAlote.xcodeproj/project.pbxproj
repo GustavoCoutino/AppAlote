@@ -32,6 +32,7 @@
 		F4E25F982CBF299A00A1BB94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E25F972CBF299A00A1BB94 /* Assets.xcassets */; };
 		F4E25F9B2CBF299A00A1BB94 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E25F9A2CBF299A00A1BB94 /* Preview Assets.xcassets */; };
 		F4EDB3D32CD845810059D302 /* Zona.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EDB3D22CD845810059D302 /* Zona.swift */; };
+		F4EDB3D52CD868320059D302 /* QuizScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EDB3D42CD868320059D302 /* QuizScore.swift */; };
 		F4FBF7F52CD13F1E00B75685 /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7F42CD13F1E00B75685 /* QuizData.swift */; };
 		F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */; };
 		F4FBF7F92CD13FB500B75685 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */; };
@@ -66,6 +67,7 @@
 		F4E25F972CBF299A00A1BB94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4E25F9A2CBF299A00A1BB94 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F4EDB3D22CD845810059D302 /* Zona.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zona.swift; sourceTree = "<group>"; };
+		F4EDB3D42CD868320059D302 /* QuizScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizScore.swift; sourceTree = "<group>"; };
 		F4FBF7F42CD13F1E00B75685 /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
 		F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCalculator.swift; sourceTree = "<group>"; };
 		F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				F4FBF7F42CD13F1E00B75685 /* QuizData.swift */,
 				F4EDB3D22CD845810059D302 /* Zona.swift */,
 				F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */,
+				F4EDB3D42CD868320059D302 /* QuizScore.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				F4FBF7F52CD13F1E00B75685 /* QuizData.swift in Sources */,
 				B3B63D822CD1C12100394294 /* SocialView.swift in Sources */,
 				F4FBF7FB2CD13FC700B75685 /* QuestionTitle.swift in Sources */,
+				F4EDB3D52CD868320059D302 /* QuizScore.swift in Sources */,
 				B3B63D862CD2DF1300394294 /* LoadingView.swift in Sources */,
 				F49690C72CD091D000033F90 /* UserManager.swift in Sources */,
 				F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */,

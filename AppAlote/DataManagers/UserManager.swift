@@ -251,6 +251,29 @@ class UserManager: ObservableObject {
         }
     }
     
+    func fetchUserQuizScore() async -> [QuizScore] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/preferencias/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let allScores = try JSONDecoder().decode([QuizScore].self, from: data)
+                let userScores = allScores.filter { $0.usuario == userID }
+                return userScores
+            } else {
+                print("Failed to fetch scores. Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener los resultados del quiz: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
     func fetchUsername() async -> String {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
         var request = URLRequest(url: url)

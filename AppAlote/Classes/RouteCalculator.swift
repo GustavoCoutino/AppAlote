@@ -45,4 +45,12 @@ class RouteCalculator: ObservableObject {
             }
         }
     }
+    
+    func getSortedUserQuizScores() async -> [QuizScore] {
+        let userScores = await userManager.fetchUserQuizScore()
+        let sortedScores = userScores.sorted { $0.puntaje_quiz > $1.puntaje_quiz }
+        return sortedScores
+    }
+    
+    
 }
