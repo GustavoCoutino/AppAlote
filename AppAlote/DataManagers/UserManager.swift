@@ -176,6 +176,10 @@ class UserManager: ObservableObject {
     }
     
     func enterAccessCode(_ code: String) async {
+        if code.isEmpty {
+            errorMessage = "El campo del codigo de acceso es requerido."
+            return
+        }
         let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

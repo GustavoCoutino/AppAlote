@@ -8,6 +8,14 @@ struct SignIn: View {
     @State private var fechaNacimiento = Date()
     @Binding var selectedView : String
     @State var showAlert = false
+    @State private var alertMessage = ""
+
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
     var body: some View {
         NavigationStack {
@@ -76,6 +84,7 @@ struct SignIn: View {
                             TextField("", text: $correo)
                                 .padding(.horizontal).bold()
                                 .frame(height: 35)
+                                .textInputAutocapitalization(.never)
                                 .background(Color(red:243/255, green: 246/255, blue: 205/255))
                                 .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
                         }
@@ -98,12 +107,19 @@ struct SignIn: View {
                         
                         HStack {
                             Button(action: {
-                                Task {
-                                    await userManager.signIn(name: nombre, date: fechaNacimiento, email: correo, password: codigo)
-                                    if userManager.errorMessage != nil {
-                                        showAlert = true
+                                if isValidEmail(correo){
+                                    Task {
+                                        await userManager.signIn(name: nombre, date: fechaNacimiento, email: correo, password: codigo)
+                                        if userManager.errorMessage != nil {
+                                            showAlert = true
+                                            alertMessage = userManager.errorMessage ?? "Error desconocido"
+                                        }
                                     }
+                                } else {
+                                    alertMessage = "Correo electrónico inválido"
+                                    showAlert = true
                                 }
+                                
                             }) {
                                 Text("Crear Cuenta")
                                     .foregroundColor(.black)
@@ -144,7 +160,7 @@ struct SignIn: View {
         {
             Alert(
                 title: Text("Error"),
-                message: Text(userManager.errorMessage ?? "Error desconocido"),
+                message: Text(alertMessage),
                 dismissButton: .default(Text("OK"), action: {
                     userManager.clearError()
                 })
