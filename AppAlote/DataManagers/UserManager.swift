@@ -18,7 +18,7 @@ class UserManager: ObservableObject {
     private let defaults = UserDefaults.standard
     
     init() {
-        resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
+        //resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
         }
@@ -50,7 +50,6 @@ class UserManager: ObservableObject {
                     
                     let savedCode = defaults.string(forKey: "accessCode") ?? ""
                     if savedCode == code {
-                        print("Access Code: \(code), Saved Code: \(savedCode)")
                         defaults.set(code, forKey: "accessCode")
                         hasRecentAccessCode = true
                     }
@@ -219,7 +218,7 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/preferencias/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type") 
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let payload: [String: Any] = [
             "puntaje_quiz": score,

@@ -10,6 +10,7 @@ struct HomeView: View {
     @EnvironmentObject var userManager: UserManager
     @State var showProfile = false
     @State var name : String = ""
+    @State private var sortedZones: [Int] = []
     
     var body: some View {
         NavigationStack {
@@ -44,9 +45,10 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ZonaCardView(imageName: "Expreso", label: "Expreso", labelColor: .orange)
-                                ZonaCardView(imageName: "Pertenezco", label: "Pertenezco", labelColor: .green)
-                                ZonaCardView(imageName: "Comprendo", label: "Comprendo", labelColor: .purple)
+                                ForEach(sortedZones, id: \.self) { zona in
+                                    let (imageName, label, color) = getZonaDetails(for: zona)
+                                    ZonaCardView(imageName: imageName, label: label, labelColor: color)
+                                }
                             }
                             .padding(.horizontal)
                         }
@@ -126,12 +128,37 @@ struct HomeView: View {
                 ProfileView(name: name)
             }
             .onAppear{
+                loadSortedZones()
                 Task{
                     name = await userManager.fetchUsername()
                 }
         }
         }
     }
+    private func loadSortedZones() {
+        if let savedZones = UserDefaults.standard.array(forKey: "sortedZones") as? [Int] {
+            sortedZones = savedZones
+        }
+    }
+    
+    private func getZonaDetails(for zona: Int) -> (imageName: String, label: String, labelColor: Color) {
+            switch zona {
+            case 1:
+                return ("Expreso", "Expreso", .orange)
+            case 2:
+                return ("Pertenezco", "Pertenezco", .green)
+            case 3:
+                return ("Comunico", "Comunico", .blue)
+            case 4:
+                return ("Comprendo", "Comprendo", .purple)
+            case 5:
+                return ("Pequeños", "Pequeños", Color(red: 173/255, green: 216/255, blue: 230/255))
+            case 6:
+                return ("Soy", "Soy", .red)
+            default:
+                return ("", "Unknown", .gray)
+            }
+        }
 }
 
 struct ZonaCardView: View {

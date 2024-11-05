@@ -38,19 +38,16 @@ class RouteCalculator: ObservableObject {
         self.userManager = userManager
     }
     
-    func submitQuizResults() async {
+    func submitQuizResults() async  {
         for (color, count) in colorCounts{
             if let zona = colorToZona[color] {
                 await userManager.postZoneScore(score: count, zona: zona)
             }
         }
-    }
-    
-    func getSortedUserQuizScores() async -> [QuizScore] {
         let userScores = await userManager.fetchUserQuizScore()
         let sortedScores = userScores.sorted { $0.puntaje_quiz > $1.puntaje_quiz }
-        return sortedScores
+        let sortedZones = sortedScores.map { $0.zona }
+        UserDefaults.standard.set(sortedZones, forKey: "sortedZones")
     }
-    
     
 }
