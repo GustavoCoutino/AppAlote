@@ -14,13 +14,22 @@ class UserManager: ObservableObject {
     @Published var userID = ""
     @Published var errorMessage: String?
     @Published var isLoading = true
-    
+    @Published var currentDeepLink: String?
+
     private let defaults = UserDefaults.standard
     
     init() {
         //resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
+        }
+    }
+    
+    func handleURL(_ url: URL) {
+        guard url.scheme == "AppAlote" else { return }
+        let name = url.host
+        if let name = name {
+            currentDeepLink = name
         }
     }
     

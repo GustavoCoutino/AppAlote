@@ -19,7 +19,10 @@ struct ViewController: View {
             } else {
                 if userManager.isAuthenticated {
                     if userManager.hasRecentAccessCode {
-                        if userManager.hasAnsweredQuiz {
+                        if userManager.currentDeepLink != nil{
+                            ActivityView()
+                        }
+                        else if userManager.hasAnsweredQuiz {
                             ZStack {
                                 switch selectedView {
                                     case "Home":
@@ -59,8 +62,12 @@ struct ViewController: View {
             }
             
         }
+        .onOpenURL{ url in
+            userManager.handleURL(url)
+        }
     }
 }
+
 
 #Preview {
     ViewController().environmentObject(UserManager())
