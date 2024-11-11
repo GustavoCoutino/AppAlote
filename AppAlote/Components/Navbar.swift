@@ -19,6 +19,7 @@ struct Navbar: View {
     var body: some View {
         VStack {
             HStack {
+                Spacer()
                 Button(action: { selectedView = "Home" }) {
                     Image("home")
                         .resizable()
@@ -27,15 +28,16 @@ struct Navbar: View {
                         .background(
                             Circle()
                                 .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
-                                .frame(width: 75, height: 75)
+                                .frame(width: 70, height: 70)
                         )
-                        .padding(.leading, 35)
                     .offset(x: 0, y: selectedView == "Home" ? -15 : 0)
                 }
                 .buttonStyle(NoHoverButtonStyle())
                 
                 
                 Spacer()
+                Spacer()
+
                 Button(action: { selectedView = "Map" }) {
                     Image("location")
                         .resizable()
@@ -44,13 +46,15 @@ struct Navbar: View {
                         .background(
                             Circle()
                                 .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
-                                .frame(width: 75, height: 75)
+                                .frame(width: 70, height: 70)
                         )
                         .offset(x: 0, y: selectedView == "Map" ? -15 : 0)
                 }
                 .buttonStyle(NoHoverButtonStyle())
                 
                 Spacer()
+                Spacer()
+
                 Button(action: { selectedView = "Code" }) {
                     Image("qr-code")
                         .resizable()
@@ -59,14 +63,31 @@ struct Navbar: View {
                         .background(
                             Circle()
                                 .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
-                                .frame(width: 75, height: 75)
+                                .frame(width: 70, height: 70)
                         )
                         .offset(x: 0, y: selectedView == "Code" ? -15 : 0)
                 }
                 .buttonStyle(NoHoverButtonStyle())
                 
                 Spacer()
+                Spacer()
+
                 Button(action: { selectedView = "Social" }) {
+                    Image("social")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .background(
+                            Circle()
+                                .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                .frame(width: 70, height: 70)
+                        )
+                    .offset(x: 0, y: selectedView == "Social" ? -15 : 0)
+                }
+                .buttonStyle(NoHoverButtonStyle())
+                Spacer()
+                Spacer()
+                Button(action: { selectedView = "Profile" }) {
                     Image("profile")
                         .resizable()
                         .scaledToFit()
@@ -74,12 +95,13 @@ struct Navbar: View {
                         .background(
                             Circle()
                                 .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
-                                .frame(width: 75, height: 75)
+                                .frame(width: 70, height: 70)
                         )
-                        .padding(.trailing, 35)
-                    .offset(x: 0, y: selectedView == "Social" ? -15 : 0)
+                    .offset(x: 0, y: selectedView == "Profile" ? -15 : 0)
                 }
                 .buttonStyle(NoHoverButtonStyle())
+                Spacer()
+
             }
             .frame(width: UIScreen.main.bounds.size.width)
             .padding(.vertical, 50)
