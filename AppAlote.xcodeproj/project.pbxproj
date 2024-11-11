@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B3689A8B2CE1986E00D585EB /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8A2CE1986E00D585EB /* DeepLinkManager.swift */; };
 		B3689A8D2CE1A27400D585EB /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8C2CE1A27400D585EB /* ActivityView.swift */; };
+		B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */; };
 		B374125E2CD3DE4D00717C18 /* InsigniasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125D2CD3DE4D00717C18 /* InsigniasView.swift */; };
 		B37412602CD3DE8300717C18 /* LogrosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125F2CD3DE8300717C18 /* LogrosView.swift */; };
 		B37412642CD3DEFF00717C18 /* TarjetasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37412632CD3DEFF00717C18 /* TarjetasView.swift */; };
@@ -46,6 +47,7 @@
 		B3689A872CE18A9700D585EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B3689A8A2CE1986E00D585EB /* DeepLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkManager.swift; sourceTree = "<group>"; };
 		B3689A8C2CE1A27400D585EB /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerRepresentable.swift; sourceTree = "<group>"; };
 		B374125D2CD3DE4D00717C18 /* InsigniasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsigniasView.swift; sourceTree = "<group>"; };
 		B374125F2CD3DE8300717C18 /* LogrosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogrosView.swift; sourceTree = "<group>"; };
 		B37412632CD3DEFF00717C18 /* TarjetasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarjetasView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				B3B63D832CD1C31900394294 /* AccessCodeView.swift */,
 				B3B63D852CD2DF1300394294 /* LoadingView.swift */,
 				F4FBF7FC2CD1400700B75685 /* QuizView.swift */,
+				B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				F49690C72CD091D000033F90 /* UserManager.swift in Sources */,
 				F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */,
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
+				B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
 				B37412682CD3DFAD00717C18 /* TabButton.swift in Sources */,
@@ -419,13 +423,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AppAlote/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = P5DLJJKL65;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppAlote/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR Code";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -450,13 +456,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AppAlote/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = P5DLJJKL65;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppAlote/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR Code";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

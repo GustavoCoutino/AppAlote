@@ -6,10 +6,36 @@
 //
 
 import SwiftUI
+import VisionKit
 
 struct CodeView: View {
+    @State var isShowingScanner = true
+    @State private var scannedText = ""
+    @EnvironmentObject var userManager: UserManager
+
     var body: some View {
-        Text("QR Code View")
+        VStack {
+            if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
+                ZStack(alignment: .bottom) {
+                    DataScannerRepresentable(
+                        shouldStartScanning: $isShowingScanner,
+                        scannedText: $scannedText,
+                        dataToScanFor: [.barcode(symbologies: [.qr])],
+                        userManager: userManager
+                    )
+                    
+                    Text(scannedText)
+                        .padding()
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                }
+            } else if !DataScannerViewController.isSupported {
+                Text("It looks like this device doesn't support the DataScannerViewController")
+            } else {
+                Text("It appears your camera may not be available")
+            }
+        }
+        .ignoresSafeArea()
     }
 }
 
