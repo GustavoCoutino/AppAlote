@@ -129,9 +129,7 @@ struct HomeView: View {
             }
             .onAppear{
                 loadSortedZones()
-                Task{
-                    name = await userManager.fetchUsername()
-                }
+                name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
         }
         }
     }

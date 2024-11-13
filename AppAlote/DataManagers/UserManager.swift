@@ -19,7 +19,7 @@ class UserManager: ObservableObject {
     private let defaults = UserDefaults.standard
     
     init() {
-        //resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
+        resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
         }
@@ -112,18 +112,43 @@ class UserManager: ObservableObject {
             if let httpResponse = response as? HTTPURLResponse {
                 print("HTTP Status Code: \(httpResponse)")
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
-                    if let userID = json["id_usuario"] as? String {
-                        self.userID = userID
-                        defaults.set(userID, forKey: "userID")
-                        isAuthenticated = true
-                    } else {
-                        if let detail = json["correo"] as? [String] {
-                             errorMessage = detail[0]
-                         }
-                        if (errorMessage == "usuario with this correo already exists."){
-                            errorMessage = "Usuario con este correo ya existe"
-                        }
+                    if let userID = json["id_usuario"] as? String,
+                    let nombre = json["nombre"] as? String,
+                    let apellido = json["apellido"] as? String,
+                    let correo = json["correo"] as? String,
+                    let fechaNacimiento = json["fecha_nacimiento"] as? String {
+                                        
+                    let defaults = UserDefaults.standard
+                    defaults.set(userID, forKey: "userID")
+                    defaults.set(nombre, forKey: "nombre")
+                    defaults.set(apellido, forKey: "apellido")
+                    defaults.set(correo, forKey: "correo")
+                    defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
+                                        
+                    if let fotoPerfil = json["foto_perfil"] as? String {
+                        defaults.set(fotoPerfil, forKey: "fotoPerfil")
                     }
+                    if let rol = json["rol"] as? String {
+                        defaults.set(rol, forKey: "rol")
+                    }
+                    if let idioma = json["idioma"] as? String {
+                        defaults.set(idioma, forKey: "idioma")
+                    }
+                    if let tema = json["tema"] as? String {
+                        defaults.set(tema, forKey: "tema")
+                    }
+                                        
+                    isAuthenticated = true
+                    print("User registered and data stored in UserDefaults.")
+                                        
+                } else {
+                    if let detail = json["correo"] as? [String] {
+                        errorMessage = detail[0]
+                    }
+                    if errorMessage == "usuario with this correo already exists." {
+                        errorMessage = "Usuario con este correo ya existe"
+                    }
+                }
                 } else {
                     errorMessage = "Error en la respuesta del servidor."
                 }
@@ -164,11 +189,35 @@ class UserManager: ObservableObject {
                 print("HTTP Status Code: \(httpResponse.statusCode)")
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let detail = json["detail"] as? String {
-                        if let userID = json["id_usuario"] as? String {
-                            self.userID = userID
-                            defaults.set(userID, forKey: "userID")
-                            isAuthenticated = true
-                            print("User ID:", self.userID, "Authenticated:", isAuthenticated)
+                    if detail == "Autenticación exitosa.",
+                       let userID = json["id_usuario"] as? String,
+                       let nombre = json["nombre"] as? String,
+                       let apellido = json["apellido"] as? String,
+                       let correo = json["correo"] as? String,
+                       let fechaNacimiento = json["fecha_nacimiento"] as? String,
+                       let fechaRegistro = json["fecha_registro"] as? String {
+                       let defaults = UserDefaults.standard
+                       defaults.set(userID, forKey: "userID")
+                       defaults.set(nombre, forKey: "nombre")
+                       defaults.set(apellido, forKey: "apellido")
+                       defaults.set(correo, forKey: "correo")
+                       defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
+                       defaults.set(fechaRegistro, forKey: "fechaRegistro")
+                            if let fotoPerfil = json["foto_perfil"] as? String {
+                                defaults.set(fotoPerfil, forKey: "fotoPerfil")
+                            }
+                            if let rol = json["rol"] as? String {
+                                defaults.set(rol, forKey: "rol")
+                            }
+                            if let idioma = json["idioma"] as? String {
+                                defaults.set(idioma, forKey: "idioma")
+                            }
+                            if let tema = json["tema"] as? String {
+                                defaults.set(tema, forKey: "tema")
+                            }
+                                        
+                        isAuthenticated = true
+                                        
                         } else {
                             errorMessage = detail
                         }
@@ -280,25 +329,6 @@ class UserManager: ObservableObject {
             errorMessage = "Hubo un error al obtener los resultados del quiz: \(error.localizedDescription)"
         }
         return []
-    }
-    
-    func fetchUsername() async -> String {
-        let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
-                    if let name = json["nombre"] as? String{
-                        return name
-                    }
-                }
-            }
-        } catch {
-            print("Error in the request: \(error.localizedDescription)")
-        }
-        return ""
     }
     
     func setQuizCompleted() {
