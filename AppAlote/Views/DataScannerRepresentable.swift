@@ -21,7 +21,9 @@ struct DataScannerRepresentable: UIViewControllerRepresentable {
            self.parent = parent
        }
                
-        func dataScanner(_ dataScanner: DataScannerViewController, didTapOn item: RecognizedItem) {
+        func dataScanner(_ dataScanner: DataScannerViewController, didAdd items: [RecognizedItem], allItems: [RecognizedItem]) {
+            guard let item = items.first else { return }
+            
             switch item {
             case .text(let text):
                 parent.scannedText = text.transcript
@@ -31,6 +33,8 @@ struct DataScannerRepresentable: UIViewControllerRepresentable {
                     if let url = URL(string: urlString) {
                         parent.userManager.handleURL(url)
                     }
+                } else {
+                    parent.scannedText = "Unable to decode the scanned code"
                 }
             default:
                 print("unexpected item")
