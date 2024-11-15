@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MapView: View {
     var body: some View {
-        Map(focused: "Planta baja")
+        Map(floor: 0)
     }
 }
 
