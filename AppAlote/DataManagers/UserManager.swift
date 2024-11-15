@@ -41,7 +41,6 @@ class UserManager: ObservableObject {
     
     private func loadStoredSession() async {
         userID = defaults.string(forKey: "userID") ?? ""
-        print(userID)
         isAuthenticated = !userID.isEmpty
         
         
@@ -112,14 +111,14 @@ class UserManager: ObservableObject {
             if let httpResponse = response as? HTTPURLResponse {
                 print("HTTP Status Code: \(httpResponse)")
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
-                    if let userID = json["id_usuario"] as? String,
+                    if let userId = json["id_usuario"] as? String,
                     let nombre = json["nombre"] as? String,
                     let apellido = json["apellido"] as? String,
                     let correo = json["correo"] as? String,
                     let fechaNacimiento = json["fecha_nacimiento"] as? String {
                                         
                     let defaults = UserDefaults.standard
-                    defaults.set(userID, forKey: "userID")
+                    defaults.set(userId, forKey: "userID")
                     defaults.set(nombre, forKey: "nombre")
                     defaults.set(apellido, forKey: "apellido")
                     defaults.set(correo, forKey: "correo")
@@ -137,9 +136,8 @@ class UserManager: ObservableObject {
                     if let tema = json["tema"] as? String {
                         defaults.set(tema, forKey: "tema")
                     }
-                                        
+                    userID = defaults.string(forKey: "userID") ?? ""
                     isAuthenticated = true
-                    print("User registered and data stored in UserDefaults.")
                                         
                 } else {
                     if let detail = json["correo"] as? [String] {
@@ -190,14 +188,14 @@ class UserManager: ObservableObject {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let detail = json["detail"] as? String {
                     if detail == "Autenticación exitosa.",
-                       let userID = json["id_usuario"] as? String,
+                       let userId = json["id_usuario"] as? String,
                        let nombre = json["nombre"] as? String,
                        let apellido = json["apellido"] as? String,
                        let correo = json["correo"] as? String,
                        let fechaNacimiento = json["fecha_nacimiento"] as? String,
                        let fechaRegistro = json["fecha_registro"] as? String {
                        let defaults = UserDefaults.standard
-                       defaults.set(userID, forKey: "userID")
+                       defaults.set(userId, forKey: "userID")
                        defaults.set(nombre, forKey: "nombre")
                        defaults.set(apellido, forKey: "apellido")
                        defaults.set(correo, forKey: "correo")
@@ -215,8 +213,9 @@ class UserManager: ObservableObject {
                             if let tema = json["tema"] as? String {
                                 defaults.set(tema, forKey: "tema")
                             }
-                                        
+                        userID = defaults.string(forKey: "userID") ?? ""
                         isAuthenticated = true
+                        await checkQuizCompletion()
                                         
                         } else {
                             errorMessage = detail
@@ -331,7 +330,19 @@ class UserManager: ObservableObject {
         return []
     }
     
-    func setQuizCompleted() {
+    func checkQuizCompletion() async {
+        if !hasAnsweredQuiz {
+            let userScores = await fetchUserQuizScore()
+            if !userScores.isEmpty {
+                setQuizCompleted(userScores: userScores)
+            }
+        }
+    }
+
+    func setQuizCompleted(userScores: [QuizScore]) {
+        let sortedScores = userScores.sorted { $0.puntaje_quiz > $1.puntaje_quiz }
+        let sortedZones = sortedScores.map { $0.zona }
+        defaults.set(sortedZones, forKey: "sortedZones")
         hasAnsweredQuiz = true
         defaults.set(true, forKey: "hasAnsweredQuiz")
     }
