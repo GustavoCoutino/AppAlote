@@ -11,6 +11,7 @@ struct QuizView: View {
     @State private var currentQuestionIndex = 0
     @State private var selectedAnswer: Int? = nil
     @State private var navigateToHome = false
+    @State private var showQuizCompletionModal = false
     @StateObject private var routeCalculator : RouteCalculator
     init(userManager: UserManager) {
         _routeCalculator = StateObject(wrappedValue: RouteCalculator(userManager: userManager))
@@ -59,7 +60,9 @@ struct QuizView: View {
                 
                 Spacer()
             }
-            .padding()
+            .padding().fullScreenCover(isPresented: $showQuizCompletionModal) {
+                QuizCompletionModal(isPresented: $showQuizCompletionModal)
+            }
     }
 
     private func getColor(for index: Int) -> Color {
@@ -81,9 +84,16 @@ struct QuizView: View {
                 selectedAnswer = nil
             }
         } else {
+            withAnimation {
+                showQuizCompletionModal = true
+            }
             await routeCalculator.submitQuizResults()
             let scores = await userManager.fetchUserQuizScore()
             userManager.setQuizCompleted(userScores: scores)
+                    
+            withAnimation {
+                showQuizCompletionModal = false
+            }
             
         }
     }

@@ -328,7 +328,7 @@ class UserManager: ObservableObject {
             errorMessage = "Hubo un error al obtener los resultados del quiz: \(error.localizedDescription)"
         }
         return []
-    }
+    } 
     
     func checkQuizCompletion() async {
         if !hasAnsweredQuiz {

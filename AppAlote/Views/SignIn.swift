@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SignIn: View {
     @EnvironmentObject var userManager: UserManager
+    @State private var isLoading = false
     @State private var nombre: String = ""
     @State private var correo: String = ""
     @State private var codigo: String = ""
@@ -107,9 +108,11 @@ struct SignIn: View {
                         
                         HStack {
                             Button(action: {
+                                isLoading = true
                                 if isValidEmail(correo){
                                     Task {
                                         await userManager.signIn(name: nombre, date: fechaNacimiento, email: correo, password: codigo)
+                                        isLoading = false
                                         if userManager.errorMessage != nil {
                                             showAlert = true
                                             alertMessage = userManager.errorMessage ?? "Error desconocido"
@@ -121,14 +124,12 @@ struct SignIn: View {
                                 }
                                 
                             }) {
-                                Text("Crear Cuenta")
-                                    .foregroundColor(.black)
-                                    .frame(width: 150)
-                                    .padding()
-                                    .background(Color(red: 210/255, green: 223/255, blue: 73/255))
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
-                            }
+                                if isLoading {
+                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white)).frame(width: 150, height: 44).background(Color(red: 210/255, green: 223/255, blue: 73/255)).cornerRadius(8).shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                } else {
+                                    Text("Crear Cuenta").foregroundColor(.black).frame(width: 150).padding().background(Color(red: 210/255, green: 223/255, blue: 73/255)).cornerRadius(8).shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                }
+                            }.disabled(isLoading)
                     
                         }
                         .padding(.top, 20)

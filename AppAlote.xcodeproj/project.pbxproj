@@ -29,6 +29,7 @@
 		F49690C42CD091AF00033F90 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C32CD091AF00033F90 /* Triangle.swift */; };
 		F49690C72CD091D000033F90 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C62CD091D000033F90 /* UserManager.swift */; };
 		F49690C92CD0979200033F90 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C82CD0979200033F90 /* Navbar.swift */; };
+		F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */; };
 		F4DF14F32CC19F530058008F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF14F22CC19F530058008F /* Map.swift */; };
 		F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */; };
 		F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F952CBF299900A1BB94 /* ContentView.swift */; };
@@ -67,6 +68,7 @@
 		F49690C32CD091AF00033F90 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		F49690C62CD091D000033F90 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		F49690C82CD0979200033F90 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
+		F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCompletionModal.swift; sourceTree = "<group>"; };
 		F4DF14F22CC19F530058008F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F4E25F902CBF299900A1BB94 /* AppAlote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppAlote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAloteApp.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		F49690C22CD0919F00033F90 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */,
 				F4DF14F22CC19F530058008F /* Map.swift */,
 				F4FBF7F82CD13FB500B75685 /* ProgressBar.swift */,
 				F4FBF7FA2CD13FC700B75685 /* QuestionTitle.swift */,
@@ -295,6 +298,7 @@
 				B3B63D842CD1C31900394294 /* AccessCodeView.swift in Sources */,
 				F4EDB3D32CD845810059D302 /* Zona.swift in Sources */,
 				B3B63D802CD1C0B100394294 /* CodeView.swift in Sources */,
+				F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */,
 				B3BE803E2CC963A1001BE5BE /* HomeView.swift in Sources */,
 				B3689A8D2CE1A27400D585EB /* ActivityView.swift in Sources */,
 				B3B63D722CD0BA2200394294 /* ZoneView.swift in Sources */,
