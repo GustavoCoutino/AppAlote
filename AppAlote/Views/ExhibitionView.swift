@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ExhibitionView: View {
     let name : String
-    let zone : String
-    let floor : Int
+    let zone = "Pertenezco"
+    let floor = 1
     let image = "image"
     let availability = true
     let message = "El suelo esta formado por diferentes capas"
@@ -76,5 +76,5 @@ struct ExhibitionView: View {
 }
 
 #Preview {
-    ExhibitionView(name: "ESTRATOS", zone: "PERTENEZCO", floor: 2)
+    ExhibitionView(name: "ESTRATOS")
 }

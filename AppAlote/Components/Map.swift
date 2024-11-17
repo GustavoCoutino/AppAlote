@@ -238,7 +238,14 @@ struct Map: View {
                         .edgesIgnoringSafeArea(.all)
                         .navigationDestination(isPresented: $model.showView){
                             if let name = model.tappedNodeName {
-                                Text(name)
+                                if let type = mapping[name] {
+                                    if type == 0{
+                                        ZoneView(name: name)
+                                    } else {
+                                        ExhibitionView(name: name)
+                                        
+                                    }
+                                }
                             }
                         }
                 } else {
@@ -246,11 +253,17 @@ struct Map: View {
                         .edgesIgnoringSafeArea(.all)
                         .navigationDestination(isPresented: $model.showView){
                             if let name = model.tappedNodeName {
-                                Text(name)
+                                if let type = mapping[name] {
+                                    if type == 0{
+                                        ZoneView(name: name)
+                                    } else {
+                                        ExhibitionView(name: name)
+                                        
+                                    }
+                                }
                             }
                         }
                 }
-                
                 VStack {
                     HStack {
                         Spacer()
