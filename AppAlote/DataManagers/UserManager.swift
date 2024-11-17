@@ -292,7 +292,7 @@ class UserManager: ObservableObject {
         }
         
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (_, response) = try await URLSession.shared.data(for: request)
             
             if let httpResponse = response as? HTTPURLResponse {
                 
@@ -346,6 +346,54 @@ class UserManager: ObservableObject {
         hasAnsweredQuiz = true
         defaults.set(true, forKey: "hasAnsweredQuiz")
     }
+    
+    func fetchExhibitionData(exhibition: String) async -> Exhibition? {
+        if exhibition.isEmpty{
+            errorMessage = "Se requiere el nombre de la exhibición"
+            return nil
+        }
+        let url = URL(string: "https://papalote-backend.onrender.com/api/exhibicion/\(exhibition)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let exhibition = try JSONDecoder().decode(Exhibition.self, from: data)
+                return exhibition
+            } else {
+                print("Failed to fetch exhibition. Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener la información básica de la exhibición: \(error.localizedDescription)"
+        }
+        return nil
+    }
+    
+    func fetchZoneData(zone: String) async -> Zone? {
+        if zone.isEmpty{
+            errorMessage = "Se requiere el nombre de la zona"
+            return nil
+        }
+        let url = URL(string: "https://papalote-backend.onrender.com/api/zona/\(zone)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let zone = try JSONDecoder().decode(Zone.self, from: data)
+                return zone
+            } else {
+                print("Failed to fetch zone. Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener la información básica de la zona: \(error.localizedDescription)"
+        }
+        return nil
+    }
+    
+    
     
     func signOut() {
         userID = ""

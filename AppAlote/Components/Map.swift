@@ -15,6 +15,8 @@ struct MapSceneView: UIViewRepresentable {
     let maxZoom: Float = 3000
     @ObservedObject var model: MapViewModel
     let floor: Int
+    @EnvironmentObject var userManager: UserManager
+
 
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
@@ -225,8 +227,9 @@ struct Map: View {
         "MINERALES": 1,
         "ESTRATOS": 1,
         "NATURALEZA": 1,
-        "AGUA": 1
-        
+        "AGUA": 1,
+        "TIENDA": 0,
+        "EXPOSICIONES TEMPORALES": 0
     ]
     @StateObject var model = MapViewModel()
     @State var floor : Int
@@ -296,8 +299,9 @@ struct Map: View {
             }
         }
     }
+    
 }
 
 #Preview {
-    Map(floor: 1)
+    Map(floor: 1).environmentObject(UserManager())
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B32403002CE7B8020067DE5D /* Dino.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B32402FF2CE7B8020067DE5D /* Dino.usdz */; };
+		B32403022CEA2C190067DE5D /* Exhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403012CEA2C110067DE5D /* Exhibition.swift */; };
+		B32403042CEA36BA0067DE5D /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403032CEA36B60067DE5D /* Zone.swift */; };
 		B3689A8D2CE1A27400D585EB /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8C2CE1A27400D585EB /* ActivityView.swift */; };
 		B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */; };
 		B374125E2CD3DE4D00717C18 /* InsigniasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125D2CD3DE4D00717C18 /* InsigniasView.swift */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		B32402FF2CE7B8020067DE5D /* Dino.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dino.usdz; sourceTree = "<group>"; };
+		B32403012CEA2C110067DE5D /* Exhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exhibition.swift; sourceTree = "<group>"; };
+		B32403032CEA36B60067DE5D /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		B3689A872CE18A9700D585EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3689A8C2CE1A27400D585EB /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerRepresentable.swift; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 		F4FBF7F32CD13F0F00B75685 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B32403032CEA36B60067DE5D /* Zone.swift */,
+				B32403012CEA2C110067DE5D /* Exhibition.swift */,
 				F4FBF7F42CD13F1E00B75685 /* QuizData.swift */,
 				F4EDB3D22CD845810059D302 /* Zona.swift */,
 				F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */,
@@ -276,8 +282,10 @@
 				F4FBF7F52CD13F1E00B75685 /* QuizData.swift in Sources */,
 				B3B63D822CD1C12100394294 /* SocialView.swift in Sources */,
 				F4FBF7FB2CD13FC700B75685 /* QuestionTitle.swift in Sources */,
+				B32403042CEA36BA0067DE5D /* Zone.swift in Sources */,
 				F4EDB3D52CD868320059D302 /* QuizScore.swift in Sources */,
 				B3B63D862CD2DF1300394294 /* LoadingView.swift in Sources */,
+				B32403022CEA2C190067DE5D /* Exhibition.swift in Sources */,
 				F49690C72CD091D000033F90 /* UserManager.swift in Sources */,
 				F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */,
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
