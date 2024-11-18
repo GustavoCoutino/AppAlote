@@ -9,18 +9,16 @@
 import SwiftUI
 
 struct PageView: View {
-    var title: String
-    var description: String
-    var imageName: String
+    var page : Page
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(title)
+            Text(page.titulo_es)
                 .font(.headline)
             
-            Text(description)
+            Text(page.contenido_es)
                 .font(.body)
             
-            Image(imageName)
+            Image(page.img)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 200)
@@ -34,6 +32,8 @@ struct PageView: View {
 }
 
 #Preview {
-    PageView(title: "Ejemplo", description: "Descripción de ejemplo", imageName: "soil_layers")
+    PageView(
+        page: Page(img: "soil_layers", titulo_es: "Ejemplo", titulo_en: "Descripción de ejemplo", contenido_es: "Descripción de ejemplo", contenido_en: "Descripción de ejemplo", exhibicion: 1)
+    )
 }
 
