@@ -8,9 +8,10 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var userManager: UserManager
-    @State var showProfile = false
     @State var name : String = ""
     @State private var sortedZones: [Int] = []
+    @State var isZoneSelected: Bool = false
+    @State var selectedZone: String?
     
     var body: some View {
         NavigationStack {
@@ -26,6 +27,7 @@ struct HomeView: View {
                             Text(name)
                                 .font(.headline)
                                 .padding(.leading,10)
+                                
                             Spacer()
                         }
                         .frame(height: 100)
@@ -36,6 +38,9 @@ struct HomeView: View {
                         )
                         .padding(.top, 40)
                         .padding(.horizontal, 10)
+                        .onTapGesture {
+                            userManager.selectedView = "Profile"
+                        }
                         
                        
                         Image("ZONAS PARA TI")
@@ -48,10 +53,15 @@ struct HomeView: View {
                                 ForEach(sortedZones, id: \.self) { zona in
                                     let (imageName, label, color) = getZonaDetails(for: zona)
                                     ZonaCardView(imageName: imageName, label: label, labelColor: color)
+                                        .onTapGesture {
+                                            isZoneSelected = true
+                                            selectedZone = label.uppercased()
+                                        }
                                 }
                             }
                             .padding(.horizontal)
                         }
+                        /*
                         Image("Exhibiciones")
                             .resizable()
                             .frame(width: 250, height: 200)
@@ -71,6 +81,7 @@ struct HomeView: View {
                         .frame(width: 400,height: 260)
                         .cornerRadius(12)
                         .shadow(radius: 4)
+                         */
                     }
                     .padding(.bottom, 150)
                 }
@@ -92,7 +103,7 @@ struct HomeView: View {
                             
                         }
                         
-                            
+            
                         Spacer()
                         Spacer()
                         Image("Logo")
@@ -101,9 +112,9 @@ struct HomeView: View {
                         Spacer()
                         
                         Button{
-                            showProfile = true
+                            userManager.signOut()
                         } label: {
-                            Image("menu 1")
+                            Image("signout")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)
@@ -124,13 +135,16 @@ struct HomeView: View {
                 .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
                 .ignoresSafeArea()
             }
-            .navigationDestination(isPresented: $showProfile) {
-                ProfileView(name: name)
-            }
             .onAppear{
                 loadSortedZones()
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
-        }
+            }
+            .navigationDestination(isPresented: $isZoneSelected){
+                if let name = selectedZone {
+                    ZoneView(name: name)
+                }
+            }
+
         }
     }
     private func loadSortedZones() {

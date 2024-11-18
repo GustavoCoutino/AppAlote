@@ -10,6 +10,11 @@
 		B32403002CE7B8020067DE5D /* Dino.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B32402FF2CE7B8020067DE5D /* Dino.usdz */; };
 		B32403022CEA2C190067DE5D /* Exhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403012CEA2C110067DE5D /* Exhibition.swift */; };
 		B32403042CEA36BA0067DE5D /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403032CEA36B60067DE5D /* Zone.swift */; };
+		B324031D2CEAC7EF0067DE5D /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B324031C2CEAC7EC0067DE5D /* PageView.swift */; };
+		B324031F2CEAC85A0067DE5D /* NavigationButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B324031E2CEAC8520067DE5D /* NavigationButtonStyle.swift */; };
+		B32403212CEAC88F0067DE5D /* FinalPagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403202CEAC8870067DE5D /* FinalPagePreview.swift */; };
+		B32403242CEAC9BF0067DE5D /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403232CEAC9B80067DE5D /* Page.swift */; };
+		B32403262CEAD3040067DE5D /* PerfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403252CEAD3000067DE5D /* PerfilView.swift */; };
 		B3689A8D2CE1A27400D585EB /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8C2CE1A27400D585EB /* ActivityView.swift */; };
 		B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */; };
 		B374125E2CD3DE4D00717C18 /* InsigniasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125D2CD3DE4D00717C18 /* InsigniasView.swift */; };
@@ -50,6 +55,11 @@
 		B32402FF2CE7B8020067DE5D /* Dino.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dino.usdz; sourceTree = "<group>"; };
 		B32403012CEA2C110067DE5D /* Exhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exhibition.swift; sourceTree = "<group>"; };
 		B32403032CEA36B60067DE5D /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
+		B324031C2CEAC7EC0067DE5D /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		B324031E2CEAC8520067DE5D /* NavigationButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonStyle.swift; sourceTree = "<group>"; };
+		B32403202CEAC8870067DE5D /* FinalPagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPagePreview.swift; sourceTree = "<group>"; };
+		B32403232CEAC9B80067DE5D /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		B32403252CEAD3000067DE5D /* PerfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfilView.swift; sourceTree = "<group>"; };
 		B3689A872CE18A9700D585EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3689A8C2CE1A27400D585EB /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerRepresentable.swift; sourceTree = "<group>"; };
@@ -127,6 +137,10 @@
 		F49690CA2CD09D0300033F90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B32403252CEAD3000067DE5D /* PerfilView.swift */,
+				B32403202CEAC8870067DE5D /* FinalPagePreview.swift */,
+				B324031E2CEAC8520067DE5D /* NavigationButtonStyle.swift */,
+				B324031C2CEAC7EC0067DE5D /* PageView.swift */,
 				F4895CE12CC7F4B5008DDAF2 /* LogIn.swift */,
 				B3B63D7F2CD1C0B100394294 /* CodeView.swift */,
 				B3B63D6F2CD0B6EB00394294 /* ExhibitionView.swift */,
@@ -195,6 +209,7 @@
 		F4FBF7F32CD13F0F00B75685 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B32403232CEAC9B80067DE5D /* Page.swift */,
 				B32403032CEA36B60067DE5D /* Zone.swift */,
 				B32403012CEA2C110067DE5D /* Exhibition.swift */,
 				F4FBF7F42CD13F1E00B75685 /* QuizData.swift */,
@@ -288,13 +303,16 @@
 				B32403022CEA2C190067DE5D /* Exhibition.swift in Sources */,
 				F49690C72CD091D000033F90 /* UserManager.swift in Sources */,
 				F4FBF7F72CD13F2D00B75685 /* RouteCalculator.swift in Sources */,
+				B324031F2CEAC85A0067DE5D /* NavigationButtonStyle.swift in Sources */,
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
 				B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
+				B32403242CEAC9BF0067DE5D /* Page.swift in Sources */,
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
 				B37412682CD3DFAD00717C18 /* TabButton.swift in Sources */,
 				F4FBF7F92CD13FB500B75685 /* ProgressBar.swift in Sources */,
 				B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */,
+				B32403212CEAC88F0067DE5D /* FinalPagePreview.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
 				B37412602CD3DE8300717C18 /* LogrosView.swift in Sources */,
 				F4895CE42CC815D0008DDAF2 /* SignIn.swift in Sources */,
@@ -303,9 +321,11 @@
 				B37412642CD3DEFF00717C18 /* TarjetasView.swift in Sources */,
 				F4FBF7FD2CD1400700B75685 /* QuizView.swift in Sources */,
 				F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */,
+				B324031D2CEAC7EF0067DE5D /* PageView.swift in Sources */,
 				B3B63D842CD1C31900394294 /* AccessCodeView.swift in Sources */,
 				F4EDB3D32CD845810059D302 /* Zona.swift in Sources */,
 				B3B63D802CD1C0B100394294 /* CodeView.swift in Sources */,
+				B32403262CEAD3040067DE5D /* PerfilView.swift in Sources */,
 				F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */,
 				B3BE803E2CC963A1001BE5BE /* HomeView.swift in Sources */,
 				B3689A8D2CE1A27400D585EB /* ActivityView.swift in Sources */,

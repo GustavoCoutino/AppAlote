@@ -15,11 +15,15 @@ class UserManager: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = true
     @Published var currentDeepLink: String?
+    @Published var selectedLanguage: String = "Español"
+    @Published var isDarkMode: Bool = false
+    @Published var selectedView: String = "Home"
+    @Published var selectedAuthView : String = "LogIn"
 
     private let defaults = UserDefaults.standard
     
     init() {
-        resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
+        // resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
         }
@@ -393,14 +397,43 @@ class UserManager: ObservableObject {
         return nil
     }
     
+    func fetchExhibitionActivity(exhibition: String) async -> [Page] {
+        if exhibition.isEmpty{
+            errorMessage = "Se requiere el nombre de la exhibición"
+            return []
+        }
+        let url = URL(string: "https://papalote-backend.onrender.com/api/paginas/\(exhibition)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let activity = try JSONDecoder().decode([Page].self, from: data)
+                return activity
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener los resultados del quiz: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
     
     
     func signOut() {
+        selectedAuthView = "LogIn"
         userID = ""
         isAuthenticated = false
         hasRecentAccessCode = false
-        defaults.removeObject(forKey: "userID")
-        defaults.removeObject(forKey: "accessCode")
+        hasAnsweredQuiz = false
+        resetAllDefaults()
+        selectedView = "Home"
+
     }
     
     func clearError() {

@@ -1,19 +1,13 @@
-//
-//  ProfileView.swift
-//  AppAlote
-//
-//  Created by Miguel Mendoza on 31/10/24.
-//
 
 import SwiftUI
 
 struct ProfileView: View {
-    enum Tab {
-            case logros, insignias, tarjetas
+        enum Tab {
+            case logros, insignias, tarjetas, perfil
         }
-        
+        @EnvironmentObject var userManager: UserManager
         @State var name : String
-        @State private var selectedTab: Tab = .logros
+        @State private var selectedTab: Tab = .perfil
         @State private var selectedCardImage: String = "background1"
         
         var body: some View {
@@ -36,25 +30,29 @@ struct ProfileView: View {
                                     .fontWeight(.bold)
                             }
                         )
-                    
-                    HStack {
-                        TabButton(title: "Logros", isSelected: selectedTab == .logros)
-                            .onTapGesture {
-                                selectedTab = .logros
-                            }
-                        TabButton(title: "Insignias", isSelected: selectedTab == .insignias)
-                            .onTapGesture {
-                                selectedTab = .insignias
-                            }
-                        TabButton(title: "Tarjetas", isSelected: selectedTab == .tarjetas)
-                            .onTapGesture {
-                                selectedTab = .tarjetas
-                            }
-                    }
-                    .padding(.top)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            TabButton(title: "Perfil", isSelected: selectedTab == .perfil)
+                                .onTapGesture {
+                                    selectedTab = .perfil
+                                }
+                            TabButton(title: "Logros", isSelected: selectedTab == .logros)
+                                .onTapGesture {
+                                    selectedTab = .logros
+                                }
+                            TabButton(title: "Insignias", isSelected: selectedTab == .insignias)
+                                .onTapGesture {
+                                    selectedTab = .insignias
+                                }
+                            TabButton(title: "Tarjetas", isSelected: selectedTab == .tarjetas)
+                                .onTapGesture {
+                                    selectedTab = .tarjetas
+                                }
+                            
+                        }
+                        .padding(.top)}
                     Divider()
                 }
-                .padding()
                 
                 if selectedTab == .logros {
                     LogrosView()
@@ -62,12 +60,16 @@ struct ProfileView: View {
                     InsigniasView()
                 } else if selectedTab == .tarjetas {
                     TarjetasView(selectedCardImage: $selectedCardImage)
+                } else if selectedTab == .perfil {
+                    PerfilView()
                 }
             }
-            .background(Color(.systemGray6).edgesIgnoringSafeArea(.all))
+            .background(userManager.isDarkMode ? Color.black : Color.white)
         }
+        
 }
 
 #Preview {
     ProfileView(name: "Reyli")
+        .environmentObject(UserManager())
 }

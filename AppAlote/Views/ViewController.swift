@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ViewController: View {
     @EnvironmentObject var userManager: UserManager
-    @State var selectedView: String = "Home"
-    @State var selectedAuthView : String = "LogIn"
     
     var body: some View {
         NavigationStack{
@@ -24,7 +22,7 @@ struct ViewController: View {
                         }
                         else if userManager.hasAnsweredQuiz {
                             ZStack {
-                                switch selectedView {
+                                switch userManager.selectedView {
                                     case "Home":
                                         HomeView()
                                     case "Map":
@@ -38,7 +36,7 @@ struct ViewController: View {
                                     default:
                                         HomeView()
                                 }
-                                Navbar(selectedView: $selectedView)
+                                Navbar(selectedView: $userManager.selectedView)
                             }
                         } else {
                             QuizView(userManager: userManager).environmentObject(userManager)
@@ -49,13 +47,13 @@ struct ViewController: View {
                     }
                     
                 } else {
-                    switch selectedAuthView {
+                    switch userManager.selectedAuthView {
                         case "LogIn":
-                            LogIn(selectedView: $selectedAuthView)
+                        LogIn(selectedView: $userManager.selectedAuthView)
                         case "SignIn":
-                            SignIn(selectedView: $selectedAuthView)
+                        SignIn(selectedView: $userManager.selectedAuthView)
                         default:
-                            LogIn(selectedView: $selectedAuthView)
+                        LogIn(selectedView: $userManager.selectedAuthView)
                     }
                 }
 
