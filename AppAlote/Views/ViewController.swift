@@ -32,7 +32,7 @@ struct ViewController: View {
                                     case "Social":
                                         SocialView()
                                     case "Profile":
-                                        ProfileView(name: "Reyli")
+                                        ProfileView()
                                     default:
                                         HomeView()
                                 }

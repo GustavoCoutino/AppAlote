@@ -93,9 +93,7 @@ class UserManager: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
-        
-        print(dateString)
-        
+                
         let parameters: [String: String] = [
             "nombre": name,
             "apellido": name,
@@ -113,7 +111,6 @@ class UserManager: ObservableObject {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Status Code: \(httpResponse)")
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
                     if let userId = json["id_usuario"] as? String,
                     let nombre = json["nombre"] as? String,
@@ -188,7 +185,6 @@ class UserManager: ObservableObject {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse {
-                print("HTTP Status Code: \(httpResponse.statusCode)")
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let detail = json["detail"] as? String {
                     if detail == "Autenticación exitosa.",
@@ -254,7 +250,6 @@ class UserManager: ObservableObject {
                    let currentCode = firstObject["codigo_acceso"] as? String {
                     
                     if currentCode == code {
-                        print("Access Code: \(code), Saved Code: \(currentCode)")
                         defaults.set(code, forKey: "accessCode")
                         hasRecentAccessCode = true
                         return
@@ -421,6 +416,42 @@ class UserManager: ObservableObject {
             errorMessage = "Hubo un error al obtener los resultados del quiz: \(error.localizedDescription)"
         }
         return []
+    }
+    
+    func modifyProfile(nombre: String, apellido: String, fecha: Date, password: String, correo: String) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: fecha)
+        
+        let parameters: [String: String] = [
+            "nombre": nombre,
+            "apellido": apellido,
+            "fecha_nacimiento": dateString,
+            "password_hash": password,
+            "correo": correo
+        ]
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters)
+            
+            request.httpBody = jsonData
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                print("Perfil actualizado existosamente")
+            } else {
+                print("Error en la actualización del perfil:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al modificar el perfil: \(error.localizedDescription)"
+        }
     }
     
     

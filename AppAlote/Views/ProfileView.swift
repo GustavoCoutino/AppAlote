@@ -6,7 +6,7 @@ struct ProfileView: View {
             case logros, insignias, tarjetas, perfil
         }
         @EnvironmentObject var userManager: UserManager
-        @State var name : String
+        @State var name : String = ""
         @State private var selectedTab: Tab = .perfil
         @State private var selectedCardImage: String = "background1"
         
@@ -64,12 +64,15 @@ struct ProfileView: View {
                     PerfilView()
                 }
             }
-            .background(userManager.isDarkMode ? Color.black : Color.white)
+            .onAppear {
+                name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
+            }
+            .background(Color.white)
         }
         
 }
 
 #Preview {
-    ProfileView(name: "Reyli")
+    ProfileView()
         .environmentObject(UserManager())
 }

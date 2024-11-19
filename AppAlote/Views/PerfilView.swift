@@ -9,14 +9,17 @@ import SwiftUI
 
 struct PerfilView: View {
     @EnvironmentObject var userManager : UserManager
+    @State private var isLoading = false
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
-    @State private var birthDate = ""
+    @State private var birthDate = Date()
     @State private var password = ""
     @State private var goToLogin = false
-    let languages = ["Español", "Inglés"]
-    let themes = ["Claro", "Oscuro"]
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
+ 
 
     var body: some View {
         VStack() {
@@ -78,10 +81,15 @@ struct PerfilView: View {
                 VStack(alignment: .leading) {
                     Text("Fecha de nacimiento")
                         .foregroundColor(.purple)
-                    TextField("Fecha de nacimiento", text: $birthDate)
-                        .padding()
-                        .background(Color.yellow.opacity(0.2))
-                        .cornerRadius(10)
+                    DatePicker(
+                        "Selecciona fecha de nacimiento",
+                        selection: $birthDate,
+                        displayedComponents: .date
+                    )
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+                    .background(Color.yellow.opacity(0.2))
+                    .cornerRadius(10)
                 }
                 
                 // Contraseña
@@ -93,67 +101,61 @@ struct PerfilView: View {
                         .background(Color.yellow.opacity(0.2))
                         .cornerRadius(10)
                 }
-                HStack {
-                                   VStack(alignment: .leading) {
-                                       Text("Idioma")
-                                           .foregroundColor(userManager.isDarkMode ? .white : .purple)
-                                       
-                                       Picker("Seleccione un idioma", selection: $userManager.selectedLanguage) {
-                                           ForEach(languages, id: \.self) { language in
-                                               Text(language).tag(language)
-                                           }
-                                       }
-                                       .pickerStyle(MenuPickerStyle())
-                                       .padding()
-                                       .background(userManager.isDarkMode ? Color.gray.opacity(0.3) : Color.yellow.opacity(0.2))
-                                       .cornerRadius(10)
-                                   }
-                                   
-                                   VStack(alignment: .leading) {
-                                       Text("Tema")
-                                           .foregroundColor(userManager.isDarkMode ? .white : .purple)
-                                       
-                                       Picker("Seleccione un tema", selection: $userManager.isDarkMode) {
-                                           Text("Claro").tag(false)
-                                           Text("Oscuro").tag(true)
-                                       }
-                                       .pickerStyle(MenuPickerStyle())
-                                       .padding()
-                                       .background(userManager.isDarkMode ? Color.gray.opacity(0.3) : Color.yellow.opacity(0.2))
-                                       .cornerRadius(10)
-                                   }
-                               }
-                
                 // Botones
-                HStack(spacing: 20) {
+                HStack(spacing: 20){
                     Button(action: {
-                        // Acción de editar cuenta
+                        if firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty {
+                            alertMessage = "Por favor, complete todos los campos."
+                            showAlert = true
+                        } else {
+                            Task {
+                                isLoading = true
+                                await userManager.modifyProfile(
+                                    nombre: firstName,
+                                    apellido: lastName,
+                                    fecha: birthDate,
+                                    password: password,
+                                    correo: email
+                                )
+                                isLoading = false
+                            }
+                        }
                     }) {
-                        Text("Editar cuenta")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.purple)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    
-                    Button(action: {
-                        goToLogin = true
-                    }) {
-                        Text("Cerrar sesión")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                }
-                .padding(.top, 20)
+                        if isLoading {
+                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white)).frame(width: 150, height: 44).background(Color.purple)
+                        } else {
+                            Text("Editar cuenta")
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.purple)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        }.alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Error"),
+                                message: Text(alertMessage),
+                                dismissButton: .default(Text("OK"), action: {
+                                    userManager.clearError()
+                                })
+                            )
+                        }
+                        
+                        Button(action: {
+                            goToLogin = true
+                        }) {
+                            Text("Cerrar sesión")
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                }.padding(.top, 20)
                 
             }
         }
         .padding()
-        .background(userManager.isDarkMode ? Color.black : Color.white) // Cambia el fondo según el tema
         
         
         .padding()

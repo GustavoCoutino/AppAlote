@@ -9,9 +9,11 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var userManager: UserManager
     @State var name : String = ""
+    @State var profilePicture : String = ""
     @State private var sortedZones: [Int] = []
     @State var isZoneSelected: Bool = false
     @State var selectedZone: String?
+    
     
     var body: some View {
         NavigationStack {
@@ -19,7 +21,7 @@ struct HomeView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            Image("profile_picture")
+                            Image(profilePicture)
                                 .resizable()
                                 .frame(width: 50, height: 50)
                                 .clipShape(Circle())
@@ -138,6 +140,7 @@ struct HomeView: View {
             .onAppear{
                 loadSortedZones()
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
+                profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
             }
             .navigationDestination(isPresented: $isZoneSelected){
                 if let name = selectedZone {
