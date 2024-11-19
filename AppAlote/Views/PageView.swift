@@ -18,10 +18,31 @@ struct PageView: View {
             Text(page.contenido_es)
                 .font(.body)
             
-            Image(page.img)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 200)
+            if let url = URL(string: page.img) {
+                HStack {
+                    Spacer()
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(width: 300, height: 300)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 300, height: 300)
+                        default:
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 300, height: 300)
+                                .foregroundColor(.gray)
+                            
+                        }
+                    }
+                    Spacer()
+                }
+            }
             
             Spacer()
         }

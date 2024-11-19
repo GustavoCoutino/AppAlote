@@ -13,42 +13,63 @@ struct ActivityView: View {
     @State var rating: Int = 0
     @State var feedback: String = ""
     @State var pages : [Page] = []
+    @State var loading : Bool = true
     
     var body: some View {
         VStack {
-            ProgressView(value: Double(currentPage + 1), total: Double(pages.count + 1))
-                .progressViewStyle(LinearProgressViewStyle(tint: .yellow))
-                .scaleEffect(x: 1, y: 3, anchor: .center)
-                .padding()
-            
-            if currentPage == pages.count {
-                FinalPageView(rating: $rating, feedback: $feedback)
+            if loading {
+                LoadingView()
             } else {
-                PageView(page: pages[currentPage])
-            }
-            
-            HStack {
-                if currentPage > 0 {
-                    Button("Retroceder") {
-                        currentPage -= 1
-                    }
-                    .buttonStyle(NavigationButtonStyle())
+                ProgressView(value: Double(currentPage + 1), total: Double(pages.count + 1))
+                    .progressViewStyle(LinearProgressViewStyle(tint: .yellow))
+                    .scaleEffect(x: 1, y: 3, anchor: .center)
+                    .padding()
+                if currentPage == pages.count {
+                    FinalPageView(rating: $rating, feedback: $feedback)
+                } else {
+                    PageView(page: pages[currentPage]).id(currentPage)
                 }
                 
-                Spacer()
-                
-                Button("Siguiente") {
-                    if currentPage < 2 {
-                        if currentPage == pages.count {
-                            userManager.currentDeepLink = nil
+                HStack {
+                    if currentPage == pages.count {
+                        Button("Saltar") {
+                            withAnimation {
+                                userManager.currentDeepLink = nil
+                            }
                         }
-
-                        currentPage += 1
+                        .buttonStyle(NavigationButtonStyle())
+                        
+                        Spacer()
+                        
+                        Button("Enviar") {
+                            withAnimation {
+                                userManager.currentDeepLink = nil
+                            }
+                        }
+                        .buttonStyle(NavigationButtonStyle())
+                    } else {
+                        if currentPage > 0 {
+                            Button("Retroceder") {
+                                withAnimation {
+                                    currentPage -= 1
+                                }
+                            }
+                            .buttonStyle(NavigationButtonStyle())
+                        }
+                        
+                        Spacer()
+                        
+                        Button("Siguiente") {
+                            withAnimation {
+                                currentPage += 1
+                            }
+                        }
+                        .buttonStyle(NavigationButtonStyle())
                     }
+                    
                 }
-                .buttonStyle(NavigationButtonStyle())
+                .padding()
             }
-            .padding()
         }
         .padding()
         .onAppear{
@@ -56,6 +77,7 @@ struct ActivityView: View {
                 if let name = userManager.currentDeepLink {
                     pages = await userManager.fetchExhibitionActivity(exhibition: name)
                 }
+                loading = false
             }
         }
     }

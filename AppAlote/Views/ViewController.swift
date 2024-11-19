@@ -60,6 +60,8 @@ struct ViewController: View {
             }
             
         }
+        .animation(.easeInOut, value: userManager.selectedView)
+        .animation(.easeInOut, value: userManager.selectedAuthView)
         .onOpenURL{ url in
             userManager.handleURL(url)
         }
