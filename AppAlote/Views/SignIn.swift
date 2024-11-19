@@ -4,6 +4,7 @@ struct SignIn: View {
     @EnvironmentObject var userManager: UserManager
     @State private var isLoading = false
     @State private var nombre: String = ""
+    @State private var apellido: String = ""
     @State private var correo: String = ""
     @State private var codigo: String = ""
     @State private var fechaNacimiento = Date()
@@ -51,17 +52,31 @@ struct SignIn: View {
                             .frame(width: 250, height: 250)
                             .padding(.top, 50)
                         
-                        VStack(alignment: .leading) {
-                            Text("Nombre completo")
-                                .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
-                            
-                            TextField("", text: $nombre)
-                                .padding(.horizontal).bold()
-                                .frame(height: 35)
-                                .background(Color(red:243/255, green: 246/255, blue: 205/255))
-                                .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+                        HStack{
+                            VStack(alignment: .leading){
+                                Text("Nombre")
+                                    .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
+                                
+                                TextField("", text: $nombre)
+                                    .padding(.horizontal).bold()
+                                    .frame(height: 35)
+                                    .background(Color(red:243/255, green: 246/255, blue: 205/255))
+                                    .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+                            }
+                            Spacer()
+                            VStack(alignment: .leading){
+                                Text("Apellido")
+                                    .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
+                                
+                                TextField("", text: $apellido)
+                                    .padding(.horizontal).bold()
+                                    .frame(height: 35)
+                                    .background(Color(red:243/255, green: 246/255, blue: 205/255))
+                                    .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+                            }
                         }
-                        .padding(.horizontal).padding(.top, 20)
+                        .padding(.horizontal)
+                        .padding(.top, 20)
                         
                         
                         VStack(alignment: .leading) {
@@ -110,7 +125,7 @@ struct SignIn: View {
                                 isLoading = true
                                 if isValidEmail(correo){
                                     Task {
-                                        await userManager.signIn(name: nombre, date: fechaNacimiento, email: correo, password: codigo)
+                                        await userManager.signIn(name: nombre, lastName: apellido, date: fechaNacimiento, email: correo, password: codigo)
                                         isLoading = false
                                         if userManager.errorMessage != nil {
                                             showAlert = true

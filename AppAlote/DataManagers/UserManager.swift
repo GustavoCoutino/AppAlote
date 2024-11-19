@@ -79,8 +79,8 @@ class UserManager: ObservableObject {
         isLoading = false
     }
     
-    func signIn(name: String, date: Date, email: String, password: String) async {
-        if name.isEmpty || email.isEmpty || password.isEmpty {
+    func signIn(name: String, lastName: String, date: Date, email: String, password: String) async {
+        if name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty {
             errorMessage = "Campos faltantes"
             return
         }
@@ -96,7 +96,7 @@ class UserManager: ObservableObject {
                 
         let parameters: [String: String] = [
             "nombre": name,
-            "apellido": name,
+            "apellido": lastName,
             "correo": email,
             "password_hash": password,
             "fecha_nacimiento": dateString
