@@ -17,7 +17,6 @@ struct ActivityView: View {
     
     var body: some View {
         VStack {
-            
             if loading {
                 LoadingView()
             } else {
@@ -28,27 +27,32 @@ struct ActivityView: View {
                 if currentPage == pages.count {
                     FinalPageView(rating: $rating, feedback: $feedback)
                 } else {
-                    PageView(page: pages[currentPage])
+                    PageView(page: pages[currentPage]).id(currentPage)
                 }
                 
                 HStack {
                     if currentPage == pages.count {
                         Button("Saltar") {
-                            userManager.currentDeepLink = nil
-        
+                            withAnimation {
+                                userManager.currentDeepLink = nil
+                            }
                         }
                         .buttonStyle(NavigationButtonStyle())
                         
                         Spacer()
                         
                         Button("Enviar") {
-                            userManager.currentDeepLink = nil
+                            withAnimation {
+                                userManager.currentDeepLink = nil
+                            }
                         }
                         .buttonStyle(NavigationButtonStyle())
                     } else {
                         if currentPage > 0 {
                             Button("Retroceder") {
-                                currentPage -= 1
+                                withAnimation {
+                                    currentPage -= 1
+                                }
                             }
                             .buttonStyle(NavigationButtonStyle())
                         }
@@ -56,7 +60,9 @@ struct ActivityView: View {
                         Spacer()
                         
                         Button("Siguiente") {
-                            currentPage += 1
+                            withAnimation {
+                                currentPage += 1
+                            }
                         }
                         .buttonStyle(NavigationButtonStyle())
                     }
