@@ -4,6 +4,7 @@ struct AccessCodeView: View {
     @State private var codigo: String = ""
     @State private var showAlert = false
     @EnvironmentObject var userManager: UserManager
+    @State var loading = false
     
     var body: some View {
         
@@ -51,22 +52,31 @@ struct AccessCodeView: View {
                     }
                     .padding(.horizontal).padding(.top, 20)
                     
-                    Button(action: {
-                        Task {
-                            await userManager.enterAccessCode(codigo)
-                            if userManager.errorMessage != nil {
-                                showAlert = true
+                    
+                    HStack {
+                        Button(action: {
+                            loading = true
+                            Task {
+                                await userManager.enterAccessCode(codigo)
+                                loading = false
+                                if userManager.errorMessage != nil {
+                                    showAlert = true
+                                }
+                            }
+                        }) {
+                            if loading {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                            } else {
+                                Text("Acceder")
+                                    .foregroundStyle(.black)
                             }
                         }
-                    }) {
-                        Text("Acceder")
-                            .foregroundColor(Color(red: 0/255, green: 0/255, blue: 0/255))
-                            .frame(width: 100)
-                            .padding()
-                            .background(Color(red: 210/255, green: 223/255, blue: 73/255))
-                            .cornerRadius(8)
-                            .padding(.horizontal)
-                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                        .frame(width: 175, height: 55)
+                        .background(Color(red: 210/255, green: 223/255, blue: 73/255))
+                        .cornerRadius(8)
+                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                        .disabled(loading)
                     }
                     .padding(.top, 50)
                     

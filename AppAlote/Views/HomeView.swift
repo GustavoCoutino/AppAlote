@@ -108,8 +108,10 @@ struct HomeView: View {
             
                         Spacer()
                         Spacer()
-                        Image("Logo")
-                            .padding(.leading, 10)
+                        Image("papalote")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 90, height: 90)
                         Spacer()
                         Spacer()
                         
@@ -129,7 +131,7 @@ struct HomeView: View {
                         Spacer()
                         
                     }
-                    .padding(.top, 40)
+                    .padding(.top, 42)
                 }
                 .frame(width: UIScreen.main.bounds.size.width)
                 .padding(.vertical, 20)

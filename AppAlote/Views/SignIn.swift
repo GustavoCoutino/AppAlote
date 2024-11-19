@@ -74,7 +74,6 @@ struct SignIn: View {
                                 .background(Color(red:243/255, green: 246/255, blue: 205/255))
                                 .cornerRadius(20)
                                 .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
-                                .padding(.horizontal)
                         }
                         .padding(.horizontal).padding(.top, 20)
                         
@@ -119,17 +118,24 @@ struct SignIn: View {
                                         }
                                     }
                                 } else {
+                                    isLoading = false
                                     alertMessage = "Correo electrónico inválido"
                                     showAlert = true
                                 }
-                                
                             }) {
                                 if isLoading {
-                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white)).frame(width: 150, height: 44).background(Color(red: 210/255, green: 223/255, blue: 73/255)).cornerRadius(8).shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                                 } else {
-                                    Text("Crear Cuenta").foregroundColor(.black).frame(width: 150).padding().background(Color(red: 210/255, green: 223/255, blue: 73/255)).cornerRadius(8).shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                    Text("Crear Cuenta")
+                                        .foregroundStyle(.black)
                                 }
-                            }.disabled(isLoading)
+                            }
+                            .frame(width: 175, height: 55)
+                            .background(Color(red: 210/255, green: 223/255, blue: 73/255))
+                            .cornerRadius(8)
+                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                            .disabled(isLoading)
                     
                         }
                         .padding(.top, 20)
@@ -141,7 +147,7 @@ struct SignIn: View {
                             selectedView = "LogIn"
                         } label: {
                             Text("Iniciar Sesión")
-                                .foregroundColor(.black)
+                                .foregroundStyle(.white)
                                 .frame(width: 150)
                                 .padding()
                                 .background(Color(red: 134/255, green: 88/255, blue: 173/255))

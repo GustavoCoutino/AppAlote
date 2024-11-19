@@ -79,35 +79,32 @@ struct LogIn: View {
                                 Task {
                                     await userManager.logIn(email: correo, password: password)
                                     isLoading = false
-                                    
                                     if userManager.errorMessage != nil {
                                         alertMessage = userManager.errorMessage ?? "Error desconocido"
                                         showAlert = true
                                     }
                                 }
                             } else {
+                                isLoading = false
                                 alertMessage = "Correo electrónico inválido"
                                 showAlert = true
                             }
+
                         }) {
                             if isLoading {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    .frame(width: 150, height: 44)
-                                    .background(Color(red: 134/255, green: 88/255, blue: 173/255))
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
                             } else {
                                 Text("Iniciar Sesión")
-                                    .foregroundColor(.black)
-                                    .frame(width: 150)
-                                    .padding()
-                                    .background(Color(red: 134/255, green: 88/255, blue: 173/255))
-                                    .cornerRadius(8)
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                             }
                         }
                         .disabled(isLoading)
+                        .frame(width: 175, height: 55)
+                        .background(Color(red: 134/255, green: 88/255, blue: 173/255))
+                        .cornerRadius(8)
+                        .shadow(color: .gray, radius: 5, x: 0, y: 5)
                     }
                     .padding(.top, 50)
                     
@@ -118,13 +115,12 @@ struct LogIn: View {
                     }) {
                         Text("Crear Cuenta")
                             .foregroundColor(.black)
-                            .frame(width: 150)
-                            .padding()
-                            .background(Color(red: 210/255, green: 223/255, blue: 73/255))
-                            .cornerRadius(8)
-                            .shadow(color: .gray, radius: 5, x: 0, y: 5)
                     }
-                    
+                    .frame(width: 175, height: 55)
+                    .background(Color(red: 210/255, green: 223/255, blue: 73/255))
+                    .cornerRadius(8)
+                    .shadow(color: .gray, radius: 5, x: 0, y: 5)
+
                 }
                 .padding()
                
