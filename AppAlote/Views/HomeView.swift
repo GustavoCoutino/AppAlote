@@ -170,6 +170,7 @@ struct HomeView: View {
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
                 lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
                 profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
+                
             }
             .navigationDestination(isPresented: $isZoneSelected){
                 if let name = selectedZone {

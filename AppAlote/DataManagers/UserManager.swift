@@ -12,6 +12,7 @@ class UserManager: ObservableObject {
     @Published var hasAnsweredQuiz = false
     @Published var hasRecentAccessCode = false
     @Published var userID = ""
+    @Published var profilePicture = ""
     @Published var errorMessage: String?
     @Published var isLoading = true
     @Published var currentDeepLink: String?
@@ -127,6 +128,7 @@ class UserManager: ObservableObject {
                                         
                     if let fotoPerfil = json["foto_perfil"] as? String {
                         defaults.set(fotoPerfil, forKey: "fotoPerfil")
+                        profilePicture = fotoPerfil
                     }
                     userID = defaults.string(forKey: "userID") ?? ""
                     isAuthenticated = true
@@ -423,6 +425,31 @@ class UserManager: ObservableObject {
         return []
     }
     
+    func loadData() async {
+        if !userID.isEmpty {
+            let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            do {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                    let user = try JSONDecoder().decode(User.self, from: data)
+                    defaults.set(user.nombre, forKey: "nombre")
+                    defaults.set(user.apellido, forKey: "apellido")
+                    defaults.set(user.correo, forKey: "correo")
+                    defaults.set(user.foto_perfil, forKey: "fotoPerfil")
+                    profilePicture = user.foto_perfil
+                } else {
+                    print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+                }
+            } catch {
+                print("Error decoding response:", error.localizedDescription)
+                errorMessage = "Hubo un error al obtener datos del usuario: \(error.localizedDescription)"
+            }
+        }
+    }
+    
     func modifyProfile(nombre: String, apellido: String, fecha: Date, password: String, correo: String) async {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
         var request = URLRequest(url: url)
@@ -477,10 +504,61 @@ class UserManager: ObservableObject {
     }
     
     
+    func uploadProfilePhoto(imageData: Data) {
+            guard let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/") else {
+                print("Invalid URL")
+                return
+            }
+            
+            let boundary = UUID().uuidString
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PATCH"
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            
+            var body = Data()
+            body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"foto_perfil\"; filename=\"photo.jpg\"\r\n".data(using: .utf8)!)
+            body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+            body.append(imageData)
+            body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+            
+            request.httpBody = body
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    
+                    if let error = error {
+                        print("Error: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        print("No HTTP Response")
+                        return
+                    }
+                    
+                    if (200...299).contains(httpResponse.statusCode) {
+                        print("Upload successful")
+                        if let data = data,
+                           let responseDict = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                           let newPhotoUrl = responseDict["foto_perfil"] as? String {
+                            UserDefaults.standard.set(newPhotoUrl, forKey: "fotoPerfil")
+                            self.profilePicture = newPhotoUrl
+                        }
+                    } else {
+                        print("Upload failed with status code: \(httpResponse.statusCode)")
+                    }
+                }
+            }
+            task.resume()
+        }
+    
     
     func signOut() {
         selectedAuthView = "LogIn"
         userID = ""
+        profilePicture = ""
         isAuthenticated = false
         hasRecentAccessCode = false
         hasAnsweredQuiz = false

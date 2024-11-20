@@ -18,6 +18,7 @@
 		B324032C2CEE51670067DE5D /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B324032B2CEE51670067DE5D /* NotificationsView.swift */; };
 		B324032E2CEE52DD0067DE5D /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B324032D2CEE52DD0067DE5D /* NotificationView.swift */; };
 		B32403302CEE57A50067DE5D /* Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B324032F2CEE57A50067DE5D /* Announcement.swift */; };
+		B32403342CEE792F0067DE5D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32403332CEE792F0067DE5D /* User.swift */; };
 		B3689A8D2CE1A27400D585EB /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8C2CE1A27400D585EB /* ActivityView.swift */; };
 		B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */; };
 		B374125E2CD3DE4D00717C18 /* InsigniasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374125D2CD3DE4D00717C18 /* InsigniasView.swift */; };
@@ -66,6 +67,7 @@
 		B324032B2CEE51670067DE5D /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		B324032D2CEE52DD0067DE5D /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		B324032F2CEE57A50067DE5D /* Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcement.swift; sourceTree = "<group>"; };
+		B32403332CEE792F0067DE5D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B3689A872CE18A9700D585EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3689A8C2CE1A27400D585EB /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		B3689A8E2CE1B45100D585EB /* DataScannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerRepresentable.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				F4FBF7F62CD13F2D00B75685 /* RouteCalculator.swift */,
 				F4EDB3D42CD868320059D302 /* QuizScore.swift */,
 				B324032F2CEE57A50067DE5D /* Announcement.swift */,
+				B32403332CEE792F0067DE5D /* User.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				B324031D2CEAC7EF0067DE5D /* PageView.swift in Sources */,
 				B3B63D842CD1C31900394294 /* AccessCodeView.swift in Sources */,
 				F4EDB3D32CD845810059D302 /* Zona.swift in Sources */,
+				B32403342CEE792F0067DE5D /* User.swift in Sources */,
 				B3B63D802CD1C0B100394294 /* CodeView.swift in Sources */,
 				B32403262CEAD3040067DE5D /* PerfilView.swift in Sources */,
 				F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */,
@@ -484,6 +488,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppAlote/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR Code";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select photos to upload them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -518,6 +523,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppAlote/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan QR Code";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select photos to upload them";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

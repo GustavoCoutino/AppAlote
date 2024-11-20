@@ -1,5 +1,6 @@
 
 import SwiftUI
+import PhotosUI
 
 struct ProfileView: View {
         enum Tab {
@@ -11,6 +12,9 @@ struct ProfileView: View {
         @State private var selectedTab: Tab = .perfil
         @State private var selectedCardImage: String = "background1"
         @State var profilePicture : String = ""
+    
+        @State private var showingImagePicker = false
+        @State private var selectedItem: PhotosPickerItem?
 
         var body: some View {
             VStack {
@@ -27,7 +31,7 @@ struct ProfileView: View {
                             .edgesIgnoringSafeArea(.all)
                         
                         VStack{
-                            if let url = URL(string: profilePicture) {
+                            if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
                                 AsyncImage(url: url) { phase in
                                     switch phase {
                                     case .empty:
@@ -47,6 +51,9 @@ struct ProfileView: View {
                                             .foregroundColor(.black)
                                 
                                     }
+                                }
+                                .onTapGesture {
+                                    showingImagePicker = true
                                 }
                             }
                             
@@ -98,8 +105,16 @@ struct ProfileView: View {
             .onAppear {
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
                 lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
-                profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
-
+            }
+            .photosPicker(isPresented: $showingImagePicker,
+                                 selection: $selectedItem,
+                                 matching: .images)
+            .onChange(of: selectedItem) { newItem in
+                Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                        userManager.uploadProfilePhoto(imageData: data)
+                    }
+                }
             }
             .background(Color.white)
         }
