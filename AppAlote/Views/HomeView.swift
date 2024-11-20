@@ -13,8 +13,8 @@ struct HomeView: View {
     @State var profilePicture : String = ""
     @State private var sortedZones: [Int] = []
     @State var isZoneSelected: Bool = false
+    @State var showNotifications: Bool = false
     @State var selectedZone: String?
-    
     
     var body: some View {
         NavigationStack {
@@ -116,7 +116,9 @@ struct HomeView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Button(action: {print("notificiation")}) {
+                        Button(action: {
+                            showNotifications = true
+                        }) {
                             Image("notification-2")
                                 .resizable()
                                 .scaledToFit()
@@ -173,6 +175,9 @@ struct HomeView: View {
                 if let name = selectedZone {
                     ZoneView(name: name)
                 }
+            }
+            .sheet(isPresented: $showNotifications){
+                NotificationsView()
             }
 
         }

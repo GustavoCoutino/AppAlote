@@ -400,6 +400,29 @@ class UserManager: ObservableObject {
         return []
     }
     
+    func fetchNotifications() async -> [Announcement] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/notificaciones/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            print(data)
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let notifications = try JSONDecoder().decode([Announcement].self, from: data)
+                return notifications
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener las notificaciones: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
     func modifyProfile(nombre: String, apellido: String, fecha: Date, password: String, correo: String) async {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
         var request = URLRequest(url: url)
