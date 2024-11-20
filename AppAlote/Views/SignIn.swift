@@ -52,7 +52,7 @@ struct SignIn: View {
                             .frame(width: 250, height: 250)
                             .padding(.top, 50)
                         
-                        HStack{
+                        HStack(alignment: .center, spacing: 10){
                             VStack(alignment: .leading){
                                 Text("Nombre")
                                     .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
@@ -81,16 +81,17 @@ struct SignIn: View {
                         
                         VStack(alignment: .leading) {
                             Text("Fecha de nacimiento")
-                                .foregroundColor(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
-                            
+                                .foregroundStyle(Color(red: 84/255, green: 18/255, blue: 137/255)).bold()
                             DatePicker("", selection: $fechaNacimiento, displayedComponents: .date)
+                                .padding(.leading, 15)
                                 .datePickerStyle(CompactDatePickerStyle())
                                 .frame(height: 35)
                                 .background(Color(red:243/255, green: 246/255, blue: 205/255))
                                 .cornerRadius(20)
                                 .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
                         }
-                        .padding(.horizontal).padding(.top, 20)
+                        .padding(.horizontal)
+                        .padding(.top, 20)
                         
                         VStack(alignment: .leading) {
                             Text("Correo electrónico")
