@@ -151,6 +151,7 @@ struct MapSceneView: UIViewRepresentable {
 }
 
 struct Map: View {
+    
     let mapping = [
         "SOY": 0,
         "CONECTAR": 1,
@@ -233,6 +234,16 @@ struct Map: View {
     ]
     @StateObject var model = MapViewModel()
     @State var floor : Int
+    
+    init(floor: Int) {
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 210/255, green: 223/255, blue: 73/255, alpha: 100)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+        UISegmentedControl.appearance().backgroundColor = UIColor(red: (210 * 0.7)/255, green: (223 * 0.7)/255, blue: (73 * 0.7)/255, alpha: 1)
+
+        self.floor = floor
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack{
@@ -268,32 +279,17 @@ struct Map: View {
                         }
                 }
                 VStack {
-                    HStack {
-                        Spacer()
-                        Text(floor == 0 ? "Planta baja" : "Planta alta")
-                            .font(.system(size: 33))
-                            .fixedSize(horizontal: true, vertical: false)
-                        Spacer()
-                        Button {
-                            floor = 1 - floor
-                        } label: {
-                            Text("Cambiar piso")
-                                .font(.system(size: 25))
-                                .foregroundStyle(Color.black)
-                                .fixedSize(horizontal: true, vertical: false)
-                        }
-                        .padding(15)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
-                        )
-                        Spacer()
+                    
+                    Picker("", selection: $floor) {
+                        Text("Planta baja").tag(0)
+                        Text("Planta alta").tag(1)
                     }
-                    .padding(.top, 30)
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    .padding(.top, 20)
                 }
                 .frame(width: UIScreen.main.bounds.size.width)
                 .padding(.vertical, 31.5)
-                .background(Color.purple)
                 .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
                 .ignoresSafeArea()
             }
