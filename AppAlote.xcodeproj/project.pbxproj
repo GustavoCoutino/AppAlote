@@ -40,6 +40,8 @@
 		F49690C42CD091AF00033F90 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C32CD091AF00033F90 /* Triangle.swift */; };
 		F49690C72CD091D000033F90 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C62CD091D000033F90 /* UserManager.swift */; };
 		F49690C92CD0979200033F90 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C82CD0979200033F90 /* Navbar.swift */; };
+		F4A74CB02CEEA451009AF5FF /* Desafios.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A74CAF2CEEA44F009AF5FF /* Desafios.swift */; };
+		F4A74CB22CEEA73E009AF5FF /* Insignias.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A74CB12CEEA739009AF5FF /* Insignias.swift */; };
 		F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */; };
 		F4DF14F32CC19F530058008F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF14F22CC19F530058008F /* Map.swift */; };
 		F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */; };
@@ -90,6 +92,8 @@
 		F49690C32CD091AF00033F90 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		F49690C62CD091D000033F90 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		F49690C82CD0979200033F90 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
+		F4A74CAF2CEEA44F009AF5FF /* Desafios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Desafios.swift; sourceTree = "<group>"; };
+		F4A74CB12CEEA739009AF5FF /* Insignias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insignias.swift; sourceTree = "<group>"; };
 		F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCompletionModal.swift; sourceTree = "<group>"; };
 		F4DF14F22CC19F530058008F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F4E25F902CBF299900A1BB94 /* AppAlote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppAlote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				B32403232CEAC9B80067DE5D /* Page.swift */,
+				F4A74CB12CEEA739009AF5FF /* Insignias.swift */,
+				F4A74CAF2CEEA44F009AF5FF /* Desafios.swift */,
 				B32403032CEA36B60067DE5D /* Zone.swift */,
 				B32403012CEA2C110067DE5D /* Exhibition.swift */,
 				F4FBF7F42CD13F1E00B75685 /* QuizData.swift */,
@@ -324,6 +330,7 @@
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
 				B37412682CD3DFAD00717C18 /* TabButton.swift in Sources */,
 				F4FBF7F92CD13FB500B75685 /* ProgressBar.swift in Sources */,
+				F4A74CB22CEEA73E009AF5FF /* Insignias.swift in Sources */,
 				B3B63D6E2CD0ADAE00394294 /* ViewController.swift in Sources */,
 				B32403212CEAC88F0067DE5D /* FinalPagePreview.swift in Sources */,
 				F4DF14F32CC19F530058008F /* Map.swift in Sources */,
@@ -338,6 +345,7 @@
 				B3B63D842CD1C31900394294 /* AccessCodeView.swift in Sources */,
 				F4EDB3D32CD845810059D302 /* Zona.swift in Sources */,
 				B32403342CEE792F0067DE5D /* User.swift in Sources */,
+				F4A74CB02CEEA451009AF5FF /* Desafios.swift in Sources */,
 				B3B63D802CD1C0B100394294 /* CodeView.swift in Sources */,
 				B32403262CEAD3040067DE5D /* PerfilView.swift in Sources */,
 				F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */,

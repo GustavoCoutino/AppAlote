@@ -554,6 +554,52 @@ class UserManager: ObservableObject {
             task.resume()
         }
     
+    func fetchAchievements() async -> [Desafios] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/desafios-usuario/\(userID)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+                
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let decoder = JSONDecoder()
+                let challenges = try decoder.decode([Desafios].self, from: data)
+                return challenges
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener los desafios: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
+    func fetchInsignias() async -> [Insignias] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/insignias/\(userID)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+                
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let decoder = JSONDecoder()
+                let badges = try decoder.decode([Insignias].self, from: data)
+                return badges
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener las insignias: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
     
     func signOut() {
         selectedAuthView = "LogIn"
