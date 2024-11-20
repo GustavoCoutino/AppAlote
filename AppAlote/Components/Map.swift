@@ -150,6 +150,14 @@ struct MapSceneView: UIViewRepresentable {
     }
 }
 
+
+extension UISegmentedControl {
+  override open func didMoveToSuperview() {
+     super.didMoveToSuperview()
+     self.setContentHuggingPriority(.defaultLow, for: .vertical)
+   }
+}
+
 struct Map: View {
     
     let mapping = [
@@ -235,11 +243,17 @@ struct Map: View {
     @StateObject var model = MapViewModel()
     @State var floor : Int
     
+    
     init(floor: Int) {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(red: 210/255, green: 223/255, blue: 73/255, alpha: 100)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
         UISegmentedControl.appearance().backgroundColor = UIColor(red: (210 * 0.7)/255, green: (223 * 0.7)/255, blue: (73 * 0.7)/255, alpha: 1)
+        UISegmentedControl.appearance().setTitleTextAttributes([
+            .font: UIFont.systemFont(ofSize: 20),
+            
+        ], for: .normal)
+
 
         self.floor = floor
     }
@@ -282,11 +296,15 @@ struct Map: View {
                     
                     Picker("", selection: $floor) {
                         Text("Planta baja").tag(0)
+
                         Text("Planta alta").tag(1)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding()
-                    .padding(.top, 20)
+                    .frame(height: 75)
+
+               
+                    .padding(.top, 30)
                 }
                 .frame(width: UIScreen.main.bounds.size.width)
                 .padding(.vertical, 31.5)
