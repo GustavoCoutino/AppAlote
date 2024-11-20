@@ -33,9 +33,7 @@ struct DataScannerRepresentable: UIViewControllerRepresentable {
                     if let url = URL(string: urlString) {
                         parent.userManager.handleURL(url)
                     }
-                } else {
-                    parent.scannedText = "Unable to decode the scanned code"
-                }
+                } 
             default:
                 print("unexpected item")
             }
