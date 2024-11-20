@@ -6,25 +6,38 @@
 //
 
 import SwiftUI
-
 struct PerfilView: View {
-    @EnvironmentObject var userManager : UserManager
+    @EnvironmentObject var userManager: UserManager
     @State private var isLoading = false
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
     @State private var birthDate = Date()
     @State private var password = ""
-    @State private var goToLogin = false
     @State private var showAlert = false
     @State private var alertMessage = ""
-
- 
+    @State private var errorTitle = ""
+    
+    func loadUserData() {
+            let defaults = UserDefaults.standard
+            firstName = defaults.string(forKey: "nombre") ?? ""
+            lastName = defaults.string(forKey: "apellido") ?? ""
+            email = defaults.string(forKey: "correo") ?? ""
+            
+            if let dateString = defaults.string(forKey: "fechaNacimiento") {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                if let date = dateFormatter.date(from: dateString) {
+                    birthDate = date
+                }
+            }
+            password = ""
+        }
 
     var body: some View {
-        VStack() {
-            ScrollView{
-                ZStack{
+        ScrollView {
+            VStack(spacing: 20) {
+                ZStack {
                     Circle()
                         .fill(Color.blue)
                         .frame(width: 120, height: 150)
@@ -47,6 +60,7 @@ struct PerfilView: View {
                         .frame(width: 100, height: 100)
                         .offset(x: 160, y: 400)
                 }
+                
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Nombre")
@@ -67,7 +81,6 @@ struct PerfilView: View {
                     }
                 }
                 
-                // Correo Electrónico
                 VStack(alignment: .leading) {
                     Text("Correo electrónico")
                         .foregroundColor(.purple)
@@ -75,9 +88,9 @@ struct PerfilView: View {
                         .padding()
                         .background(Color.yellow.opacity(0.2))
                         .cornerRadius(10)
+                        .textInputAutocapitalization(.never)
                 }
                 
-                // Fecha de Nacimiento
                 VStack(alignment: .leading) {
                     Text("Fecha de nacimiento")
                         .foregroundColor(.purple)
@@ -92,7 +105,6 @@ struct PerfilView: View {
                     .cornerRadius(10)
                 }
                 
-                // Contraseña
                 VStack(alignment: .leading) {
                     Text("Contraseña")
                         .foregroundColor(.purple)
@@ -101,12 +113,13 @@ struct PerfilView: View {
                         .background(Color.yellow.opacity(0.2))
                         .cornerRadius(10)
                 }
-                // Botones
-                HStack(spacing: 20){
+                
+                HStack(spacing: 20) {
                     Button(action: {
                         if firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty {
                             alertMessage = "Por favor, complete todos los campos."
                             showAlert = true
+                            errorTitle = "error"
                         } else {
                             Task {
                                 isLoading = true
@@ -118,49 +131,54 @@ struct PerfilView: View {
                                     correo: email
                                 )
                                 isLoading = false
+                                alertMessage = "Su perfil ha sido actualizado existosamente"
+                                showAlert = true
+                                errorTitle = "Perfil actualizado"
                             }
                         }
                     }) {
                         if isLoading {
-                            ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white)).frame(width: 150, height: 44).background(Color.purple)
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .frame(maxWidth: .infinity, minHeight: 44)
                         } else {
                             Text("Editar cuenta")
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.purple)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                                .frame(maxWidth: .infinity, minHeight: 44)
                         }
-                        }.alert(isPresented: $showAlert) {
-                            Alert(
-                                title: Text("Error"),
-                                message: Text(alertMessage),
-                                dismissButton: .default(Text("OK"), action: {
-                                    userManager.clearError()
-                                })
-                            )
-                        }
-                        
-                        Button(action: {
-                            goToLogin = true
-                        }) {
-                            Text("Cerrar sesión")
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                }.padding(.top, 20)
-                
+                    }
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+
+                    Button(action: {
+                        userManager.signOut()
+                    }) {
+                        Text("Cerrar sesión")
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                    }
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text(errorTitle),
+                        message: Text(alertMessage),
+                        dismissButton: .default(Text("OK"), action: {
+                            userManager.clearError()
+                        })
+                    )
+                }
+                .padding(.top, 20)
             }
+            .padding(.horizontal)
+        }.onAppear{
+            loadUserData()
         }
-        .padding()
-        
-        
-        .padding()
+        Spacer().frame(height: 120)
     }
-        
 }
 
 #Preview {

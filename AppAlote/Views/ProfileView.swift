@@ -7,6 +7,7 @@ struct ProfileView: View {
         }
         @EnvironmentObject var userManager: UserManager
         @State var name : String = ""
+        @State var lastName : String = ""
         @State private var selectedTab: Tab = .perfil
         @State private var selectedCardImage: String = "background1"
         
@@ -25,7 +26,7 @@ struct ProfileView: View {
                                     .resizable()
                                     .frame(width: 100, height: 100)
                                     .foregroundColor(.blue)
-                                Text(name)
+                                Text(name+" "+lastName)
                                     .font(.title)
                                     .fontWeight(.bold)
                             }
@@ -66,6 +67,7 @@ struct ProfileView: View {
             }
             .onAppear {
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
+                lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
             }
             .background(Color.white)
         }

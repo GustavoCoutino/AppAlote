@@ -128,15 +128,6 @@ class UserManager: ObservableObject {
                     if let fotoPerfil = json["foto_perfil"] as? String {
                         defaults.set(fotoPerfil, forKey: "fotoPerfil")
                     }
-                    if let rol = json["rol"] as? String {
-                        defaults.set(rol, forKey: "rol")
-                    }
-                    if let idioma = json["idioma"] as? String {
-                        defaults.set(idioma, forKey: "idioma")
-                    }
-                    if let tema = json["tema"] as? String {
-                        defaults.set(tema, forKey: "tema")
-                    }
                     userID = defaults.string(forKey: "userID") ?? ""
                     isAuthenticated = true
                                         
@@ -201,18 +192,9 @@ class UserManager: ObservableObject {
                        defaults.set(correo, forKey: "correo")
                        defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
                        defaults.set(fechaRegistro, forKey: "fechaRegistro")
-                            if let fotoPerfil = json["foto_perfil"] as? String {
-                                defaults.set(fotoPerfil, forKey: "fotoPerfil")
-                            }
-                            if let rol = json["rol"] as? String {
-                                defaults.set(rol, forKey: "rol")
-                            }
-                            if let idioma = json["idioma"] as? String {
-                                defaults.set(idioma, forKey: "idioma")
-                            }
-                            if let tema = json["tema"] as? String {
-                                defaults.set(tema, forKey: "tema")
-                            }
+                        if let fotoPerfil = json["foto_perfil"] as? String {
+                            defaults.set(fotoPerfil, forKey: "fotoPerfil")
+                        }
                         userID = defaults.string(forKey: "userID") ?? ""
                         isAuthenticated = true
                         await checkQuizCompletion()
@@ -438,18 +420,35 @@ class UserManager: ObservableObject {
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: parameters)
-            
             request.httpBody = jsonData
             
-            let (_, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
             
             if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
-                print("Perfil actualizado existosamente")
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    let defaults = UserDefaults.standard
+                    defaults.set(json["id_usuario"] as? String ?? userID, forKey: "userID")
+                    defaults.set(nombre, forKey: "nombre")
+                    defaults.set(apellido, forKey: "apellido")
+                    defaults.set(correo, forKey: "correo")
+                    defaults.set(dateString, forKey: "fechaNacimiento")
+                    
+                    if let fotoPerfil = json["foto_perfil"] as? String {
+                        defaults.set(fotoPerfil, forKey: "fotoPerfil")
+                    }
+                    if let fechaRegistro = json["fecha_registro"] as? String {
+                        defaults.set(fechaRegistro, forKey: "fechaRegistro")
+                    }
+                    
+                    print("Perfil actualizado exitosamente")
+                } else {
+                    errorMessage = "Error al procesar la respuesta del servidor"
+                }
             } else {
-                print("Error en la actualización del perfil:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+                errorMessage = "Error en la actualización del perfil"
             }
         } catch {
-            print("Error decoding response:", error.localizedDescription)
+            print("Error updating profile:", error.localizedDescription)
             errorMessage = "Hubo un error al modificar el perfil: \(error.localizedDescription)"
         }
     }

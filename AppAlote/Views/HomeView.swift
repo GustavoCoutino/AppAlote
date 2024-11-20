@@ -9,6 +9,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var userManager: UserManager
     @State var name : String = ""
+    @State var lastName : String = ""
     @State var profilePicture : String = ""
     @State private var sortedZones: [Int] = []
     @State var isZoneSelected: Bool = false
@@ -26,7 +27,7 @@ struct HomeView: View {
                                 .frame(width: 50, height: 50)
                                 .clipShape(Circle())
                                 .padding(.leading,10)
-                            Text(name)
+                            Text(name+" "+lastName)
                                 .font(.headline)
                                 .padding(.leading,10)
                                 
@@ -142,6 +143,7 @@ struct HomeView: View {
             .onAppear{
                 loadSortedZones()
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
+                lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
                 profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
             }
             .navigationDestination(isPresented: $isZoneSelected){
