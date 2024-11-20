@@ -10,27 +10,57 @@ struct ProfileView: View {
         @State var lastName : String = ""
         @State private var selectedTab: Tab = .perfil
         @State private var selectedCardImage: String = "background1"
-        
+        @State var profilePicture : String = ""
+
         var body: some View {
             VStack {
                 VStack {
-                    Image(selectedCardImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200)
-                        .clipped()
-                        .edgesIgnoringSafeArea(.all)
-                        .overlay(
-                            VStack {
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
-                                    .frame(width: 100, height: 100)
-                                    .foregroundColor(.blue)
-                                Text(name+" "+lastName)
-                                    .font(.title)
-                                    .fontWeight(.bold)
+                    
+                    ZStack {
+                        
+                        Image(selectedCardImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .containerRelativeFrame(.horizontal)
+                            .frame(height: 260)
+                            .clipped()
+                            .edgesIgnoringSafeArea(.all)
+                        
+                        VStack{
+                            if let url = URL(string: profilePicture) {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                            .frame(width: 100, height: 100)
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 100)
+                                            .clipShape(Circle())
+                                    default:
+                                        Image(systemName: "person.circle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                            .foregroundColor(.black)
+                                
+                                    }
+                                }
                             }
-                        )
+                            
+                            Text(name+" "+lastName)
+                                .font(.title)
+                                .fontWeight(.bold)
+                            
+                        }
+                    }
+                    .frame(height: 200)
+                    
+                    
+                    
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             TabButton(title: "Perfil", isSelected: selectedTab == .perfil)
@@ -68,6 +98,8 @@ struct ProfileView: View {
             .onAppear {
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
                 lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
+                profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
+
             }
             .background(Color.white)
         }

@@ -22,11 +22,34 @@ struct HomeView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            Image(profilePicture)
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
-                                .padding(.leading,10)
+                  
+                            if let url = URL(string: profilePicture) {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                            .frame(width: 50, height: 50)
+                                            .padding(.leading, 20)
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 50, height: 50)
+                                            .clipShape(Circle())
+                                            .padding(.leading, 20)
+
+                                    default:
+                                        Image(systemName: "person.circle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 50, height: 50)
+                                            .padding(.leading, 20)
+                                            .foregroundColor(.black)
+                                
+                                    }
+                                }
+                            }
+
                             Text(name+" "+lastName)
                                 .font(.headline)
                                 .padding(.leading,10)
