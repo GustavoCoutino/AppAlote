@@ -40,5 +40,5 @@ struct FinalPageView: View {
 }
 
 #Preview {
-    FinalPageView(rating: .constant(3), feedback: .constant("")).environmentObject(UserManager())
+    FinalPageView(rating: .constant(0), feedback: .constant("")).environmentObject(UserManager())
 }

@@ -459,6 +459,84 @@ class UserManager: ObservableObject {
         }
     }
     
+    func submitOpinion(stars: Int, comment: String, exhibitionID: Int) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/opiniones/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: Date())
+        
+        let payload: [String: Any] = [
+            "calificacion": stars,
+            "descripcion": comment,
+            "fecha_opinion": dateString,
+            "usuario": userID,
+            "exhibicion": exhibitionID
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+        } catch {
+            errorMessage = "Error serializing JSON: \(error.localizedDescription)"
+            print("Problema en la serializacion")
+            return
+        }
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                print("Opinion submitted successfully.")
+            } else {
+                print("Server Error: \(response)")
+            }
+        } catch {
+            print("Network Error: \(error.localizedDescription)")
+        }
+    }
+    
+    /*
+    func submitScan(stars: Int, comment: String, exhibitionID: Int) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/escaneos/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: Date())
+        
+        let payload: [String: Any] = [
+            "calificacion": stars,
+            "descripcion": comment,
+            "fecha_opinion": dateString,
+            "usuario": userID,
+            "exhibicion": exhibitionID
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+        } catch {
+            errorMessage = "Error serializing JSON: \(error.localizedDescription)"
+            print("Problema en la serializacion")
+            return
+        }
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                print("Opinion submitted successfully.")
+            } else {
+                print("Server Error: \(response)")
+            }
+        } catch {
+            print("Network Error: \(error.localizedDescription)")
+        }
+    }
+    */
+    
     func modifyProfile(nombre: String, apellido: String, fecha: Date, password: String, correo: String) async {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
         var request = URLRequest(url: url)

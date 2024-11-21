@@ -6,6 +6,7 @@
 //
 
 struct Exhibition: Codable{
+    let id: Int
     let nombre : String
     let zona : String
     let img : String

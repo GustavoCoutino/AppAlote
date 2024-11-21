@@ -14,6 +14,7 @@ struct ActivityView: View {
     @State var feedback: String = ""
     @State var pages : [Page] = []
     @State var loading : Bool = true
+    @State var id : Int?
     
     var body: some View {
         VStack {
@@ -37,16 +38,31 @@ struct ActivityView: View {
                                 userManager.currentDeepLink = nil
                             }
                         }
-                        .buttonStyle(NavigationButtonStyle())
+                        .frame(minWidth: 100)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                         
                         Spacer()
                         
                         Button("Enviar") {
                             withAnimation {
-                                userManager.currentDeepLink = nil
+                                if let id = id {
+                                    Task {
+                                        await userManager.submitOpinion(stars: rating, comment: feedback, exhibitionID: id)
+                                    }
+                                    userManager.currentDeepLink = nil
+                                }
                             }
                         }
-                        .buttonStyle(NavigationButtonStyle())
+                        .disabled(rating == 0)
+                        .frame(minWidth: 100)
+                        .padding()
+                        .background(rating == 0 ? Color.gray : Color.green )
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        
                     } else {
                         if currentPage > 0 {
                             Button("Retroceder") {
@@ -54,7 +70,11 @@ struct ActivityView: View {
                                     currentPage -= 1
                                 }
                             }
-                            .buttonStyle(NavigationButtonStyle())
+                            .frame(minWidth: 100)
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
                         
                         Spacer()
@@ -64,7 +84,11 @@ struct ActivityView: View {
                                 currentPage += 1
                             }
                         }
-                        .buttonStyle(NavigationButtonStyle())
+                        .frame(minWidth: 100)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
                     
                 }
@@ -76,6 +100,9 @@ struct ActivityView: View {
             Task {
                 if let name = userManager.currentDeepLink {
                     pages = await userManager.fetchExhibitionActivity(exhibition: name)
+                    if let exhibition = await userManager.fetchExhibitionData(exhibition: name){
+                        id = exhibition.id
+                    }
                 }
                 loading = false
             }
