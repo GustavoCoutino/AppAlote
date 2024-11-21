@@ -211,6 +211,16 @@ struct PerfilView: View {
             }
             loadUserData()
         }
+        .alert(isPresented: $showSignOutAlert) {
+            Alert(
+                title: Text("Cerrar sesión"),
+                message: Text("¿Estás seguro? Al cerrar sesión tendrás que iniciar sesión e ingresar el código de acceso nuevamente."),
+                primaryButton: .default(Text("Cerrar sesión")) {
+                    userManager.signOut()
+                },
+                secondaryButton: .cancel()
+            )
+        }
         Spacer().frame(height: 120)
     }
 }

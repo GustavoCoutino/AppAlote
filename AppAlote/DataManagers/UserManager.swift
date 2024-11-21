@@ -122,7 +122,7 @@ class UserManager: ObservableObject {
                     let apellido = json["apellido"] as? String,
                     let correo = json["correo"] as? String,
                     let fechaNacimiento = json["fecha_nacimiento"] as? String {
-                                        
+                                    
                     let defaults = UserDefaults.standard
                     defaults.set(userId, forKey: "userID")
                     defaults.set(nombre, forKey: "nombre")
@@ -137,7 +137,12 @@ class UserManager: ObservableObject {
                     if let tarjeta = json["tarjeta"] as? String {
                         defaults.set(tarjeta, forKey: "tarjeta")
                     }
-                    userID = defaults.string(forKey: "userID") ?? ""
+                        self.userID = defaults.string(forKey: "userID") ?? ""
+                        self.name = nombre
+                        self.lastName = apellido
+                        self.email = correo
+                        self.dateOfBirth = fechaNacimiento
+                        
                     isAuthenticated = true
                                         
                 } else {
@@ -209,6 +214,10 @@ class UserManager: ObservableObject {
                         }
                         
                         userID = defaults.string(forKey: "userID") ?? ""
+                        self.name = nombre
+                        self.lastName = apellido
+                        self.email = correo
+                        self.dateOfBirth = fechaNacimiento
                         isAuthenticated = true
                         await checkQuizCompletion()
                                         
