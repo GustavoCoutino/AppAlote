@@ -82,6 +82,9 @@ struct HomeView: View {
                                         .onTapGesture {
                                             isZoneSelected = true
                                             selectedZone = label.uppercased()
+                                            if selectedZone == "PEQUEÑOS"{
+                                                selectedZone = "PEQUEÑOS 1"
+                                            }
                                         }
                                 }
                             }
