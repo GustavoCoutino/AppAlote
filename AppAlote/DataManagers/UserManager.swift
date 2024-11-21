@@ -13,6 +13,10 @@ class UserManager: ObservableObject {
     @Published var hasRecentAccessCode = false
     @Published var userID = ""
     @Published var profilePicture = ""
+    @Published var name = ""
+    @Published var lastName = ""
+    @Published var dateOfBirth = ""
+    @Published var email = ""
     @Published var errorMessage: String?
     @Published var isLoading = true
     @Published var currentDeepLink: String?
@@ -443,8 +447,13 @@ class UserManager: ObservableObject {
                 if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
                     let user = try JSONDecoder().decode(User.self, from: data)
                     defaults.set(user.nombre, forKey: "nombre")
+                    name = user.nombre
                     defaults.set(user.apellido, forKey: "apellido")
+                    lastName = user.apellido
                     defaults.set(user.correo, forKey: "correo")
+                    email = user.correo
+                    defaults.set(user.fecha_nacimiento, forKey: "fechaNacimiento")
+                    dateOfBirth = user.fecha_nacimiento
                     defaults.set(user.foto_perfil, forKey: "fotoPerfil")
                     profilePicture = user.foto_perfil
                 } else {
@@ -535,7 +544,7 @@ class UserManager: ObservableObject {
     }
     */
     
-    func modifyProfile(nombre: String, apellido: String, fecha: Date, password: String, correo: String) async {
+    func modifyProfile(nombre: String, apellido: String, fecha: Date, correo: String) async {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -549,7 +558,6 @@ class UserManager: ObservableObject {
             "nombre": nombre,
             "apellido": apellido,
             "fecha_nacimiento": dateString,
-            "password_hash": password,
             "correo": correo
         ]
         
@@ -567,6 +575,12 @@ class UserManager: ObservableObject {
                     defaults.set(apellido, forKey: "apellido")
                     defaults.set(correo, forKey: "correo")
                     defaults.set(dateString, forKey: "fechaNacimiento")
+                    
+                    name = nombre
+                    lastName = apellido
+                    email = correo
+                    dateOfBirth = dateString
+                    
                     
                     if let fotoPerfil = json["foto_perfil"] as? String {
                         defaults.set(fotoPerfil, forKey: "fotoPerfil")

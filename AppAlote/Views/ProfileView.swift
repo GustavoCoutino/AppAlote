@@ -61,7 +61,7 @@ struct ProfileView: View {
                                 }
                             }
                             
-                            Text(name+" "+lastName)
+                            Text(userManager.name+" "+userManager.lastName)
                                 .font(.title)
                                 .fontWeight(.bold)
                             
@@ -107,8 +107,9 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
-                name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
-                lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
+                Task {
+                    await userManager.loadData()
+                }
                 selectedCardImage = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
             }
             .photosPicker(isPresented: $showingImagePicker,

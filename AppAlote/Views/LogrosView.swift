@@ -39,12 +39,11 @@ struct LogrosView: View {
                                 .frame(width: 150)
                             
                         }
-                        .padding(.leading)
+                        .padding(.horizontal)
                     }
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(radius: 5)
-                    .padding(.horizontal)
                 }
             }
             .padding()

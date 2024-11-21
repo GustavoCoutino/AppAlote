@@ -13,4 +13,5 @@ struct User : Codable {
     let nombre: String
     let apellido: String
     let correo: String
+    let fecha_nacimiento: String
 }
