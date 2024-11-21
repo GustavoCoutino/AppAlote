@@ -67,7 +67,7 @@ struct ZoneView: View {
                             Text(zone.descripcion_es)
                                 .padding(.horizontal)
                             
-                            HStack(spacing: 16) {
+                            VStack(spacing: 16) {
                                 ForEach(zone.multimedia, id: \.self) { imageURL in
                                     if let url = URL(string: imageURL) {
                                         AsyncImage(url: url) { phase in
@@ -79,13 +79,11 @@ struct ZoneView: View {
                                                 image
                                                     .resizable()
                                                     .scaledToFit()
-                                                    .frame(height: 100)
                                                     .cornerRadius(8)
                                             default:
                                                 Image(systemName: "photo")
                                                     .resizable()
                                                     .scaledToFit()
-                                                    .frame(width: 300, height: 300)
                                                     .foregroundColor(.gray)
                                         
                                             }
