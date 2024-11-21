@@ -91,6 +91,17 @@ struct ExhibitionView: View {
                         .background(Color(red: 216/255, green: 245/255, blue: 97/255))
                         .cornerRadius(8)
                         
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Objetivos de la exhibición:")
+                                .bold()
+                            ForEach(exhibition.objetivos) { objective in
+                                Text("• \(objective.descripcionEs)")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                        .padding(.top, 10)
+                        
+                        
                         /*
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Objetivos de la exhibición:")
@@ -105,10 +116,9 @@ struct ExhibitionView: View {
                         
                     }
                 }
-                .padding()
-            
             }
         }
+        .padding()
         .onAppear{
             Task {
                 fetchedExhibition = await userManager.fetchExhibitionData(exhibition: name)

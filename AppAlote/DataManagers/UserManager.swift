@@ -352,6 +352,10 @@ class UserManager: ObservableObject {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                // Debug: Print raw JSON response
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print("Raw JSON Response: \(jsonString)")
+                }
                 let exhibition = try JSONDecoder().decode(Exhibition.self, from: data)
                 return exhibition
             } else {
