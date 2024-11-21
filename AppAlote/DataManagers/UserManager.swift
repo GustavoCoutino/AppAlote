@@ -772,6 +772,9 @@ class UserManager: ObservableObject {
         selectedAuthView = "LogIn"
         userID = ""
         profilePicture = ""
+        name = ""
+        dateOfBirth = ""
+        email = ""
         isAuthenticated = false
         hasRecentAccessCode = false
         hasAnsweredQuiz = false
