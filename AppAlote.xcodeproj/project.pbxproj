@@ -42,6 +42,7 @@
 		F49690C92CD0979200033F90 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49690C82CD0979200033F90 /* Navbar.swift */; };
 		F4A74CB02CEEA451009AF5FF /* Desafios.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A74CAF2CEEA44F009AF5FF /* Desafios.swift */; };
 		F4A74CB22CEEA73E009AF5FF /* Insignias.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A74CB12CEEA739009AF5FF /* Insignias.swift */; };
+		F4A74CB42CEEAF2C009AF5FF /* Tarjetas.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A74CB32CEEAF2A009AF5FF /* Tarjetas.swift */; };
 		F4CB79E32CE7D123001ECDAF /* QuizCompletionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */; };
 		F4DF14F32CC19F530058008F /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF14F22CC19F530058008F /* Map.swift */; };
 		F4E25F942CBF299900A1BB94 /* AppAloteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */; };
@@ -94,6 +95,7 @@
 		F49690C82CD0979200033F90 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
 		F4A74CAF2CEEA44F009AF5FF /* Desafios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Desafios.swift; sourceTree = "<group>"; };
 		F4A74CB12CEEA739009AF5FF /* Insignias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insignias.swift; sourceTree = "<group>"; };
+		F4A74CB32CEEAF2A009AF5FF /* Tarjetas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjetas.swift; sourceTree = "<group>"; };
 		F4CB79E22CE7D123001ECDAF /* QuizCompletionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCompletionModal.swift; sourceTree = "<group>"; };
 		F4DF14F22CC19F530058008F /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F4E25F902CBF299900A1BB94 /* AppAlote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppAlote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				B32403232CEAC9B80067DE5D /* Page.swift */,
+				F4A74CB32CEEAF2A009AF5FF /* Tarjetas.swift */,
 				F4A74CB12CEEA739009AF5FF /* Insignias.swift */,
 				F4A74CAF2CEEA44F009AF5FF /* Desafios.swift */,
 				B32403032CEA36B60067DE5D /* Zone.swift */,
@@ -326,6 +329,7 @@
 				B3E9859D2CC9800600F355F4 /* MapView.swift in Sources */,
 				B3689A8F2CE1B45100D585EB /* DataScannerRepresentable.swift in Sources */,
 				F4E25F962CBF299900A1BB94 /* ContentView.swift in Sources */,
+				F4A74CB42CEEAF2C009AF5FF /* Tarjetas.swift in Sources */,
 				B32403242CEAC9BF0067DE5D /* Page.swift in Sources */,
 				F49690C92CD0979200033F90 /* Navbar.swift in Sources */,
 				B37412682CD3DFAD00717C18 /* TabButton.swift in Sources */,

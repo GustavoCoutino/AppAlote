@@ -117,6 +117,7 @@ class UserManager: ObservableObject {
                     let nombre = json["nombre"] as? String,
                     let apellido = json["apellido"] as? String,
                     let correo = json["correo"] as? String,
+                    let tarjeta = json["tarjeta"] as? String,
                     let fechaNacimiento = json["fecha_nacimiento"] as? String {
                                         
                     let defaults = UserDefaults.standard
@@ -129,6 +130,9 @@ class UserManager: ObservableObject {
                     if let fotoPerfil = json["foto_perfil"] as? String {
                         defaults.set(fotoPerfil, forKey: "fotoPerfil")
                         profilePicture = fotoPerfil
+                    }
+                    if let tarjeta = json["tarjeta"] as? String {
+                        defaults.set(tarjeta, forKey: "tarjeta")
                     }
                     userID = defaults.string(forKey: "userID") ?? ""
                     isAuthenticated = true
@@ -186,6 +190,7 @@ class UserManager: ObservableObject {
                        let apellido = json["apellido"] as? String,
                        let correo = json["correo"] as? String,
                        let fechaNacimiento = json["fecha_nacimiento"] as? String,
+                       let tarjeta = json["tarjeta"] as? String,
                        let fechaRegistro = json["fecha_registro"] as? String {
                        let defaults = UserDefaults.standard
                        defaults.set(userId, forKey: "userID")
@@ -197,6 +202,10 @@ class UserManager: ObservableObject {
                         if let fotoPerfil = json["foto_perfil"] as? String {
                             defaults.set(fotoPerfil, forKey: "fotoPerfil")
                         }
+                        if let tarjeta = json["tarjeta"] as? String {
+                            defaults.set(tarjeta, forKey: "tarjeta")
+                        }
+                        
                         userID = defaults.string(forKey: "userID") ?? ""
                         isAuthenticated = true
                         await checkQuizCompletion()
@@ -503,6 +512,37 @@ class UserManager: ObservableObject {
         }
     }
     
+    func updateTarjeta(imagen: String) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: imagen)
+            request.httpBody = jsonData
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    let defaults = UserDefaults.standard
+                    defaults.set(imagen, forKey: "tarjeta")
+                    print("Tarjeta actualizada exitosamente")
+                } else {
+                    errorMessage = "Error al procesar la respuesta del servidor"
+                }
+            } else {
+                errorMessage = "Error en la actualización de la tarjeta"
+            }
+        } catch {
+            print("Error updating profile:", error.localizedDescription)
+            errorMessage = "Hubo un error al modificar la tarjeta: \(error.localizedDescription)"
+        }
+    }
+    
     
     func uploadProfilePhoto(imageData: Data) {
             guard let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/") else {
@@ -596,6 +636,29 @@ class UserManager: ObservableObject {
         } catch {
             print("Error decoding response:", error.localizedDescription)
             errorMessage = "Hubo un error al obtener las insignias: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
+    func fetchTarjetas() async -> [Tarjetas] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/tarjetas/\(userID)/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+                
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let decoder = JSONDecoder()
+                let cards = try decoder.decode([Tarjetas].self, from: data)
+                return cards
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener las tarjetas: \(error.localizedDescription)"
         }
         return []
     }

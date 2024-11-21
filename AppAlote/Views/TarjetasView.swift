@@ -9,23 +9,29 @@ import SwiftUI
 
 struct TarjetasView: View {
     @Binding var selectedCardImage: String
-    
-    let cardImages = ["fondo1", "fondo2", "fondo3", "fondo4", "fondo5","fondo6"]
+    @State private var cards: [Tarjetas] = []
+    @EnvironmentObject var userManager: UserManager
     
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                ForEach(cardImages, id: \.self) { cardImage in
+                ForEach(cards) { card in
                     ZStack {
-                        Image(cardImage)
-                            .resizable()
-                            .frame(height: 100)
-                            .cornerRadius(10)
-                            .onTapGesture {
-                                selectedCardImage = cardImage
-                            }
+                        AsyncImage(url: URL(string: card.imagen)) { image in image
+                                .resizable()
+                                .frame(height: 100)
+                                .grayscale(card.obtenido ? 0 : 1)
+                                .opacity(card.obtenido ? 1 : 0.5)
+                                .onTapGesture {
+                                    if card.obtenido {
+                                        selectedCardImage = card.imagen
+                                    }
+                                }
+                        } placeholder: {
+                            ProgressView()
+                        }
                         
-                        if selectedCardImage == cardImage {
+                        if selectedCardImage == card.imagen {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .foregroundColor(.green)
@@ -34,12 +40,30 @@ struct TarjetasView: View {
                         }
                     }
                 }
+                Button(action: {
+                    if !selectedCardImage.isEmpty {
+                        Task {
+                            await userManager.updateTarjeta(imagen: selectedCardImage)
+                        }
+                    }
+                }) {
+                    Text("Actualizar tarjeta")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(selectedCardImage.isEmpty ? Color.gray : Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding()
+                .disabled(selectedCardImage.isEmpty)
             }
             .padding()
         }
+        
+        .onAppear{
+            Task {
+                cards = await userManager.fetchTarjetas()
+            }
+        }
     }
-}
-
-#Preview {
-    TarjetasView(selectedCardImage: .constant("fondo1"))
 }

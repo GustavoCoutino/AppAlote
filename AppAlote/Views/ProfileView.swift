@@ -22,13 +22,18 @@ struct ProfileView: View {
                     
                     ZStack {
                         
-                        Image(selectedCardImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .containerRelativeFrame(.horizontal)
-                            .frame(height: 260)
-                            .clipped()
-                            .edgesIgnoringSafeArea(.all)
+                        AsyncImage(url: URL(string: selectedCardImage)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .containerRelativeFrame(.horizontal)
+                                .frame(height: 260)
+                                .clipped()
+                                .edgesIgnoringSafeArea(.all)
+                        } placeholder: {
+                            ProgressView()
+                                .frame(height: 260)
+                        }
                         
                         VStack{
                             if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
@@ -105,6 +110,7 @@ struct ProfileView: View {
             .onAppear {
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
                 lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
+                selectedCardImage = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
             }
             .photosPicker(isPresented: $showingImagePicker,
                                  selection: $selectedItem,

@@ -26,6 +26,8 @@ struct InsigniasView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 50, height: 50)
                                     .padding()
+                                    .grayscale(badge.obtenido ? 0 : 1) 
+                                    .opacity(badge.obtenido ? 1 : 0.5)
                             } placeholder: {
                                 ProgressView()
                             }
