@@ -111,13 +111,12 @@ class UserManager: ObservableObject {
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse {
+            if response is HTTPURLResponse {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
                     if let userId = json["id_usuario"] as? String,
                     let nombre = json["nombre"] as? String,
                     let apellido = json["apellido"] as? String,
                     let correo = json["correo"] as? String,
-                    let tarjeta = json["tarjeta"] as? String,
                     let fechaNacimiento = json["fecha_nacimiento"] as? String {
                                         
                     let defaults = UserDefaults.standard
@@ -181,7 +180,7 @@ class UserManager: ObservableObject {
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse {
+            if response is HTTPURLResponse {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let detail = json["detail"] as? String {
                     if detail == "Autenticación exitosa.",
@@ -190,7 +189,6 @@ class UserManager: ObservableObject {
                        let apellido = json["apellido"] as? String,
                        let correo = json["correo"] as? String,
                        let fechaNacimiento = json["fecha_nacimiento"] as? String,
-                       let tarjeta = json["tarjeta"] as? String,
                        let fechaRegistro = json["fecha_registro"] as? String {
                        let defaults = UserDefaults.standard
                        defaults.set(userId, forKey: "userID")
@@ -486,7 +484,7 @@ class UserManager: ObservableObject {
         }
         
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (_, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                 print("Opinion submitted successfully.")
             } else {

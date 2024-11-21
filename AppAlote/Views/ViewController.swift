@@ -60,11 +60,6 @@ struct ViewController: View {
             }
             
         }
-        .onAppear{
-            Task {
-                await userManager.loadData()
-            }
-        }
         .animation(.easeInOut, value: userManager.selectedView)
         .animation(.easeInOut, value: userManager.selectedAuthView)
         .onOpenURL{ url in

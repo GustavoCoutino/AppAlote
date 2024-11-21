@@ -166,6 +166,10 @@ struct HomeView: View {
                 .ignoresSafeArea()
             }
             .onAppear{
+                Task {
+                    await userManager.loadData()
+                }
+                
                 loadSortedZones()
                 name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
                 lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
