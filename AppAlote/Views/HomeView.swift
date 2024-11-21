@@ -15,6 +15,7 @@ struct HomeView: View {
     @State var isZoneSelected: Bool = false
     @State var showNotifications: Bool = false
     @State var selectedZone: String?
+    @State var showSignOutAlert = false
     
     var body: some View {
         NavigationStack {
@@ -142,7 +143,8 @@ struct HomeView: View {
                         Spacer()
                         
                         Button{
-                            userManager.signOut()
+                            // userManager.signOut()
+                            showSignOutAlert = true
                         } label: {
                             Image("signout")
                                 .resizable()
@@ -183,6 +185,16 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showNotifications){
                 NotificationsView()
+            }
+            .alert(isPresented: $showSignOutAlert) {
+                Alert(
+                    title: Text("Cerrar sesión"),
+                    message: Text("¿Estás seguro? Al cerrar sesión tendrás que iniciar sesión e ingresar el código de acceso nuevamente."),
+                    primaryButton: .default(Text("Cerrar sesión")) {
+                        userManager.signOut()
+                    },
+                    secondaryButton: .cancel()
+                )
             }
 
         }
