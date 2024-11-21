@@ -310,6 +310,41 @@ class UserManager: ObservableObject {
         }
     }
     
+    func postScan(exhibition: Int) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/escaneos/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let payload: [String: Any] = [
+            "usuario": userID,
+            "exhibicion": exhibition
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+        } catch {
+            errorMessage = "Error serializing JSON: \(error.localizedDescription)"
+            print("Problema en la serializacion")
+            return
+        }
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                
+                if (200...299).contains(httpResponse.statusCode) {
+                    print("POST request successful for scan")
+                } else {
+                    errorMessage = "Hubo un error al postear el scan: \(httpResponse.statusCode)"
+                }
+            }
+        } catch {
+            errorMessage = "Hubo un error al postear el scan: \(error.localizedDescription)"
+        }
+    }
+    
     func fetchUserQuizScore() async -> [QuizScore] {
         let url = URL(string: "https://papalote-backend.onrender.com/api/preferencias/")!
         var request = URLRequest(url: url)
