@@ -10,7 +10,7 @@ struct ProfileView: View {
         @State var name : String = ""
         @State var lastName : String = ""
         @State private var selectedTab: Tab = .perfil
-        @State private var selectedCardImage: String = "background1"
+        @State private var selectedCardImage: String = ""
         @State var profilePicture : String = ""
     
         @State private var showingImagePicker = false
@@ -31,8 +31,7 @@ struct ProfileView: View {
                                 .clipped()
                                 .edgesIgnoringSafeArea(.all)
                         } placeholder: {
-                            ProgressView()
-                                .frame(height: 260)
+                            Image("")
                         }
                         
                         VStack{
@@ -102,7 +101,7 @@ struct ProfileView: View {
                 } else if selectedTab == .insignias {
                     InsigniasView()
                 } else if selectedTab == .tarjetas {
-                    TarjetasView(selectedCardImage: $selectedCardImage)
+                    TarjetasView()
                 } else if selectedTab == .perfil {
                     PerfilView()
                 }
@@ -123,6 +122,9 @@ struct ProfileView: View {
                 }
             }
             .background(Color.white)
+            .onAppear {
+                selectedCardImage = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
+            }
         }
         
 }

@@ -521,7 +521,8 @@ class UserManager: ObservableObject {
         
         
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: imagen)
+            let jsonPayload: [String: Any] = ["imagen": imagen]
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonPayload, options: [])
             request.httpBody = jsonData
             
             let (data, response) = try await URLSession.shared.data(for: request)

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct TarjetasView: View {
-    @Binding var selectedCardImage: String
+    @State var selectedCardImage = ""
     @State private var cards: [Tarjetas] = []
     @EnvironmentObject var userManager: UserManager
+    @State private var showingAlert = false
     
     var body: some View {
         ScrollView {
@@ -25,6 +26,7 @@ struct TarjetasView: View {
                                 .onTapGesture {
                                     if card.obtenido {
                                         selectedCardImage = card.imagen
+                                        showingAlert = true
                                     }
                                 }
                         } placeholder: {
@@ -40,26 +42,21 @@ struct TarjetasView: View {
                         }
                     }
                 }
-                Button(action: {
-                    if !selectedCardImage.isEmpty {
-                        Task {
-                            await userManager.updateTarjeta(imagen: selectedCardImage)
-                        }
-                    }
-                }) {
-                    Text("Actualizar tarjeta")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(selectedCardImage.isEmpty ? Color.gray : Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding()
-                .disabled(selectedCardImage.isEmpty)
             }
             .padding()
         }
-        
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Confirmar cambio"),
+                message: Text("Quieres cambiar tu tarjeta?"),
+                primaryButton: .default(Text("Cambiar")) {
+                    Task {
+                        await userManager.updateTarjeta(imagen: selectedCardImage)
+                    }
+                },
+                secondaryButton: .cancel()
+            )
+        }
         .onAppear{
             Task {
                 cards = await userManager.fetchTarjetas()
