@@ -238,7 +238,7 @@ struct Map: View {
         "NATURALEZA": 1,
         "AGUA": 1,
         "TIENDA": 1,
-        "EXPOSICIONES TEMPORALES": 1
+        "EXPOSICIONES TEMPORALES": 0
     ]
     @StateObject var model = MapViewModel()
     @State var floor : Int

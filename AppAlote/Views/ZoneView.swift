@@ -17,7 +17,7 @@ struct ZoneView: View {
                 Text(zone.nombre)
                     .font(.title)
                     .bold()
-                    .padding(.top)
+                    .padding()
                 
                 ScrollView {
                     VStack(spacing: 16) {
@@ -57,9 +57,12 @@ struct ZoneView: View {
                         }
                         
                         VStack(spacing: 16) {
-                            Text("\(zone.numero_exhibiciones) exhibiciones")
-                                .font(.subheadline)
-                                .padding(.top, 8)
+                            if zone.nombre != "EXPOSICIONES TEMPORALES"{
+                                Text("\(zone.numero_exhibiciones) exhibiciones")
+                                    .font(.subheadline)
+                                    .padding(.top, 8)
+                            }
+                            
                             
                           
                             VStack{

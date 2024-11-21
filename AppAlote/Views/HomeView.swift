@@ -90,29 +90,26 @@ struct HomeView: View {
                             }
                             .padding(.horizontal)
                         }
-                        /*
                         Image("Exhibiciones")
                             .resizable()
                             .frame(width: 250, height: 200)
                             .padding(.top,16)
+                        
                         VStack(spacing: 0){
-                            Image("Dino")
+                            Image("people")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 400, height: 230)
                                 .clipped()
-                            Text("Exhibición temporal")
-                                .font(.subheadline)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 100)
-                                .background(Color(red:230/255, green: 245/255, blue: 221/255))
                         }
                         .frame(width: 400,height: 260)
                         .cornerRadius(12)
                         .shadow(radius: 4)
-                         */
+                        .onTapGesture {
+                            isZoneSelected = true
+                            selectedZone = "EXPOSICIONES TEMPORALES"
+                        }
                     }
-                    .padding(.bottom, 150)
+                    .padding(.bottom, 200)
                 }
                 .padding(.top, 100)
                 
