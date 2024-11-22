@@ -118,36 +118,41 @@ class UserManager: ObservableObject {
             if response is HTTPURLResponse {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
                     if let userId = json["id_usuario"] as? String,
-                       let nombre = json["nombre"] as? String,
-                       let apellido = json["apellido"] as? String,
-                       let correo = json["correo"] as? String,
-                       let fechaNacimiento = json["fecha_nacimiento"] as? String {
-                        
-                        let defaults = UserDefaults.standard
-                        defaults.set(userId, forKey: "userID")
-                        defaults.set(nombre, forKey: "nombre")
-                        defaults.set(apellido, forKey: "apellido")
-                        defaults.set(correo, forKey: "correo")
-                        defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
-                        
-                        if let fotoPerfil = json["foto_perfil"] as? String {
-                            defaults.set(fotoPerfil, forKey: "fotoPerfil")
-                            profilePicture = fotoPerfil
-                        }
-                        if let tarjeta = json["tarjeta"] as? String {
-                            defaults.set(tarjeta, forKey: "tarjeta")
-                        }
-                        userID = defaults.string(forKey: "userID") ?? ""
-                        isAuthenticated = true
-                        
-                    } else {
-                        if let detail = json["correo"] as? [String] {
-                            errorMessage = detail[0]
-                        }
-                        if errorMessage == "usuario with this correo already exists." {
-                            errorMessage = "Usuario con este correo ya existe"
-                        }
+                    let nombre = json["nombre"] as? String,
+                    let apellido = json["apellido"] as? String,
+                    let correo = json["correo"] as? String,
+                    let fechaNacimiento = json["fecha_nacimiento"] as? String {
+                                    
+                    let defaults = UserDefaults.standard
+                    defaults.set(userId, forKey: "userID")
+                    defaults.set(nombre, forKey: "nombre")
+                    defaults.set(apellido, forKey: "apellido")
+                    defaults.set(correo, forKey: "correo")
+                    defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
+                                        
+                    if let fotoPerfil = json["foto_perfil"] as? String {
+                        defaults.set(fotoPerfil, forKey: "fotoPerfil")
+                        profilePicture = fotoPerfil
                     }
+                    if let tarjeta = json["tarjeta"] as? String {
+                        defaults.set(tarjeta, forKey: "tarjeta")
+                    }
+                        self.userID = defaults.string(forKey: "userID") ?? ""
+                        self.name = nombre
+                        self.lastName = apellido
+                        self.email = correo
+                        self.dateOfBirth = fechaNacimiento
+                        
+                    isAuthenticated = true
+                                        
+                } else {
+                    if let detail = json["correo"] as? [String] {
+                        errorMessage = detail[0]
+                    }
+                    if errorMessage == "usuario with this correo already exists." {
+                        errorMessage = "Usuario con este correo ya existe"
+                    }
+                }
                 } else {
                     errorMessage = "Error en la respuesta del servidor."
                 }
@@ -209,6 +214,10 @@ class UserManager: ObservableObject {
                         }
                         
                         userID = defaults.string(forKey: "userID") ?? ""
+                        self.name = nombre
+                        self.lastName = apellido
+                        self.email = correo
+                        self.dateOfBirth = fechaNacimiento
                         isAuthenticated = true
                         await checkQuizCompletion()
                         
@@ -301,6 +310,41 @@ class UserManager: ObservableObject {
         }
     }
     
+    func postScan(exhibition: Int) async {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/escaneos/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let payload: [String: Any] = [
+            "usuario": userID,
+            "exhibicion": exhibition
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+        } catch {
+            errorMessage = "Error serializing JSON: \(error.localizedDescription)"
+            print("Problema en la serializacion")
+            return
+        }
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                
+                if (200...299).contains(httpResponse.statusCode) {
+                    print("POST request successful for scan")
+                } else {
+                    errorMessage = "Hubo un error al postear el scan: \(httpResponse.statusCode)"
+                }
+            }
+        } catch {
+            errorMessage = "Hubo un error al postear el scan: \(error.localizedDescription)"
+        }
+    }
+    
     func fetchUserQuizScore() async -> [QuizScore] {
         let url = URL(string: "https://papalote-backend.onrender.com/api/preferencias/")!
         var request = URLRequest(url: url)
@@ -352,6 +396,10 @@ class UserManager: ObservableObject {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                // Debug: Print raw JSON response
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print("Raw JSON Response: \(jsonString)")
+                }
                 let exhibition = try JSONDecoder().decode(Exhibition.self, from: data)
                 return exhibition
             } else {
@@ -782,6 +830,9 @@ class UserManager: ObservableObject {
         selectedAuthView = "LogIn"
         userID = ""
         profilePicture = ""
+        name = ""
+        dateOfBirth = ""
+        email = ""
         isAuthenticated = false
         hasRecentAccessCode = false
         hasAnsweredQuiz = false

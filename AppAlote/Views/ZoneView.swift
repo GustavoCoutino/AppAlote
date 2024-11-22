@@ -17,7 +17,7 @@ struct ZoneView: View {
                 Text(zone.nombre)
                     .font(.title)
                     .bold()
-                    .padding(.top)
+                    .padding()
                 
                 ScrollView {
                     VStack(spacing: 16) {
@@ -43,29 +43,39 @@ struct ZoneView: View {
                                     }
                                 }
                             }
-                            Text("Zona")
-                                .font(.headline)
-                                .padding(8)
-                                .background(Color.black.opacity(0.6))
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                                .padding(.top, 8)
+                            VStack{
+                                Text("Zona")
+                                    .font(.headline)
+                                    .padding(8)
+                                    .background(Color.black)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
+                            .padding(.top, 15)
+                            
+                             
                         }
                         
                         VStack(spacing: 16) {
-                            Text("\(zone.numero_exhibiciones) exhibiciones")
-                                .font(.subheadline)
-                                .padding(.top, 8)
+                            if zone.nombre != "EXPOSICIONES TEMPORALES"{
+                                Text("\(zone.numero_exhibiciones) exhibiciones")
+                                    .font(.subheadline)
+                                    .padding(.top, 8)
+                            }
                             
-                            Text(zone.mensaje_es)
-                                .font(.headline)
-                                .padding()
-                                .background(Color(red: 216/255, green: 245/255, blue: 97/255))
-                                .cornerRadius(8)
-                                .padding(.horizontal)
+                            
+                          
+                            VStack{
+                                Text(zone.mensaje_es)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.center)
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(red: 216/255, green: 245/255, blue: 97/255))
+                            .cornerRadius(8)
                             
                             Text(zone.descripcion_es)
-                                .padding(.horizontal)
                             
                             VStack(spacing: 16) {
                                 ForEach(zone.multimedia, id: \.self) { imageURL in
@@ -91,20 +101,13 @@ struct ZoneView: View {
                                     }
                                 }
                             }
-                            .padding(.horizontal)
                         }
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                                .fill(Color.white)
-                                .shadow(radius: 5)
-                        )
-                        .padding(.horizontal)
+                        
                     }
+                    .padding(.horizontal)
                 }
             }
         }
-        .padding()
         .onAppear {
             Task {
                 fetchedZone = await userManager.fetchZoneData(zone: name)

@@ -10,18 +10,26 @@ import SwiftUI
 struct NotificationsView: View {
     @EnvironmentObject var userManager: UserManager
     @State var notifications : [Announcement] = []
+    @State var isLoading = true
     var body: some View {
         ScrollView{
-            ForEach(notifications){ notification in
-                NotificationView(notification: notification)
-                
+            if isLoading {
+                ProgressView()
+                    .scaleEffect(1.5)
+                    .padding(.top, 50)
+            } else {
+                ForEach(notifications){ notification in
+                    NotificationView(notification: notification)
+                    
+                }
             }
+            
         }
         .padding(.top, 15)
         .onAppear{
             Task {
                 notifications = await userManager.fetchNotifications()
-                print(notifications)
+                isLoading = false
             }
         }
     }

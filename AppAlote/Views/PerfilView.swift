@@ -17,6 +17,7 @@ struct PerfilView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var errorTitle = ""
+    @State var showSignOutAlert = false
     
     @State var changed = false
     
@@ -127,7 +128,8 @@ struct PerfilView: View {
                     
                     HStack(spacing: 20) {
                         Button(action: {
-                            userManager.signOut()
+                            // userManager.signOut()
+                            showSignOutAlert = true
                         }) {
                             Text("Cerrar sesión")
                                 .frame(maxWidth: .infinity, minHeight: 44)
@@ -180,6 +182,16 @@ struct PerfilView: View {
 
                         
                     }
+                    .alert(isPresented: $showSignOutAlert) {
+                        Alert(
+                            title: Text("Cerrar sesión"),
+                            message: Text("¿Estás seguro? Al cerrar sesión tendrás que iniciar sesión e ingresar el código de acceso nuevamente."),
+                            primaryButton: .default(Text("Cerrar sesión")) {
+                                userManager.signOut()
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
                     .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text(errorTitle),
@@ -198,6 +210,16 @@ struct PerfilView: View {
                 await userManager.loadData()
             }
             loadUserData()
+        }
+        .alert(isPresented: $showSignOutAlert) {
+            Alert(
+                title: Text("Cerrar sesión"),
+                message: Text("¿Estás seguro? Al cerrar sesión tendrás que iniciar sesión e ingresar el código de acceso nuevamente."),
+                primaryButton: .default(Text("Cerrar sesión")) {
+                    userManager.signOut()
+                },
+                secondaryButton: .cancel()
+            )
         }
         Spacer().frame(height: 120)
     }

@@ -15,6 +15,7 @@ struct HomeView: View {
     @State var isZoneSelected: Bool = false
     @State var showNotifications: Bool = false
     @State var selectedZone: String?
+    @State var showSignOutAlert = false
     
     var body: some View {
         NavigationStack {
@@ -82,34 +83,34 @@ struct HomeView: View {
                                         .onTapGesture {
                                             isZoneSelected = true
                                             selectedZone = label.uppercased()
+                                            if selectedZone == "PEQUEÑOS"{
+                                                selectedZone = "PEQUEÑOS 1"
+                                            }
                                         }
                                 }
                             }
                             .padding(.horizontal)
                         }
-                        /*
                         Image("Exhibiciones")
                             .resizable()
                             .frame(width: 250, height: 200)
                             .padding(.top,16)
+                        
                         VStack(spacing: 0){
-                            Image("Dino")
+                            Image("people")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 400, height: 230)
                                 .clipped()
-                            Text("Exhibición temporal")
-                                .font(.subheadline)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 100)
-                                .background(Color(red:230/255, green: 245/255, blue: 221/255))
                         }
                         .frame(width: 400,height: 260)
                         .cornerRadius(12)
                         .shadow(radius: 4)
-                         */
+                        .onTapGesture {
+                            isZoneSelected = true
+                            selectedZone = "EXPOSICIONES TEMPORALES"
+                        }
                     }
-                    .padding(.bottom, 150)
+                    .padding(.bottom, 200)
                 }
                 .padding(.top, 100)
                 
@@ -142,7 +143,8 @@ struct HomeView: View {
                         Spacer()
                         
                         Button{
-                            userManager.signOut()
+                            // userManager.signOut()
+                            showSignOutAlert = true
                         } label: {
                             Image("signout")
                                 .resizable()
@@ -183,6 +185,16 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showNotifications){
                 NotificationsView()
+            }
+            .alert(isPresented: $showSignOutAlert) {
+                Alert(
+                    title: Text("Cerrar sesión"),
+                    message: Text("¿Estás seguro? Al cerrar sesión tendrás que iniciar sesión e ingresar el código de acceso nuevamente."),
+                    primaryButton: .default(Text("Cerrar sesión")) {
+                        userManager.signOut()
+                    },
+                    secondaryButton: .cancel()
+                )
             }
 
         }

@@ -21,38 +21,57 @@ struct ExhibitionView: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         ZStack(alignment: .top) {
-                            if let url = URL(string: exhibition.img) {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(width: 300, height: 300)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 300, height: 300)
-                                    default:
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 300, height: 300)
-                                            .foregroundColor(.gray)
-                                
+                            if exhibition.img.isEmpty{
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 300, height: 300)
+                                    .foregroundColor(.gray)
+                                /*
+                                Image("\(exhibition.zona) LOGO")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 300, height: 300)
+                                    .foregroundColor(.gray)
+                                */
+                            } else {
+                                if let url = URL(string: exhibition.img) {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                                .frame(width: 300, height: 300)
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 300, height: 300)
+                                        default:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 300, height: 300)
+                                                .foregroundColor(.gray)
+                                    
+                                        }
                                     }
                                 }
+
                             }
-                            Text("Exhibición")
-                                .font(.headline)
-                                .padding(8)
-                                .background(Color.black.opacity(0.6))
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                                .padding(.top, 8)
+                            VStack{
+                                Text("Exhibición")
+                                    .font(.headline)
+                                    .padding(8)
+                                    .background(Color.black)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
+                            .padding(.top, 15)
+                            
                         }
                                 
                         HStack {
-                            Text(exhibition.zona)
+                            Text("Zona: \(exhibition.zona)")
                             Spacer()
                             Text("Piso: \(exhibition.piso)")
                             Spacer()
@@ -60,14 +79,29 @@ struct ExhibitionView: View {
                                 .foregroundColor(exhibition.disponibilidad ? .green : .red)
                         }
                         .font(.subheadline)
-                        .padding(.horizontal)
-                                
-                        Text(exhibition.mensaje_es)
-                            .font(.headline)
-                            .padding()
-                            .background(Color(red: 216/255, green: 245/255, blue: 97/255))
-                            .cornerRadius(8)
-                            .padding(.horizontal)
+                        .padding(.horizontal, 5)
+                        
+                        VStack{
+                            Text(exhibition.mensaje_es)
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(red: 216/255, green: 245/255, blue: 97/255))
+                        .cornerRadius(8)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Objetivos de la exhibición:")
+                                .bold()
+                            ForEach(exhibition.objetivos) { objective in
+                                Text("• \(objective.descripcionEs)")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                        .padding(.top, 10)
+                        
+                        
                         /*
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Objetivos de la exhibición:")
@@ -82,7 +116,6 @@ struct ExhibitionView: View {
                         
                     }
                 }
-            
             }
         }
         .padding()

@@ -102,6 +102,7 @@ struct ActivityView: View {
                     pages = await userManager.fetchExhibitionActivity(exhibition: name)
                     if let exhibition = await userManager.fetchExhibitionData(exhibition: name){
                         id = exhibition.id
+                        await userManager.postScan(exhibition: exhibition.id)
                     }
                 }
                 loading = false

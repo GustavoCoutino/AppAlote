@@ -172,7 +172,7 @@ struct Map: View {
         "DISMINUIR": 1,
         "DISTRIBUIR": 1,
         "RECICLAR": 1,
-        "PEQUEÑOS 1": 1,
+        "PEQUEÑOS 1": 0,
         "BARCO": 1,
         "AVES": 1,
         "SUBMARINO": 1,
@@ -237,7 +237,7 @@ struct Map: View {
         "ESTRATOS": 1,
         "NATURALEZA": 1,
         "AGUA": 1,
-        "TIENDA": 0,
+        "TIENDA": 1,
         "EXPOSICIONES TEMPORALES": 0
     ]
     @StateObject var model = MapViewModel()
