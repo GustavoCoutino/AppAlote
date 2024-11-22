@@ -24,7 +24,7 @@ class UserManager: ObservableObject {
     @Published var isDarkMode: Bool = false
     @Published var selectedView: String = "Home"
     @Published var selectedAuthView : String = "LogIn"
-
+    
     private let defaults = UserDefaults.standard
     
     init() {
@@ -98,7 +98,7 @@ class UserManager: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
-                
+        
         let parameters: [String: String] = [
             "nombre": name,
             "apellido": lastName,
@@ -118,36 +118,36 @@ class UserManager: ObservableObject {
             if response is HTTPURLResponse {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
                     if let userId = json["id_usuario"] as? String,
-                    let nombre = json["nombre"] as? String,
-                    let apellido = json["apellido"] as? String,
-                    let correo = json["correo"] as? String,
-                    let fechaNacimiento = json["fecha_nacimiento"] as? String {
-                                        
-                    let defaults = UserDefaults.standard
-                    defaults.set(userId, forKey: "userID")
-                    defaults.set(nombre, forKey: "nombre")
-                    defaults.set(apellido, forKey: "apellido")
-                    defaults.set(correo, forKey: "correo")
-                    defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
-                                        
-                    if let fotoPerfil = json["foto_perfil"] as? String {
-                        defaults.set(fotoPerfil, forKey: "fotoPerfil")
-                        profilePicture = fotoPerfil
+                       let nombre = json["nombre"] as? String,
+                       let apellido = json["apellido"] as? String,
+                       let correo = json["correo"] as? String,
+                       let fechaNacimiento = json["fecha_nacimiento"] as? String {
+                        
+                        let defaults = UserDefaults.standard
+                        defaults.set(userId, forKey: "userID")
+                        defaults.set(nombre, forKey: "nombre")
+                        defaults.set(apellido, forKey: "apellido")
+                        defaults.set(correo, forKey: "correo")
+                        defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
+                        
+                        if let fotoPerfil = json["foto_perfil"] as? String {
+                            defaults.set(fotoPerfil, forKey: "fotoPerfil")
+                            profilePicture = fotoPerfil
+                        }
+                        if let tarjeta = json["tarjeta"] as? String {
+                            defaults.set(tarjeta, forKey: "tarjeta")
+                        }
+                        userID = defaults.string(forKey: "userID") ?? ""
+                        isAuthenticated = true
+                        
+                    } else {
+                        if let detail = json["correo"] as? [String] {
+                            errorMessage = detail[0]
+                        }
+                        if errorMessage == "usuario with this correo already exists." {
+                            errorMessage = "Usuario con este correo ya existe"
+                        }
                     }
-                    if let tarjeta = json["tarjeta"] as? String {
-                        defaults.set(tarjeta, forKey: "tarjeta")
-                    }
-                    userID = defaults.string(forKey: "userID") ?? ""
-                    isAuthenticated = true
-                                        
-                } else {
-                    if let detail = json["correo"] as? [String] {
-                        errorMessage = detail[0]
-                    }
-                    if errorMessage == "usuario with this correo already exists." {
-                        errorMessage = "Usuario con este correo ya existe"
-                    }
-                }
                 } else {
                     errorMessage = "Error en la respuesta del servidor."
                 }
@@ -157,7 +157,7 @@ class UserManager: ObservableObject {
         } catch {
             errorMessage = "Error en la solicitud: \(error.localizedDescription)"
         }
-
+        
     }
     
     func logIn(email: String, password: String) async {
@@ -194,13 +194,13 @@ class UserManager: ObservableObject {
                        let correo = json["correo"] as? String,
                        let fechaNacimiento = json["fecha_nacimiento"] as? String,
                        let fechaRegistro = json["fecha_registro"] as? String {
-                       let defaults = UserDefaults.standard
-                       defaults.set(userId, forKey: "userID")
-                       defaults.set(nombre, forKey: "nombre")
-                       defaults.set(apellido, forKey: "apellido")
-                       defaults.set(correo, forKey: "correo")
-                       defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
-                       defaults.set(fechaRegistro, forKey: "fechaRegistro")
+                        let defaults = UserDefaults.standard
+                        defaults.set(userId, forKey: "userID")
+                        defaults.set(nombre, forKey: "nombre")
+                        defaults.set(apellido, forKey: "apellido")
+                        defaults.set(correo, forKey: "correo")
+                        defaults.set(fechaNacimiento, forKey: "fechaNacimiento")
+                        defaults.set(fechaRegistro, forKey: "fechaRegistro")
                         if let fotoPerfil = json["foto_perfil"] as? String {
                             defaults.set(fotoPerfil, forKey: "fotoPerfil")
                         }
@@ -211,13 +211,13 @@ class UserManager: ObservableObject {
                         userID = defaults.string(forKey: "userID") ?? ""
                         isAuthenticated = true
                         await checkQuizCompletion()
-                                        
-                        } else {
-                            errorMessage = detail
-                        }
+                        
                     } else {
-                        errorMessage = "Respuesta inesperada del servidor."
+                        errorMessage = detail
                     }
+                } else {
+                    errorMessage = "Respuesta inesperada del servidor."
+                }
             } else {
                 errorMessage = "Error en la respuesta del servidor."
             }
@@ -322,7 +322,7 @@ class UserManager: ObservableObject {
             errorMessage = "Hubo un error al obtener los resultados del quiz: \(error.localizedDescription)"
         }
         return []
-    } 
+    }
     
     func checkQuizCompletion() async {
         if !hasAnsweredQuiz {
@@ -332,7 +332,7 @@ class UserManager: ObservableObject {
             }
         }
     }
-
+    
     func setQuizCompleted(userScores: [QuizScore]) {
         let sortedScores = userScores.sorted { $0.puntaje_quiz > $1.puntaje_quiz }
         let sortedZones = sortedScores.map { $0.zona }
@@ -505,44 +505,67 @@ class UserManager: ObservableObject {
     }
     
     /*
-    func submitScan(stars: Int, comment: String, exhibitionID: Int) async {
-        let url = URL(string: "https://papalote-backend.onrender.com/api/escaneos/")!
+     func submitScan(stars: Int, comment: String, exhibitionID: Int) async {
+     let url = URL(string: "https://papalote-backend.onrender.com/api/escaneos/")!
+     var request = URLRequest(url: url)
+     request.httpMethod = "POST"
+     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+     
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateFormat = "yyyy-MM-dd"
+     let dateString = dateFormatter.string(from: Date())
+     
+     let payload: [String: Any] = [
+     "calificacion": stars,
+     "descripcion": comment,
+     "fecha_opinion": dateString,
+     "usuario": userID,
+     "exhibicion": exhibitionID
+     ]
+     
+     do {
+     request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
+     } catch {
+     errorMessage = "Error serializing JSON: \(error.localizedDescription)"
+     print("Problema en la serializacion")
+     return
+     }
+     
+     do {
+     let (data, response) = try await URLSession.shared.data(for: request)
+     if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+     print("Opinion submitted successfully.")
+     } else {
+     print("Server Error: \(response)")
+     }
+     } catch {
+     print("Network Error: \(error.localizedDescription)")
+     }
+     }
+     */
+    
+    func getAllPosts() async -> [Post] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/publicaciones-aceptadas/")!
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.string(from: Date())
-        
-        let payload: [String: Any] = [
-            "calificacion": stars,
-            "descripcion": comment,
-            "fecha_opinion": dateString,
-            "usuario": userID,
-            "exhibicion": exhibitionID
-        ]
-        
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: payload, options: [])
-        } catch {
-            errorMessage = "Error serializing JSON: \(error.localizedDescription)"
-            print("Problema en la serializacion")
-            return
-        }
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                print("Opinion submitted successfully.")
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let decoder = JSONDecoder()
+                let posts = try decoder.decode([Post].self, from: data)
+                return posts
             } else {
-                print("Server Error: \(response)")
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
             }
         } catch {
-            print("Network Error: \(error.localizedDescription)")
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener las publicaciones: \(error.localizedDescription)"
         }
+        return []
     }
-    */
+
     
     func modifyProfile(nombre: String, apellido: String, fecha: Date, correo: String) async {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!

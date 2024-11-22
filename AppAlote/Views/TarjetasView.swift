@@ -24,7 +24,7 @@ struct TarjetasView: View {
                                 .grayscale(card.obtenido ? 0 : 1)
                                 .opacity(card.obtenido ? 1 : 0.5)
                                 .onTapGesture {
-                                    if card.obtenido {
+                                    if !card.obtenido {
                                         selectedCardImage = card.imagen
                                         showingAlert = true
                                     }
