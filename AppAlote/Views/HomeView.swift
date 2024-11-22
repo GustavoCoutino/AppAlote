@@ -8,9 +8,6 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var userManager: UserManager
-    @State var name : String = ""
-    @State var lastName : String = ""
-    @State var profilePicture : String = ""
     @State private var sortedZones: [Int] = []
     @State var isZoneSelected: Bool = false
     @State var showNotifications: Bool = false
@@ -22,58 +19,12 @@ struct HomeView: View {
             ZStack {
                 ScrollView {
                     VStack {
-                        HStack {
-                  
-                            if let url = URL(string: profilePicture) {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(width: 50, height: 50)
-                                            .padding(.leading, 20)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 50, height: 50)
-                                            .clipShape(Circle())
-                                            .padding(.leading, 20)
-
-                                    default:
-                                        Image(systemName: "person.circle.fill")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 50, height: 50)
-                                            .padding(.leading, 20)
-                                            .foregroundColor(.black)
-                                
-                                    }
-                                }
-                            }
-
-                            Text(name+" "+lastName)
-                                .font(.headline)
-                                .padding(.leading,10)
-                                
-                            Spacer()
-                        }
-                        .frame(height: 100)
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(Color.blue.opacity(0.6))
-                                .shadow(radius: 5)
-                        )
-                        .padding(.top, 40)
-                        .padding(.horizontal, 10)
-                        .onTapGesture {
-                            userManager.selectedView = "Profile"
-                        }
-                        
+                        BannerView()
                        
                         Image("ZONAS PARA TI")
                             .resizable()
                             .frame(width: 250, height: 200)
-                            .padding(.vertical, 16)
+                            .padding(.vertical, 10)
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -173,9 +124,6 @@ struct HomeView: View {
                 }
                 
                 loadSortedZones()
-                name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
-                lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
-                profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
                 
             }
             .navigationDestination(isPresented: $isZoneSelected){

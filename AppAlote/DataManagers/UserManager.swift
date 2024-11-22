@@ -31,6 +31,7 @@ class UserManager: ObservableObject {
         // resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
+            print("hello")
         }
     }
     
@@ -82,6 +83,7 @@ class UserManager: ObservableObject {
         
         hasAnsweredQuiz = defaults.bool(forKey: "hasAnsweredQuiz")
         isLoading = false
+        await loadData()
     }
     
     func signIn(name: String, lastName: String, date: Date, email: String, password: String) async {
@@ -502,8 +504,11 @@ class UserManager: ObservableObject {
                     email = user.correo
                     defaults.set(user.fecha_nacimiento, forKey: "fechaNacimiento")
                     dateOfBirth = user.fecha_nacimiento
-                    defaults.set(user.foto_perfil, forKey: "fotoPerfil")
-                    profilePicture = user.foto_perfil
+                    if let picture = user.foto_perfil {
+                        defaults.set(picture, forKey: "fotoPerfil")
+                        profilePicture = picture
+                    }
+                    
                 } else {
                     print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
                 }
