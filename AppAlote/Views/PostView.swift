@@ -18,8 +18,6 @@ struct PostView: View {
                 tarjeta: post.tarjeta ?? "",
                 nombreExhibicion: post.nombre_exhibicion ?? ""
             )
-            .onTapGesture {
-            }
             
             Text(post.descripcion ?? "")
                 .font(.headline)

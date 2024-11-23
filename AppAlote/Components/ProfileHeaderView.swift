@@ -40,8 +40,8 @@ struct ProfileHeaderView: View {
                 Text("\(name)")
                     .font(.headline)
                     .padding(.leading, 10)
-                
-                if let exhibitionName = nombreExhibicion {
+                Spacer()
+                if nombreExhibicion! != "" {
                     Button(action: {
                         isExhibitionSelected = true
                     }) {
@@ -53,12 +53,12 @@ struct ProfileHeaderView: View {
                             Image(systemName: "mappin.circle.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 14, height: 14)
+                                .frame(width: 50, height: 50)
                                 .foregroundColor(.white)
                         }
                     }
                     .navigationDestination(isPresented: $isExhibitionSelected) {
-                        ExhibitionView(name: exhibitionName)
+                        ExhibitionView(name: nombreExhibicion ?? "")
                     }
                 }
                 
@@ -67,6 +67,7 @@ struct ProfileHeaderView: View {
             }
             .frame(height: 80)
             .padding(.horizontal, 10)
+            
         }
         
     }
