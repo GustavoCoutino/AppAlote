@@ -98,6 +98,7 @@
 		B3B63D832CD1C31900394294 /* AccessCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCodeView.swift; sourceTree = "<group>"; };
 		B3B63D852CD2DF1300394294 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B3BE803D2CC963A1001BE5BE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B3E3A2122CF19FFC00F427BA /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		B3E9859C2CC9800600F355F4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F40B4F452CEFA50900A6254C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		F40B4F492CEFCCEE00A6254C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -221,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				B3689A872CE18A9700D585EB /* Info.plist */,
+				B3E3A2122CF19FFC00F427BA /* Keys.plist */,
 				F4E25F932CBF299900A1BB94 /* AppAloteApp.swift */,
 				F4E25F952CBF299900A1BB94 /* ContentView.swift */,
 				B32402FF2CE7B8020067DE5D /* Dino.usdz */,

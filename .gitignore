@@ -90,4 +90,4 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
-AppAlote/Secrets.plist
+AppAlote/Keys.plist
