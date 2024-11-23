@@ -733,7 +733,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         
         
@@ -816,7 +816,7 @@ class UserManager: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "PATCH"
             request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-            request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
             var body = Data()
             body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
@@ -861,7 +861,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -885,7 +885,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -909,7 +909,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
