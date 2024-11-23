@@ -8,15 +8,14 @@ import SwiftUI
 import PhotosUI
 
 struct PublishView: View {
-    @Environment(\.dismiss) private var dismiss
     @State private var isLoading = false
-    @State private var name = ""
-    @State private var lastName = ""
-    @State private var profilePicture = ""
     @State private var selectedExhibitionId: Int? = nil
     @State private var comment = ""
     @State private var selectedImage: UIImage? = nil
     @State private var selectedItem: PhotosPickerItem?
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     @EnvironmentObject var userManager: UserManager
 
     var body: some View {
@@ -43,7 +42,7 @@ struct PublishView: View {
             VStack(spacing: 20) {
                 VStack(spacing: 20) {
                     HStack {
-                        if let url = URL(string: profilePicture) {
+                        if let url = URL(string: userManager.profilePicture) {
                             AsyncImage(url: url) { phase in
                                 switch phase {
                                 case .success(let image):
@@ -62,7 +61,7 @@ struct PublishView: View {
                             }
                         }
 
-                        Text("\(name + " " + lastName)")
+                        Text("\(userManager.name + " " + userManager.lastName)")
                             .font(.headline)
                             .padding(.leading, 10)
 
@@ -70,6 +69,9 @@ struct PublishView: View {
 
                         Button(action: {
                             if comment.isEmpty && selectedImage == nil {
+                                alertMessage = "La publicacion requiere al menos un comentario o una imagen"
+                                alertTitle = "Datos faltantes"
+                                showAlert = true
                                 return
                             }
 
@@ -78,7 +80,9 @@ struct PublishView: View {
                                 let imageData = selectedImage?.jpegData(compressionQuality: 0.8)
                                 await userManager.uploadPost(imageData: imageData, exhibitionId: selectedExhibitionId ?? 0, comment: comment)
                                 isLoading = false
-                                dismiss()
+                                alertMessage = "Tu publicacion esta en revision para ser publicada"
+                                alertTitle = "Publicacion exitosa"
+                                showAlert = true
                             }
                         }) {
                             if isLoading {
@@ -122,11 +126,11 @@ struct PublishView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 60)
             }
+        }.alert(alertTitle, isPresented: $showAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(alertMessage)
         }
-        .onAppear {
-            name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
-            lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
-            profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? ""
-        }
+        
     }
 }

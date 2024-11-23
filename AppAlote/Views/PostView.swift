@@ -14,7 +14,7 @@ struct PostView: View {
         VStack {
             ProfileHeaderView(
                 profilePicture: post.foto_perfil ?? "person.circle.fill",
-                name: post.nombre ?? "",
+                name: post.nombre,
                 tarjeta: post.tarjeta ?? "",
                 nombreExhibicion: post.nombre_exhibicion ?? ""
             )

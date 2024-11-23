@@ -18,12 +18,14 @@ class UserManager: ObservableObject {
     @Published var dateOfBirth = ""
     @Published var email = ""
     @Published var errorMessage: String?
+    @Published var postMessage = ""
     @Published var isLoading = true
     @Published var currentDeepLink: String?
     @Published var selectedLanguage: String = "Español"
     @Published var isDarkMode: Bool = false
     @Published var selectedView: String = "Home"
     @Published var selectedAuthView : String = "LogIn"
+
     
     
     let apiKey: String = {
@@ -39,7 +41,6 @@ class UserManager: ObservableObject {
         // resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
-            print("hello")
         }
     }
     
@@ -651,6 +652,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -736,7 +738,6 @@ class UserManager: ObservableObject {
         request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         
-        
         do {
             let jsonPayload: [String: Any] = ["imagen": imagen]
             let jsonData = try JSONSerialization.data(withJSONObject: jsonPayload, options: [])
@@ -768,6 +769,7 @@ class UserManager: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
             var body = Data()
 
@@ -799,6 +801,7 @@ class UserManager: ObservableObject {
             do {
                 _ = try await URLSession.shared.data(for: request)
             } catch {
+                postMessage = "Hubo un error al subir la publicacion"
                 print("Error uploading post: \(error.localizedDescription)")
             }
         }
@@ -826,6 +829,7 @@ class UserManager: ObservableObject {
             body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
             
             request.httpBody = body
+        
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 DispatchQueue.main.async {
