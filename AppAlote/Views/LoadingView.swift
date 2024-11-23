@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct LoadingView: View {
+    @State var isLoading = true
     var body: some View {
         ZStack {
+            
             Circle()
                 .fill(Color.orange)
                 .frame(width: 150, height: 150)
@@ -31,11 +34,13 @@ struct LoadingView: View {
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 4, dash: [8]))
                 .frame(width: 100, height: 100)
                 .offset(x: 160, y: 180)
-            Image("LogoOficial")
+            
+            
+            AnimatedImage(name: "pet.gif", isAnimating: $isLoading)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 250, height: 250)
-                .padding(.top, 50)
+                .frame(width: 600, height: 600)
+
         }
     }
 }

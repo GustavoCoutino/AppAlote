@@ -25,12 +25,21 @@ class UserManager: ObservableObject {
     @Published var selectedView: String = "Home"
     @Published var selectedAuthView : String = "LogIn"
     
+    
+    let apiKey: String = {
+        guard let apiKey = ProcessInfo.processInfo.environment["X-API-KEY"] else {
+            fatalError("API Key not found in environment variables")
+        }
+        return apiKey
+    }()
+    
     private let defaults = UserDefaults.standard
     
     init() {
         // resetAllDefaults() // DECOMMENT THIS LINE IF YOU DONT WANT TO PERSIST THE SESSION WHILE TESTING
         Task {
             await loadStoredSession()
+            print("hello")
         }
     }
     
@@ -57,6 +66,8 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+        
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -82,6 +93,7 @@ class UserManager: ObservableObject {
         
         hasAnsweredQuiz = defaults.bool(forKey: "hasAnsweredQuiz")
         isLoading = false
+        await loadData()
     }
     
     func signIn(name: String, lastName: String, date: Date, email: String, password: String) async {
@@ -94,7 +106,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
@@ -112,7 +125,8 @@ class UserManager: ObservableObject {
             return
         }
         request.httpBody = httpBody
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if response is HTTPURLResponse {
@@ -175,7 +189,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         let parameters: [String: String] = [
             "correo": email,
             "password": password
@@ -243,7 +258,8 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -279,7 +295,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         let payload: [String: Any] = [
             "puntaje_quiz": score,
             "usuario": userID,
@@ -315,7 +332,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         let payload: [String: Any] = [
             "usuario": userID,
             "exhibicion": exhibition
@@ -350,7 +368,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -393,6 +412,8 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/exhibicion/\(exhibition)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
@@ -420,6 +441,8 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/zona/\(zone)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
@@ -444,7 +467,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -466,7 +490,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
@@ -490,6 +515,8 @@ class UserManager: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
             do {
                 let (data, response) = try await URLSession.shared.data(for: request)
                 if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
@@ -502,8 +529,11 @@ class UserManager: ObservableObject {
                     email = user.correo
                     defaults.set(user.fecha_nacimiento, forKey: "fechaNacimiento")
                     dateOfBirth = user.fecha_nacimiento
-                    defaults.set(user.foto_perfil, forKey: "fotoPerfil")
-                    profilePicture = user.foto_perfil
+                    if let picture = user.foto_perfil {
+                        defaults.set(picture, forKey: "fotoPerfil")
+                        profilePicture = picture
+                    }
+                    
                 } else {
                     print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
                 }
@@ -519,7 +549,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: Date())
@@ -597,7 +628,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
@@ -642,7 +674,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: fecha)
@@ -700,7 +733,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+
         
         
         do {
@@ -782,7 +816,8 @@ class UserManager: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "PATCH"
             request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-            
+            request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+
             var body = Data()
             body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
             body.append("Content-Disposition: form-data; name=\"foto_perfil\"; filename=\"photo.jpg\"\r\n".data(using: .utf8)!)
@@ -826,7 +861,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
+        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
                 
@@ -849,7 +885,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
+        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
                 
@@ -872,7 +909,8 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
+        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
                 

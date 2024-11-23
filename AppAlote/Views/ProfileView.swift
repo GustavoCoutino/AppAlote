@@ -22,17 +22,26 @@ struct ProfileView: View {
                     
                     ZStack {
                         
-                        AsyncImage(url: URL(string: selectedCardImage)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .containerRelativeFrame(.horizontal)
-                                .frame(height: 260)
-                                .clipped()
-                                .edgesIgnoringSafeArea(.all)
-                        } placeholder: {
-                            Image("")
+                        if selectedCardImage.isEmpty{
+                            Rectangle()
+                                .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                .frame(height: 285)
+                                .ignoresSafeArea()
+                                
+                        } else {
+                            AsyncImage(url: URL(string: selectedCardImage)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .containerRelativeFrame(.horizontal)
+                                    .frame(height: 285)
+                                    .clipped()
+                                    .edgesIgnoringSafeArea(.all)
+                            } placeholder: {
+                                Image("")
+                            }
                         }
+                        
                         
                         VStack{
                             if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
@@ -64,10 +73,16 @@ struct ProfileView: View {
                             Text(userManager.name+" "+userManager.lastName)
                                 .font(.title)
                                 .fontWeight(.bold)
+                                .padding()
+                                .background(
+                                    Color(red: 210/255, green: 223/255, blue: 73/255)
+                                )
+                                .clipShape(.rect(cornerRadius: 15))
+                            
                             
                         }
                     }
-                    .frame(height: 200)
+                    .frame(height: 220)
                     
                     
                     
