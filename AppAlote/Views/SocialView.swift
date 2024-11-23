@@ -9,6 +9,8 @@ import SwiftUI
 struct SocialView: View {
     @State private var posts: [Post] = []
     @EnvironmentObject var userManager: UserManager
+    @State private var isPublishViewSelected: Bool = false
+
 
     var body: some View {
         VStack(spacing: 0) {
@@ -20,7 +22,7 @@ struct SocialView: View {
                         .frame(height: 50)
                         .padding(.leading, 16)
                     Button(action: {
-                        print("Button tapped!")
+                        isPublishViewSelected = true
                     }) {
                         ZStack {
                             Circle()
@@ -31,6 +33,8 @@ struct SocialView: View {
                                 .foregroundColor(.black)
                                 .font(.system(size: 24))
                         }
+                    }.navigationDestination(isPresented: $isPublishViewSelected) {
+                        PublishView()
                     }
                     Spacer()
                 }

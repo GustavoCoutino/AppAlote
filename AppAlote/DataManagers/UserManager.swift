@@ -613,6 +613,28 @@ class UserManager: ObservableObject {
         }
         return []
     }
+    
+    func getAllExhibitionNames() async -> [ExhibitionName] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/exhibiciones/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let decoder = JSONDecoder()
+                let exhibitionNames = try decoder.decode([ExhibitionName].self, from: data)
+                return exhibitionNames
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener los nombres de las exhibiciones: \(error.localizedDescription)"
+        }
+        return []
+    }
 
     
     func modifyProfile(nombre: String, apellido: String, fecha: Date, correo: String) async {
@@ -704,6 +726,49 @@ class UserManager: ObservableObject {
             errorMessage = "Hubo un error al modificar la tarjeta: \(error.localizedDescription)"
         }
     }
+    
+    func uploadPost(imageData: Data?, exhibitionId: Int, comment: String) async {
+            let url = URL(string: "https://papalote-backend.onrender.com/api/publicaciones/")!
+            let boundary = UUID().uuidString
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+            var body = Data()
+
+            if let imageData = imageData {
+                body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                body.append("Content-Disposition: form-data; name=\"img\"; filename=\"photo.jpg\"\r\n".data(using: .utf8)!)
+                body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+                body.append(imageData)
+            }
+
+            if exhibitionId != 0 {
+                body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                body.append("Content-Disposition: form-data; name=\"exhibicion\"\r\n\r\n".data(using: .utf8)!)
+                body.append("\(exhibitionId)".data(using: .utf8)!)
+            }
+        
+            body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"usuario\"\r\n\r\n".data(using: .utf8)!)
+            body.append("\(userID)".data(using: .utf8)!)
+
+            body.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"descripcion\"\r\n\r\n".data(using: .utf8)!)
+            body.append(comment.data(using: .utf8)!)
+
+            body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+            request.httpBody = body
+
+            do {
+                _ = try await URLSession.shared.data(for: request)
+            } catch {
+                print("Error uploading post: \(error.localizedDescription)")
+            }
+        }
+
     
     
     func uploadProfilePhoto(imageData: Data) {

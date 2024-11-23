@@ -21,9 +21,6 @@ struct ProfileHeaderView: View {
                 if let url = URL(string: profilePicture) {
                     AsyncImage(url: url) { phase in
                         switch phase {
-                        case .empty:
-                            ProgressView()
-                                .frame(width: 50, height: 50)
                         case .success(let image):
                             image
                                 .resizable()
