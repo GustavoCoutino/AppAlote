@@ -25,6 +25,14 @@ class UserManager: ObservableObject {
     @Published var selectedView: String = "Home"
     @Published var selectedAuthView : String = "LogIn"
     
+    
+    let apiKey: String = {
+        guard let apiKey = ProcessInfo.processInfo.environment["X-API-KEY"] else {
+            fatalError("API Key not found in environment variables")
+        }
+        return apiKey
+    }()
+    
     private let defaults = UserDefaults.standard
     
     init() {
@@ -58,7 +66,7 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -98,7 +106,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -117,7 +125,7 @@ class UserManager: ObservableObject {
             return
         }
         request.httpBody = httpBody
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -181,7 +189,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         let parameters: [String: String] = [
             "correo": email,
@@ -250,7 +258,7 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/configuracion-general/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         
         do {
@@ -287,7 +295,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         let payload: [String: Any] = [
             "puntaje_quiz": score,
@@ -324,7 +332,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         let payload: [String: Any] = [
             "usuario": userID,
@@ -360,7 +368,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -404,7 +412,7 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/exhibicion/\(exhibition)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -433,7 +441,7 @@ class UserManager: ObservableObject {
         let url = URL(string: "https://papalote-backend.onrender.com/api/zona/\(zone)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -459,7 +467,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -482,7 +490,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -507,7 +515,7 @@ class UserManager: ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
             do {
                 let (data, response) = try await URLSession.shared.data(for: request)
@@ -541,7 +549,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -620,7 +628,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -644,7 +652,7 @@ class UserManager: ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(Keys.apiKey, forHTTPHeaderField: "X-API-KEY")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
