@@ -12,7 +12,6 @@ struct TarjetasView: View {
     @State private var cards: [Tarjetas] = []
     @EnvironmentObject var userManager: UserManager
     @State private var showingAlert = false
-    
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -29,11 +28,12 @@ struct TarjetasView: View {
                                         showingAlert = true
                                     }
                                 }
+                                .disabled(userManager.banner == card.imagen)
                         } placeholder: {
                             ProgressView()
                         }
-                        
-                        if selectedCardImage == card.imagen {
+                                                
+                        if userManager.banner == card.imagen {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .foregroundColor(.green)
@@ -55,7 +55,7 @@ struct TarjetasView: View {
                     }
                 },
                 secondaryButton: .cancel {
-                    selectedCardImage = ""
+                    selectedCardImage = userManager.banner
                 }
             )
         }
@@ -63,6 +63,7 @@ struct TarjetasView: View {
             Task {
                 cards = await userManager.fetchTarjetas()
             }
+
         }
     }
 }

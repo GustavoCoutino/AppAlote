@@ -17,6 +17,7 @@ class UserManager: ObservableObject {
     @Published var lastName = ""
     @Published var dateOfBirth = ""
     @Published var email = ""
+    @Published var banner = ""
     @Published var errorMessage: String?
     @Published var postMessage = ""
     @Published var isLoading = true
@@ -151,6 +152,7 @@ class UserManager: ObservableObject {
                     }
                     if let tarjeta = json["tarjeta"] as? String {
                         defaults.set(tarjeta, forKey: "tarjeta")
+                        self.banner = tarjeta
                     }
                         self.userID = defaults.string(forKey: "userID") ?? ""
                         self.name = nombre
@@ -749,6 +751,7 @@ class UserManager: ObservableObject {
                 if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
                     let defaults = UserDefaults.standard
                     defaults.set(imagen, forKey: "tarjeta")
+                    banner = imagen
                     print("Tarjeta actualizada exitosamente")
                 } else {
                     errorMessage = "Error al procesar la respuesta del servidor"

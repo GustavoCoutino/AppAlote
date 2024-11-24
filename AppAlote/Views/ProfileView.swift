@@ -22,14 +22,14 @@ struct ProfileView: View {
                     
                     ZStack {
                         
-                        if selectedCardImage.isEmpty{
+                        if userManager.banner.isEmpty{
                             Rectangle()
                                 .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
                                 .frame(height: 285)
                                 .ignoresSafeArea()
                                 
                         } else {
-                            AsyncImage(url: URL(string: selectedCardImage)) { image in
+                            AsyncImage(url: URL(string: userManager.banner)) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
@@ -125,7 +125,7 @@ struct ProfileView: View {
                 Task {
                     await userManager.loadData()
                 }
-                selectedCardImage = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
+                userManager.banner = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
             }
             .photosPicker(isPresented: $showingImagePicker,
                                  selection: $selectedItem,
@@ -138,9 +138,6 @@ struct ProfileView: View {
                 }
             }
             .background(Color.white)
-            .onAppear {
-                selectedCardImage = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
-            }
         }
         
 }
