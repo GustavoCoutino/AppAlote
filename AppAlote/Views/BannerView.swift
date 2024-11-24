@@ -12,6 +12,7 @@ struct BannerView: View {
     @State var name : String = ""
     @State var lastName : String = ""
     @State var profilePicture : String = ""
+    @State var banner: String = ""
     
     var body: some View {
         HStack {
@@ -56,7 +57,7 @@ struct BannerView: View {
             Spacer()
         }
         .background(
-            backgroundView(for: UserDefaults.standard.string(forKey: "tarjeta") ?? "")
+            backgroundView(for: banner)
         )
         .frame(height: 100)
         .padding(.horizontal, 30)
@@ -68,6 +69,7 @@ struct BannerView: View {
             name = UserDefaults.standard.string(forKey: "nombre") ?? "Invitado"
             lastName = UserDefaults.standard.string(forKey: "apellido") ?? ""
             profilePicture = UserDefaults.standard.string(forKey: "fotoPerfil") ?? "profile_picture"
+            banner = UserDefaults.standard.string(forKey: "tarjeta") ?? ""
         }
     }
 

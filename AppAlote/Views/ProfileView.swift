@@ -15,61 +15,87 @@ struct ProfileView: View {
     
         @State private var showingImagePicker = false
         @State private var selectedItem: PhotosPickerItem?
-
+    
         var body: some View {
             VStack {
                 VStack {
                     
                     ZStack {
                         
-                        if userManager.banner.isEmpty{
+                        if userManager.uploadingBanner {
                             Rectangle()
-                                .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                .fill(.white)
                                 .frame(height: 285)
                                 .ignoresSafeArea()
-                                
                         } else {
-                            AsyncImage(url: URL(string: userManager.banner)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .containerRelativeFrame(.horizontal)
+                            if userManager.banner.isEmpty{
+                                Rectangle()
+                                    .fill(Color(red: 210/255, green: 223/255, blue: 73/255))
                                     .frame(height: 285)
-                                    .clipped()
-                                    .edgesIgnoringSafeArea(.all)
-                            } placeholder: {
-                                Image("")
+                                    .ignoresSafeArea()
+                                    
+                            } else {
+                                AsyncImage(url: URL(string: userManager.banner)) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .containerRelativeFrame(.horizontal)
+                                        .frame(height: 285)
+                                        .clipped()
+                                        .edgesIgnoringSafeArea(.all)
+                                } placeholder: {
+                                    Image("")
+                                }
                             }
                         }
                         
-                        
+                    
                         VStack{
-                            if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(width: 100, height: 100)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .clipShape(Circle())
-                                    default:
-                                        Image(systemName: "person.circle.fill")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 100, height: 100)
-                                            .foregroundColor(.black)
+                            if userManager.uploadingPhoto {
+                                ZStack{
+                                    Circle()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundStyle(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                    ProgressView()
+                                        .frame(width: 100, height: 100)
+                                        .clipShape(Circle())
+                                }
                                 
+                            } else {
+                                if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ZStack{
+                                                Circle()
+                                                    .frame(width: 100, height: 100)
+                                                    .foregroundStyle(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                                ProgressView()
+                                                    .frame(width: 100, height: 100)
+                                                    .clipShape(Circle())
+                                            }
+                                            
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 100, height: 100)
+                                                .clipShape(Circle())
+                                        default:
+                                            Image(systemName: "person.circle.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 100, height: 100)
+                                                .foregroundColor(.black)
+                                    
+                                        }
+                                    }
+                                    .onTapGesture {
+                                        showingImagePicker = true
                                     }
                                 }
-                                .onTapGesture {
-                                    showingImagePicker = true
-                                }
                             }
-                            
+                                                        
                             Text(userManager.name+" "+userManager.lastName)
                                 .font(.title)
                                 .fontWeight(.bold)
@@ -131,10 +157,12 @@ struct ProfileView: View {
                                  selection: $selectedItem,
                                  matching: .images)
             .onChange(of: selectedItem) { newItem in
+                userManager.uploadingPhoto = true
                 Task {
                     if let data = try? await newItem?.loadTransferable(type: Data.self) {
                         userManager.uploadProfilePhoto(imageData: data)
                     }
+
                 }
             }
             .background(Color.white)

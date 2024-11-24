@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TarjetasView: View {
     @State var selectedCardImage = ""
+    @State var selectedCardImageID : Int = 0
+
     @State private var cards: [Tarjetas] = []
     @EnvironmentObject var userManager: UserManager
     @State private var showingAlert = false
@@ -25,6 +27,7 @@ struct TarjetasView: View {
                                 .onTapGesture {
                                     if card.obtenido {
                                         selectedCardImage = card.imagen
+                                        selectedCardImageID = card.id
                                         showingAlert = true
                                     }
                                 }
@@ -50,12 +53,14 @@ struct TarjetasView: View {
                 title: Text("Confirmar cambio"),
                 message: Text("Quieres cambiar tu tarjeta?"),
                 primaryButton: .default(Text("Cambiar")) {
+                    userManager.uploadingBanner = true
                     Task {
-                        await userManager.updateTarjeta(imagen: selectedCardImage)
+                        await userManager.updateTarjeta(imagen: selectedCardImage, id: selectedCardImageID)
                     }
                 },
                 secondaryButton: .cancel {
                     selectedCardImage = userManager.banner
+                    selectedCardImageID = 0
                 }
             )
         }

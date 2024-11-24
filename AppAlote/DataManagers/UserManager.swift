@@ -26,7 +26,8 @@ class UserManager: ObservableObject {
     @Published var isDarkMode: Bool = false
     @Published var selectedView: String = "Home"
     @Published var selectedAuthView : String = "LogIn"
-
+    @Published var uploadingPhoto: Bool = false
+    @Published var uploadingBanner: Bool = false
     
     
     let apiKey: String = {
@@ -732,7 +733,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateTarjeta(imagen: String) async {
+    func updateTarjeta(imagen: String, id: Int) async {
         let url = URL(string: "https://papalote-backend.onrender.com/api/usuarios/\(userID)/")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
@@ -741,7 +742,7 @@ class UserManager: ObservableObject {
 
         
         do {
-            let jsonPayload: [String: Any] = ["imagen": imagen]
+            let jsonPayload: [String: Any] = ["tarjeta": id]
             let jsonData = try JSONSerialization.data(withJSONObject: jsonPayload, options: [])
             request.httpBody = jsonData
             
@@ -752,6 +753,7 @@ class UserManager: ObservableObject {
                     let defaults = UserDefaults.standard
                     defaults.set(imagen, forKey: "tarjeta")
                     banner = imagen
+                    uploadingBanner = false
                     print("Tarjeta actualizada exitosamente")
                 } else {
                     errorMessage = "Error al procesar la respuesta del servidor"
@@ -854,6 +856,7 @@ class UserManager: ObservableObject {
                            let newPhotoUrl = responseDict["foto_perfil"] as? String {
                             UserDefaults.standard.set(newPhotoUrl, forKey: "fotoPerfil")
                             self.profilePicture = newPhotoUrl
+                            self.uploadingPhoto = false
                         }
                     } else {
                         print("Upload failed with status code: \(httpResponse.statusCode)")
