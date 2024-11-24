@@ -24,7 +24,7 @@ struct NotificationsView: View {
             }
             
         }
-        .padding(.top, 15)
+        .ignoresSafeArea()
         .onAppear{
             Task {
                 notifications = await userManager.fetchNotifications()

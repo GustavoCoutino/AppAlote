@@ -932,6 +932,30 @@ class UserManager: ObservableObject {
         return []
     }
     
+    func fetchTemporaryExhibition() async -> [TemporaryExhibition] {
+        let url = URL(string: "https://papalote-backend.onrender.com/api/exposiciones-temporales/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+                
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                let decoder = JSONDecoder()
+                let exhibitions = try decoder.decode([TemporaryExhibition].self, from: data)
+                return exhibitions
+            } else {
+                print("Failed to . Status code:", (response as? HTTPURLResponse)?.statusCode ?? -1)
+            }
+        } catch {
+            print("Error decoding response:", error.localizedDescription)
+            errorMessage = "Hubo un error al obtener las exhibiciones temporales: \(error.localizedDescription)"
+        }
+        return []
+    }
+    
     
     func signOut() {
         selectedAuthView = "LogIn"

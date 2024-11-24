@@ -59,8 +59,8 @@ struct BannerView: View {
             backgroundView(for: UserDefaults.standard.string(forKey: "tarjeta") ?? "")
         )
         .frame(height: 100)
-        .padding(.horizontal, 10)
-        .padding(.top, 30)
+        .padding(.horizontal, 30)
+        .padding(.top, 10)
         .onTapGesture {
             userManager.selectedView = "Profile"
         }

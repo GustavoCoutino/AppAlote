@@ -19,6 +19,7 @@ struct QuizView: View {
     private let squareSize = UIScreen.main.bounds.width / 2 - 40
 
     var body: some View {
+        ScrollView {
             VStack {
                 let question = QuizData.questions[currentQuestionIndex]
                 
@@ -46,8 +47,8 @@ struct QuizView: View {
                                             selectedAnswer = index
                                             routeCalculator.recordAnswer(color: color) 
                                             Task {
-                                                                                        await moveToNextQuestion()
-                                                                        }
+                                                await moveToNextQuestion()
+                                            }
                                         }
                                         .padding(1)
                                 }
@@ -62,7 +63,9 @@ struct QuizView: View {
             }
             .padding().fullScreenCover(isPresented: $showQuizCompletionModal) {
                 QuizCompletionModal(isPresented: $showQuizCompletionModal)
+                //LoadingView()
             }
+        }
     }
 
     private func getColor(for index: Int) -> Color {
