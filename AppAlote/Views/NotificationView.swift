@@ -19,11 +19,11 @@ struct NotificationView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(notification.titulo_es)
-                    .font(.headline)
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.black)
                 
                 Text(notification.descripcion_es)
-                    .font(.subheadline)
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
             

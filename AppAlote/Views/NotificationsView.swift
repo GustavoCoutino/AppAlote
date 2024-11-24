@@ -15,8 +15,7 @@ struct NotificationsView: View {
         ScrollView{
             if isLoading {
                 ProgressView()
-                    .scaleEffect(1.5)
-                    .padding(.top, 50)
+                    .padding(.top, 20)
             } else {
                 ForEach(notifications){ notification in
                     NotificationView(notification: notification)

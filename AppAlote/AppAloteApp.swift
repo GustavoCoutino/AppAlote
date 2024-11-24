@@ -14,6 +14,7 @@ struct AppAloteApp: App {
         WindowGroup {
             ViewController()
                 .environmentObject(userManager)
+                .environment(\.sizeCategory, .large)
         }
     }
 }
