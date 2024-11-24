@@ -20,8 +20,12 @@ struct ExhibitionView: View {
                 HStack {
                     Text("Piso: ").bold() + Text("\(exhibition.piso)")
                     Spacer()
+                    Spacer()
+
                     Text("Zona: ").bold() + Text("\(formatText(exhibition.zona))")
                     Spacer()
+                    Spacer()
+
                     Text(exhibition.disponibilidad ? "Disponible" : "No Disponible")
                         .foregroundColor(exhibition.disponibilidad ? .green : .red)
                         .bold()
