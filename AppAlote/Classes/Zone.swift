@@ -10,8 +10,6 @@ struct Zone : Codable {
     let numero_exhibiciones : Int
     let logo : String
     let mensaje_es : String
-    let mensaje_en : String
     let descripcion_es : String
-    let descripcion_en : String
     let multimedia : [String]
 }
