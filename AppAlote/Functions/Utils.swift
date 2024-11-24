@@ -1,6 +1,11 @@
 import SwiftUI
 import SceneKit
 
+func formatText(_ text: String) -> String {
+       guard let first = text.first else { return "" }
+       return first.uppercased() + text.dropFirst().lowercased()
+}
+
 func addToScene(_ scene: SCNScene, _ path: UIBezierPath, _ depth: CGFloat, _ name: String, _ position: SCNVector3, _ color: UIColor){
     let pathShape = SCNShape(path: path, extrusionDepth: depth)
     let pathMaterial = SCNMaterial()

@@ -15,7 +15,7 @@ struct ZoneView: View {
     var body: some View {
         VStack(spacing: 16) {
             if let zone = fetchedZone {
-                Text(zone.nombre)
+                Text(formatText(zone.nombre))
                     .font(.title)
                     .bold()
                 
