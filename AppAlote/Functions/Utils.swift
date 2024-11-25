@@ -17,6 +17,14 @@ func addToScene(_ scene: SCNScene, _ path: UIBezierPath, _ depth: CGFloat, _ nam
     scene.rootNode.addChildNode(pathNode)
 }
 
+func setAllNodeNames(_ node: SCNNode, name: String) {
+    node.name = name
+            
+    for child in node.childNodes {
+        setAllNodeNames(child, name: name)
+    }
+}
+
 func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     let secondLevel = SCNVector3(0, 0, -60)
     let thirdLevel = SCNVector3(0, 0, -100)
@@ -720,6 +728,35 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.00579 * width, y: 0.08299 * height))
     addToScene(scene, path, depth, "IMAX", secondLevel, UIColor.blue)
     
+    path = UIBezierPath()
+    path.move(to: CGPoint(x: 0.54925*width, y: 0.55328*height))
+    path.addLine(to: CGPoint(x: 0.36183*width, y: 0.28888*height))
+    path.addCurve(to: CGPoint(x: 0.33188*width, y: 0.27857*height), controlPoint1: CGPoint(x: 0.35398*width, y: 0.28217*height), controlPoint2: CGPoint(x: 0.33953*width, y: 0.27493*height))
+    path.addLine(to: CGPoint(x: 0.22308*width, y: 0.31987*height))
+    path.addCurve(to: CGPoint(x: 0.20724*width, y: 0.34091*height), controlPoint1: CGPoint(x: 0.2165*width, y: 0.32332*height), controlPoint2: CGPoint(x: 0.20767*width, y: 0.33272*height))
+    path.addCurve(to: CGPoint(x: 0.22038*width, y: 0.37111*height), controlPoint1: CGPoint(x: 0.20695*width, y: 0.34826*height), controlPoint2: CGPoint(x: 0.2064*width, y: 0.35916*height))
+    path.addLine(to: CGPoint(x: 0.31191*width, y: 0.43991*height))
+    path.addCurve(to: CGPoint(x: 0.31715*width, y: 0.44607*height), controlPoint1: CGPoint(x: 0.3139*width, y: 0.44174*height), controlPoint2: CGPoint(x: 0.31688*width, y: 0.44446*height))
+    path.addLine(to: CGPoint(x: 0.32754*width, y: 0.48343*height))
+    path.addCurve(to: CGPoint(x: 0.33267*width, y: 0.49023*height), controlPoint1: CGPoint(x: 0.32805*width, y: 0.48483*height), controlPoint2: CGPoint(x: 0.329*width, y: 0.48709*height))
+    path.addLine(to: CGPoint(x: 0.4231*width, y: 0.57193*height))
+    path.addLine(to: CGPoint(x: 0.4313*width, y: 0.55489*height))
+    path.addCurve(to: CGPoint(x: 0.4411*width, y: 0.54862*height), controlPoint1: CGPoint(x: 0.433*width, y: 0.55234*height), controlPoint2: CGPoint(x: 0.43781*width, y: 0.5491*height))
+    path.addLine(to: CGPoint(x: 0.47644*width, y: 0.55136*height))
+    path.addCurve(to: CGPoint(x: 0.47837*width, y: 0.54656*height), controlPoint1: CGPoint(x: 0.47784*width, y: 0.55028*height), controlPoint2: CGPoint(x: 0.47972*width, y: 0.54843*height))
+    path.addLine(to: CGPoint(x: 0.39829*width, y: 0.46257*height))
+    path.addLine(to: CGPoint(x: 0.35124*width, y: 0.43116*height))
+    path.addLine(to: CGPoint(x: 0.28295*width, y: 0.36299*height))
+    path.addCurve(to: CGPoint(x: 0.28505*width, y: 0.34849*height), controlPoint1: CGPoint(x: 0.28175*width, y: 0.35931*height), controlPoint2: CGPoint(x: 0.27905*width, y: 0.35474*height))
+    path.addLine(to: CGPoint(x: 0.32537*width, y: 0.33303*height))
+    path.addCurve(to: CGPoint(x: 0.34126*width, y: 0.33789*height), controlPoint1: CGPoint(x: 0.33034*width, y: 0.33164*height), controlPoint2: CGPoint(x: 0.33822*width, y: 0.33422*height))
+    path.addLine(to: CGPoint(x: 0.44376*width, y: 0.46275*height))
+    path.addLine(to: CGPoint(x: 0.45889*width, y: 0.49332*height))
+    path.addLine(to: CGPoint(x: 0.5234*width, y: 0.56071*height))
+    path.addLine(to: CGPoint(x: 0.54925*width, y: 0.55328*height))
+    addToScene(scene, path, 80, "GRAY", secondLevel, UIColor(red: 124 / 255, green: 117 / 255, blue: 108 / 255, alpha: 1))
+
+    
     var textGeometry = SCNText(string: "IMAX", extrusionDepth: 1)
     textGeometry.font = UIFont.boldSystemFont(ofSize: 16)
     textGeometry.firstMaterial?.diffuse.contents = UIColor.black
@@ -765,6 +802,10 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     textNode.name = "SOY"
     scene.rootNode.addChildNode(textNode)
     
+    
+    
+    
+    
     guard let sceneURL = Bundle.main.url(forResource: "Dino", withExtension: "usdz") else {
             print("Failed to find model file.")
             return
@@ -777,17 +818,24 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
             modelNode.position = SCNVector3(775, 725, -180)
             modelNode.eulerAngles = SCNVector3(-2, 0, 1.95)
             modelNode.scale = SCNVector3(0.35, 0.35, 0.35)
-                
-            func setAllNodeNames(_ node: SCNNode, name: String) {
-                node.name = name
-                        
-                for child in node.childNodes {
-                    setAllNodeNames(child, name: name)
-                }
-            }
-                
             setAllNodeNames(modelNode, name: "DINO")
             scene.rootNode.addChildNode(modelNode)
+        }
+    
+    guard let sceneURL2 = Bundle.main.url(forResource: "Mosasaurus", withExtension: "usdz") else {
+            print("Failed to find model file.")
+            return
+         }
+                    
+        let modelScene2 = try? SCNScene(url: sceneURL2, options: nil)
+                    
+        if let modelScene2 = modelScene2 {
+            let modelNode2 = modelScene2.rootNode.childNodes.first ?? SCNNode()
+            modelNode2.position = SCNVector3(400, 420, -120)
+            modelNode2.eulerAngles = SCNVector3(-2.4, 1.6, 0)
+            modelNode2.scale = SCNVector3(0.15, 0.15, 0.15)
+            setAllNodeNames(modelNode2, name: "DINO")
+            scene.rootNode.addChildNode(modelNode2)
         }
             
 }
@@ -841,6 +889,18 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.61151*width, y: 0.80021*height))
     path.addCurve(to: CGPoint(x: 0.63276*width, y: 0.8097*height), controlPoint1: CGPoint(x: 0.6164*width, y: 0.80493*height), controlPoint2: CGPoint(x: 0.62647*width, y: 0.81061*height))
     path.addLine(to: CGPoint(x: 0.65679*width, y: 0.8097*height))
+    path.move(to: CGPoint(x: 0.31537*width, y: 0.30601*height))
+            path.addLine(to: CGPoint(x: 0.32465*width, y: 0.30555*height))
+    path.addCurve(to: CGPoint(x: 0.33051*width, y: 0.31059*height), controlPoint1: CGPoint(x: 0.32674*width, y: 0.30596*height), controlPoint2: CGPoint(x: 0.32979*width, y: 0.30826*height))
+    path.addLine(to: CGPoint(x: 0.38132*width, y: 0.3904*height))
+    path.addLine(to: CGPoint(x: 0.41617*width, y: 0.45882*height))
+    path.addLine(to: CGPoint(x: 0.491*width, y: 0.54584*height))
+    path.addLine(to: CGPoint(x: 0.46396*width, y: 0.55452*height))
+    path.addLine(to: CGPoint(x: 0.28201*width, y: 0.37665*height))
+    path.addLine(to: CGPoint(x: 0.28064*width, y: 0.36832*height))
+    path.addLine(to: CGPoint(x: 0.30401*width, y: 0.31031*height))
+    path.addCurve(to: CGPoint(x: 0.31537*width, y: 0.30601*height), controlPoint1: CGPoint(x: 0.3055*width, y: 0.30847*height), controlPoint2: CGPoint(x: 0.31091*width, y: 0.3062*height))
+            
     addToScene(scene, path, 80, "GRAY", SCNVector3(0, 0, 0), UIColor.gray)
     
     var color = UIColor(red: 139 / 255, green: 192 / 255, blue: 67 / 255, alpha: 1)
@@ -1282,6 +1342,22 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.4332*width, y: 0.38329*height))
     path.addLine(to: CGPoint(x: 0.33195*width, y: 0.24344*height))
     addToScene(scene, path, depth, "EXPOSICIONES TEMPORALES", secondLevel, color)
+    
+    guard let sceneURL2 = Bundle.main.url(forResource: "Mosasaurus", withExtension: "usdz") else {
+            print("Failed to find model file.")
+            return
+         }
+                    
+        let modelScene2 = try? SCNScene(url: sceneURL2, options: nil)
+                    
+        if let modelScene2 = modelScene2 {
+            let modelNode2 = modelScene2.rootNode.childNodes.first ?? SCNNode()
+            modelNode2.position = SCNVector3(385, 425, -30)
+            modelNode2.eulerAngles = SCNVector3(-2.4, 1.6, 0)
+            modelNode2.scale = SCNVector3(0.15, 0.15, 0.15)
+            setAllNodeNames(modelNode2, name: "DINO")
+            scene.rootNode.addChildNode(modelNode2)
+        }
     
     var textGeometry = SCNText(string: "TIENDA", extrusionDepth: 1)
     textGeometry.font = UIFont.boldSystemFont(ofSize: 16)

@@ -17,6 +17,7 @@ struct MapSceneView: UIViewRepresentable {
     let floor: Int
     @EnvironmentObject var userManager: UserManager
 
+    
 
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
@@ -319,3 +320,5 @@ struct Map: View {
 #Preview {
     Map(floor: 1).environmentObject(UserManager())
 }
+
+
