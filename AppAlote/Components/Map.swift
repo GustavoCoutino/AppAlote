@@ -17,8 +17,6 @@ struct MapSceneView: UIViewRepresentable {
     let floor: Int
     @EnvironmentObject var userManager: UserManager
 
-    
-
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
         sceneView.scene = scene
@@ -42,7 +40,6 @@ struct MapSceneView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(scene: scene, cameraNode: cameraNode, minZoom: minZoom, maxZoom: maxZoom, model: model)
     }
-    
     
     func setupScene() {
         let camera = SCNCamera()
@@ -75,7 +72,6 @@ struct MapSceneView: UIViewRepresentable {
         } else {
             setupFloor1(scene, width, height)
         }
-        
     }
     
     class Coordinator: NSObject {
@@ -86,6 +82,7 @@ struct MapSceneView: UIViewRepresentable {
         private var lastPanLocation: CGPoint = .zero
         private var lastPinchScale: CGFloat = 1.0
         private var previousPanLocation: CGPoint?
+        private var pinchCenter: CGPoint?
         var model: MapViewModel
 
         init(scene: SCNScene, cameraNode: SCNNode, minZoom: Float, maxZoom: Float, model: MapViewModel) {
@@ -123,11 +120,11 @@ struct MapSceneView: UIViewRepresentable {
                 let deltaX = Float(currentLocation.x - previousLocation.x)
                 let deltaY = Float(currentLocation.y - previousLocation.y)
                 
-                let zoomFactor = cameraNode.position.z / 1000.0
+                let zoomFactor = abs(cameraNode.position.z) / 1000.0
                 let moveSpeed: Float = zoomFactor
                 
-                cameraNode.position.x += deltaX * moveSpeed
-                cameraNode.position.y += deltaY * moveSpeed
+                cameraNode.position.x -= deltaX * moveSpeed
+                cameraNode.position.y -= deltaY * moveSpeed
                 
                 previousPanLocation = currentLocation
                 
@@ -140,17 +137,51 @@ struct MapSceneView: UIViewRepresentable {
         }
             
         @objc func handlePinch(_ gestureRecognizer: UIPinchGestureRecognizer) {
-            if gestureRecognizer.state == .changed {
-                let scale = Float(gestureRecognizer.scale / lastPinchScale)
-                cameraNode.position.z = cameraNode.position.z / scale
+            guard let view = gestureRecognizer.view else { return }
+            
+            switch gestureRecognizer.state {
+            case .began:
+                pinchCenter = gestureRecognizer.location(in: view)
                 lastPinchScale = gestureRecognizer.scale
-            } else if gestureRecognizer.state == .ended {
+                
+            case .changed:
+                guard let center = pinchCenter else { return }
+                let scale = Float(gestureRecognizer.scale / lastPinchScale)
+                
+                // Convert pinch center to world coordinates
+                let viewSize = view.bounds.size
+                let normalizedCenter = CGPoint(
+                    x: center.x / viewSize.width - 0.5,
+                    y: center.y / viewSize.height - 0.5
+                )
+                
+                // Calculate the offset from the camera to the pinch center
+                let zoomFactor = abs(cameraNode.position.z) / 1000.0
+                let centerOffsetX = Float(-normalizedCenter.x) * zoomFactor * 2000
+                let centerOffsetY = Float(-normalizedCenter.y) * zoomFactor * 2000
+                
+                let newZ = cameraNode.position.z / scale
+                
+                if newZ >= -maxZoom && newZ <= -minZoom {
+                    cameraNode.position = SCNVector3(
+                        x: cameraNode.position.x + centerOffsetX * (1 - scale),
+                        y: cameraNode.position.y + centerOffsetY * (1 - scale), 
+                        z: newZ
+                    )
+                }
+                
+                lastPinchScale = gestureRecognizer.scale
+                
+            case .ended:
+                pinchCenter = nil
                 lastPinchScale = 1.0
+                
+            default:
+                break
             }
         }
     }
 }
-
 
 extension UISegmentedControl {
   override open func didMoveToSuperview() {
