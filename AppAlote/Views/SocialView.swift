@@ -48,9 +48,7 @@ struct SocialView: View {
 
             ScrollView {
                 ForEach(posts) { post in
-                    PostView(
-                        post: post
-                    )
+                    BannerViewPost(post: post)
                     .padding(.bottom, 20)
                 }
             }
