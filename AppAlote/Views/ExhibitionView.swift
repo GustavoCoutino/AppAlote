@@ -14,10 +14,28 @@ struct ExhibitionView: View {
     var body: some View {
         VStack(spacing: 16) {
         if let exhibition = fetchedExhibition {
-                Text(name)
+            Text(formatText(exhibition.nombre))
                     .font(.title)
                     .bold()
-                    .padding(.top)
+                HStack {
+                    Text("Piso: ").bold() + Text("\(exhibition.piso)")
+                    Spacer()
+                    Spacer()
+
+                    Text("Zona: ").bold() + Text("\(formatText(exhibition.zona))")
+                    Spacer()
+                    Spacer()
+
+                    Text(exhibition.disponibilidad ? "Disponible" : "No Disponible")
+                        .foregroundColor(exhibition.disponibilidad ? .green : .red)
+                        .bold()
+
+                }
+                .font(.subheadline)
+                .frame(maxWidth: 600)
+                .padding(.horizontal, 5)
+                .padding(.vertical, 15)
+            
                 ScrollView {
                     VStack(spacing: 16) {
                         ZStack(alignment: .top) {
@@ -25,7 +43,7 @@ struct ExhibitionView: View {
                                 Image(systemName: "photo")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 300, height: 300)
+                                    .frame(maxWidth: .infinity)
                                     .foregroundColor(.gray)
                                 /*
                                 Image("\(exhibition.zona) LOGO")
@@ -40,17 +58,16 @@ struct ExhibitionView: View {
                                         switch phase {
                                         case .empty:
                                             ProgressView()
-                                                .frame(width: 300, height: 300)
+                                                .frame(width: 600)
                                         case .success(let image):
                                             image
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 300, height: 300)
+                                                .frame(maxWidth: .infinity)
                                         default:
                                             Image(systemName: "photo")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 300, height: 300)
                                                 .foregroundColor(.gray)
                                     
                                         }
@@ -70,16 +87,7 @@ struct ExhibitionView: View {
                             
                         }
                                 
-                        HStack {
-                            Text("Zona: \(exhibition.zona)")
-                            Spacer()
-                            Text("Piso: \(exhibition.piso)")
-                            Spacer()
-                            Text(exhibition.disponibilidad ? "Disponible" : "No Disponible")
-                                .foregroundColor(exhibition.disponibilidad ? .green : .red)
-                        }
-                        .font(.subheadline)
-                        .padding(.horizontal, 5)
+                        
                         
                         VStack{
                             Text(exhibition.mensaje_es)
@@ -91,15 +99,18 @@ struct ExhibitionView: View {
                         .background(Color(red: 216/255, green: 245/255, blue: 97/255))
                         .cornerRadius(8)
                         
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Objetivos de la exhibición:")
-                                .bold()
-                            ForEach(exhibition.objetivos) { objective in
-                                Text("• \(objective.descripcionEs)")
-                                    .foregroundColor(.black)
+                        if exhibition.objetivos.count > 0 {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Objetivos de la exhibición:")
+                                    .bold()
+                                ForEach(exhibition.objetivos) { objective in
+                                    Text("• \(objective.descripcionEs)")
+                                        .foregroundColor(.black)
+                                }
                             }
+                            .padding(.top, 10)
                         }
-                        .padding(.top, 10)
+                        
                         
                         
                         /*
@@ -115,6 +126,7 @@ struct ExhibitionView: View {
                          */
                         
                     }
+                    .frame(maxWidth: 600)
                 }
             }
         }

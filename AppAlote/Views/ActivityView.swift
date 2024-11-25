@@ -22,9 +22,9 @@ struct ActivityView: View {
                 LoadingView()
             } else {
                 ProgressView(value: Double(currentPage + 1), total: Double(pages.count + 1))
-                    .progressViewStyle(LinearProgressViewStyle(tint: .yellow))
+                    .progressViewStyle(LinearProgressViewStyle(tint: Color(red: 210/255, green: 223/255, blue: 73/255)))
                     .scaleEffect(x: 1, y: 3, anchor: .center)
-                    .padding()
+                    .padding(.vertical)
                 if currentPage == pages.count {
                     FinalPageView(rating: $rating, feedback: $feedback)
                 } else {
@@ -41,8 +41,10 @@ struct ActivityView: View {
                         .frame(minWidth: 100)
                         .padding()
                         .background(Color.red)
+                        .bold()
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                        
                         
                         Spacer()
                         
@@ -59,6 +61,7 @@ struct ActivityView: View {
                         .disabled(rating == 0)
                         .frame(minWidth: 100)
                         .padding()
+                        .bold()
                         .background(rating == 0 ? Color.gray : Color.green )
                         .foregroundColor(.white)
                         .cornerRadius(10)
@@ -72,6 +75,8 @@ struct ActivityView: View {
                             }
                             .frame(minWidth: 100)
                             .padding()
+                            .bold()
+
                             .background(Color.red)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -86,7 +91,8 @@ struct ActivityView: View {
                         }
                         .frame(minWidth: 100)
                         .padding()
-                        .background(Color.green)
+                        .bold()
+                        .background(.green)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }

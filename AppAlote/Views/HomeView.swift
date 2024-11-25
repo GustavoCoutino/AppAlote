@@ -252,10 +252,6 @@ struct ExhibitionCardView: View {
     }
 }
 
-func formatText(_ text: String) -> String {
-       guard let first = text.first else { return "" }
-       return first.uppercased() + text.dropFirst().lowercased()
-   }
 
 func randomColor() -> Color {
     let colors: [Color] = [.purple, .red, .orange, .blue]

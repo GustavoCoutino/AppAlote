@@ -8,8 +8,6 @@
 struct Page : Codable {
     let img : String
     let titulo_es : String
-    let titulo_en : String
     let contenido_es : String
-    let contenido_en : String
     let exhibicion : Int
 }

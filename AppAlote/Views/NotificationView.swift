@@ -38,5 +38,6 @@ struct NotificationView: View {
 }
 
 #Preview {
-    NotificationView(notification: Announcement(id: 1, fecha_creacion: "2024-11-12T19:48:56.493478Z", titulo_es: "Desafíos Actualizados", titulo_en: "Challenges Updated", descripcion_es: "¡Hemos añadido nuevos desafíos emocionantes! Completa los desafíos para ganar recompensas únicas.", descripcion_en: "We've added new exciting challenges! Complete them to earn unique rewards."))
+    NotificationView(notification: Announcement(id: 1, fecha_creacion: "2024-11-12T19:48:56.493478Z", titulo_es: "Desafíos Actualizados", descripcion_es: "¡Hemos añadido nuevos desafíos emocionantes! Completa los desafíos para ganar recompensas únicas.")
+                     )
 }

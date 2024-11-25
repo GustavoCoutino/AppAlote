@@ -11,100 +11,119 @@ struct ZoneView: View {
     let name: String
     @EnvironmentObject var userManager: UserManager
     @State var fetchedZone : Zone?
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         VStack(spacing: 16) {
             if let zone = fetchedZone {
-                Text(zone.nombre)
+                Text(formatText(zone.nombre))
                     .font(.title)
                     .bold()
-                    .padding()
+                
+                Text("\(zone.numero_exhibiciones) exhibiciones")
+                    .font(.subheadline)
+                    .padding(.bottom, 15)
                 
                 ScrollView {
                     VStack(spacing: 16) {
-                        ZStack(alignment: .top) {
-                            if let url = URL(string: zone.logo) {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                            .frame(width: 300, height: 300)
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 300, height: 300)
-                                    default:
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 300, height: 300)
-                                            .foregroundColor(.gray)
-                                
+                        let columns: [GridItem] = {
+                            if sizeClass == .regular {
+                                return [
+                                    GridItem(.adaptive(minimum: 250)),
+                                    GridItem(.adaptive(minimum: 250))
+                                ]
+                            } else {
+                                return [
+                                    GridItem(.adaptive(minimum: UIScreen.main.bounds.width))
+                                ]
+                            }
+                        }()
+                        LazyVGrid(columns: columns) {
+                            ZStack(alignment: .top) {
+                                if let url = URL(string: zone.logo) {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                                .frame(width: 300, height: 300)
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 300, height: 300)
+                                        default:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 300, height: 300)
+                                                .foregroundColor(.gray)
+                                            
+                                        }
                                     }
                                 }
+                                VStack{
+                                    Text("Zona")
+                                        .font(.headline)
+                                        .padding(8)
+                                        .background(Color.black)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(8)
+                                }
+                                .padding(.top, 15)
+                                
+                                
                             }
-                            VStack{
-                                Text("Zona")
-                                    .font(.headline)
-                                    .padding(8)
-                                    .background(Color.black)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
-                            }
-                            .padding(.top, 15)
-                            
-                             
-                        }
-                        
-                        VStack(spacing: 16) {
-                            if zone.nombre != "EXPOSICIONES TEMPORALES"{
-                                Text("\(zone.numero_exhibiciones) exhibiciones")
-                                    .font(.subheadline)
-                                    .padding(.top, 8)
-                            }
-                            
-                            
                           
-                            VStack{
+                            VStack(spacing: 20){
+                                
                                 Text(zone.mensaje_es)
                                     .font(.headline)
                                     .multilineTextAlignment(.center)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color(red: 216/255, green: 245/255, blue: 97/255))
+                                    .cornerRadius(8)
+                                
+                                
+                                Text(zone.descripcion_es)
+
                             }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color(red: 216/255, green: 245/255, blue: 97/255))
-                            .cornerRadius(8)
+                            .padding(.top, 20)
+                            .padding(.horizontal, 30)
+
                             
-                            Text(zone.descripcion_es)
-                            
-                            VStack(spacing: 16) {
-                                ForEach(zone.multimedia, id: \.self) { imageURL in
-                                    if let url = URL(string: imageURL) {
-                                        AsyncImage(url: url) { phase in
-                                            switch phase {
-                                            case .empty:
-                                                ProgressView()
-                                                    .frame(width: 300, height: 300)
-                                            case .success(let image):
-                                                image
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .cornerRadius(8)
-                                            default:
-                                                Image(systemName: "photo")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .foregroundColor(.gray)
-                                        
-                                            }
+                        }
+                        .padding(.bottom, 30)
+                        
+                        VStack(spacing: 16) {
+                            ForEach(zone.multimedia, id: \.self) { imageURL in
+                                if let url = URL(string: imageURL) {
+                                    AsyncImage(url: url) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                                .frame(width: 150, height: 150)
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .cornerRadius(8)
+                                        default:
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(.gray)
+                                                .frame(maxWidth: 300)
                                         }
                                     }
                                 }
                             }
+
                         }
-                        
+                        .frame(maxWidth: 600)
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
+                    
                 }
             }
         }
