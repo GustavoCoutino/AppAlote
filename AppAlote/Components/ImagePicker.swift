@@ -17,11 +17,15 @@ struct ImagePicker: View {
     var body: some View {
         VStack {
             if let selectedImage = selectedImage {
-                Image(uiImage: selectedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 200)
-                    .cornerRadius(10)
+                Button(action: {
+                    isPhotosPickerPresented = true
+                }) {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                        .cornerRadius(10)
+                }
             } else {
                 Button(action: {
                     isPhotosPickerPresented = true

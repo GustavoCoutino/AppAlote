@@ -13,6 +13,5 @@ struct Post : Identifiable, Codable {
     let tarjeta : String?
     let descripcion : String?
     let img : String?
-    //let id_exhibicion : String?
     let nombre_exhibicion : String?
 }
