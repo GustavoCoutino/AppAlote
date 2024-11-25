@@ -19,6 +19,12 @@ struct SignIn: View {
         return emailPred.evaluate(with: email)
     }
     
+    func isValidPassword(_ password: String) -> Bool {
+        let passwordRegex = "^(?=.*[A-Z])(?=.*\\d).{8,}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        return passwordTest.evaluate(with: password)
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -124,7 +130,7 @@ struct SignIn: View {
                         HStack {
                             Button(action: {
                                 isLoading = true
-                                if isValidEmail(correo){
+                                if isValidEmail(correo) && isValidPassword(codigo){
                                     Task {
                                         await userManager.signIn(name: nombre, lastName: apellido, date: fechaNacimiento, email: correo, password: codigo)
                                         isLoading = false
@@ -133,9 +139,17 @@ struct SignIn: View {
                                             alertMessage = userManager.errorMessage ?? "Error desconocido"
                                         }
                                     }
-                                } else {
+                                } else if !isValidPassword(codigo) && !isValidEmail(correo) {
+                                    isLoading = false
+                                    alertMessage = "Correo electrónico y contraseña inválida (debe de tener 8 caracteres, un simbolo, y un numero"
+                                    showAlert = true
+                                } else if isValidPassword(codigo) {
                                     isLoading = false
                                     alertMessage = "Correo electrónico inválido"
+                                    showAlert = true
+                                } else if isValidEmail(correo) {
+                                    isLoading = false
+                                    alertMessage = "Contraseña inválida (debe de tener 8 caracteres, un simbolo, y un numero"
                                     showAlert = true
                                 }
                             }) {
