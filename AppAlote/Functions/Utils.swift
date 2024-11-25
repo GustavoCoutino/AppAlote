@@ -17,6 +17,26 @@ func addToScene(_ scene: SCNScene, _ path: UIBezierPath, _ depth: CGFloat, _ nam
     scene.rootNode.addChildNode(pathNode)
 }
 
+extension UIBezierPath {
+    var center: CGPoint {
+        let boundingBox = self.cgPath.boundingBox
+        let centerX = (boundingBox.origin.x + boundingBox.width / 2) - 20
+        let centerY = boundingBox.origin.y + boundingBox.height / 2
+        return CGPoint(x: centerX, y: centerY)
+    }
+}
+
+func addExhibitionText(_ scene: SCNScene, _ name: String, _ label: String, _ position: SCNVector3){
+    let textGeometry = SCNText(string: label, extrusionDepth: 1)
+    textGeometry.font = UIFont.boldSystemFont(ofSize: 6)
+    textGeometry.firstMaterial?.diffuse.contents = UIColor.white
+    let textNode = SCNNode(geometry: textGeometry)
+    textNode.position = position
+    textNode.eulerAngles = SCNVector3(3.1416, 0, 0)
+    textNode.name = name
+    scene.rootNode.addChildNode(textNode)
+}
+
 func setAllNodeNames(_ node: SCNNode, name: String) {
     node.name = name
             
@@ -111,7 +131,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.49988*width, y: 0.61731*height))
     path.addLine(to: CGPoint(x: 0.50349*width, y: 0.61977*height))
     addToScene(scene, path, depth, "PROTEGER", thirdLevel, color)
-
+    addExhibitionText(scene, "PROTEGER", "PROTEGER", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.63238*width, y: 0.89494*height))
     path.addLine(to: CGPoint(x: 0.63261*width, y: 0.88375*height))
@@ -120,6 +141,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.60918*width, y: 0.89124*height), controlPoint1: CGPoint(x: 0.60266*width, y: 0.89031*height), controlPoint2: CGPoint(x: 0.60645*width, y: 0.89176*height))
     path.addLine(to: CGPoint(x: 0.63238*width, y: 0.89494*height))
     addToScene(scene, path, depth, "DISMINUIR", thirdLevel, color)
+    addExhibitionText(scene, "DISMINUIR", "DISMINUIR", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.64633*width, y: 0.85488*height))
@@ -134,6 +156,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.69613*width, y: 0.85488*height))
     path.addLine(to: CGPoint(x: 0.64633*width, y: 0.85488*height))
     addToScene(scene, path, depth, "DISTRIBUIR", thirdLevel, color)
+    addExhibitionText(scene, "DISTRIBUIR", "DISTRIBUIR", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.69858*width, y: 0.85501*height))
@@ -144,7 +167,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.69858*width, y: 0.89271*height))
     path.addLine(to: CGPoint(x: 0.69858*width, y: 0.85501*height))
     addToScene(scene, path, depth, "RECICLAR", thirdLevel, color)
-
+    addExhibitionText(scene, "RECICLAR", "RECICLAR", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.38164*width, y: 0.65483*height))
     path.addLine(to: CGPoint(x: 0.38926*width, y: 0.63743*height))
@@ -155,6 +179,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addQuadCurve(to: CGPoint(x: 0.40739*width, y: 0.68961*height), controlPoint: CGPoint(x: 0.42323*width, y: 0.67026*height))
     path.addLine(to: CGPoint(x: 0.38164*width, y: 0.65483*height))
     addToScene(scene, path, depth, "CONECTAR", thirdLevel, color)
+    addExhibitionText(scene, "CONECTAR", "CONECTAR", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.42955*width, y: 0.71639*height))
@@ -167,7 +192,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.42955*width, y: 0.70833*height), controlPoint1: CGPoint(x: 0.42481*width, y: 0.70084*height), controlPoint2: CGPoint(x: 0.42823*width, y: 0.70561*height))
     path.addCurve(to: CGPoint(x: 0.42955*width, y: 0.71639*height), controlPoint1: CGPoint(x: 0.4305*width, y: 0.71*height), controlPoint2: CGPoint(x: 0.43007*width, y: 0.71398*height))
     addToScene(scene, path, depth, "CONOCER", thirdLevel, color)
-
+    addExhibitionText(scene, "CONOCER", "CONOCER", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.44634*width, y: 0.72424*height))
     path.addCurve(to: CGPoint(x: 0.44457*width, y: 0.74434*height), controlPoint1: CGPoint(x: 0.44067*width, y: 0.72925*height), controlPoint2: CGPoint(x: 0.4409*width, y: 0.7392*height))
@@ -179,7 +205,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.47841*width, y: 0.7016*height), controlPoint1: CGPoint(x: 0.49721*width, y: 0.69488*height), controlPoint2: CGPoint(x: 0.48523*width, y: 0.69605*height))
     path.addLine(to: CGPoint(x: 0.44634*width, y: 0.72424*height))
     addToScene(scene, path, depth, "DECIDIR", thirdLevel, color)
-
+    addExhibitionText(scene, "DECIDIR", "DECIDIR", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.47892*width, y: 0.63176*height))
     path.addCurve(to: CGPoint(x: 0.47552*width, y: 0.64796*height), controlPoint1: CGPoint(x: 0.48078*width, y: 0.6372*height), controlPoint2: CGPoint(x: 0.47806*width, y: 0.64443*height))
@@ -191,7 +218,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.47494*width, y: 0.62563*height), controlPoint1: CGPoint(x: 0.46837*width, y: 0.62144*height), controlPoint2: CGPoint(x: 0.4727*width, y: 0.62388*height))
     path.addCurve(to: CGPoint(x: 0.47892*width, y: 0.63176*height), controlPoint1: CGPoint(x: 0.47702*width, y: 0.62772*height), controlPoint2: CGPoint(x: 0.47821*width, y: 0.63019*height))
     addToScene(scene, path, depth, "COMPARAR", thirdLevel, color)
-
+    addExhibitionText(scene, "COMPARAR", "COMPARAR", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.50548*width, y: 0.67035*height))
     path.addLine(to: CGPoint(x: 0.5213*width, y: 0.64632*height))
@@ -201,6 +229,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.49622*width, y: 0.67192*height), controlPoint1: CGPoint(x: 0.49333*width, y: 0.66659*height), controlPoint2: CGPoint(x: 0.49427*width, y: 0.67055*height))
     path.addCurve(to: CGPoint(x: 0.50548*width, y: 0.67035*height), controlPoint1: CGPoint(x: 0.49858*width, y: 0.67386*height), controlPoint2: CGPoint(x: 0.50321*width, y: 0.6732*height))
     addToScene(scene, path, depth, "SEPARAR", thirdLevel, color)
+    addExhibitionText(scene, "SEPARAR", "SEPARAR", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.5245*width, y: 0.61489*height))
@@ -211,7 +240,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.52253*width, y: 0.60987*height))
     path.addLine(to: CGPoint(x: 0.5245*width, y: 0.61489*height))
     addToScene(scene, path, depth, "ACTUAR", thirdLevel, color)
-    
+    addExhibitionText(scene, "ACTUAR", "ACTUAR", SCNVector3(path.center.x, path.center.y + 10, -120))
     
     color = UIColor(red: 86 / 255, green: 188/255, blue: 188/255, alpha: 1)
     path = UIBezierPath()
@@ -252,7 +281,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.73854*width, y: 0.79056*height), controlPoint1: CGPoint(x: 0.73331*width, y: 0.78563*height), controlPoint2: CGPoint(x: 0.73653*width, y: 0.7889*height))
     path.addCurve(to: CGPoint(x: 0.74674*width, y: 0.79368*height), controlPoint1: CGPoint(x: 0.74051*width, y: 0.7922*height), controlPoint2: CGPoint(x: 0.74459*width, y: 0.79387*height))
     addToScene(scene, path, depth, "AVES", thirdLevel, color)
-    
+    addExhibitionText(scene, "AVES", "AVES", SCNVector3(path.center.x + 5, path.center.y, -120))
+
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.77046*width, y: 0.75577*height))
@@ -262,7 +292,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.76341*width, y: 0.7686*height))
     path.addLine(to: CGPoint(x: 0.77046*width, y: 0.75577*height))
     addToScene(scene, path, depth, "BARCO", thirdLevel, color)
-    
+    addExhibitionText(scene, "BARCO", "BARCO", SCNVector3(path.center.x + 5, path.center.y, -120))
     
     path.move(to: CGPoint(x: 0.78774*width, y: 0.79589*height))
     path.addCurve(to: CGPoint(x: 0.79584*width, y: 0.789*height), controlPoint1: CGPoint(x: 0.7893*width, y: 0.79258*height), controlPoint2: CGPoint(x: 0.7934*width, y: 0.78968*height))
@@ -274,7 +304,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.78634*width, y: 0.81007*height))
     path.addCurve(to: CGPoint(x: 0.78774*width, y: 0.79589*height), controlPoint1: CGPoint(x: 0.78532*width, y: 0.80658*height), controlPoint2: CGPoint(x: 0.78482*width, y: 0.80021*height))
     addToScene(scene, path, depth, "SUBMARINO", thirdLevel, color)
-    
+    addExhibitionText(scene, "SUBMARINO", "SUBMARINO", SCNVector3(path.center.x + 5, path.center.y + 10, -120))
     
     path.move(to: CGPoint(x: 0.81322*width, y: 0.74318*height))
     path.addLine(to: CGPoint(x: 0.81228*width, y: 0.73932*height))
@@ -298,6 +328,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.80877*width, y: 0.74696*height))
     path.addCurve(to: CGPoint(x: 0.81322*width, y: 0.74318*height), controlPoint1: CGPoint(x: 0.80927*width, y: 0.74564*height), controlPoint2: CGPoint(x: 0.81158*width, y: 0.74382*height))
     addToScene(scene, path, depth, "TORTUGANERO", thirdLevel, color)
+    addExhibitionText(scene, "TORTUGANERO", "TORTUGANERO", SCNVector3(path.center.x + 5, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.83774*width, y: 0.71563*height))
@@ -308,6 +339,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.8338*width, y: 0.72391*height), controlPoint1: CGPoint(x: 0.84218*width, y: 0.7307*height), controlPoint2: CGPoint(x: 0.83625*width, y: 0.72893*height))
     path.addCurve(to: CGPoint(x: 0.83774*width, y: 0.71563*height), controlPoint1: CGPoint(x: 0.83273*width, y: 0.72091*height), controlPoint2: CGPoint(x: 0.83411*width, y: 0.71657*height))
     addToScene(scene, path, depth, "SONIDOS PEQUEÑOS", thirdLevel, color)
+    addExhibitionText(scene, "SONIDOS PEQUEÑOS", "SONIDOS", SCNVector3(path.center.x + 5, path.center.y, -120))
     
     color = UIColor(red: 229 / 255, green: 117/255, blue: 43/255, alpha: 1)
     path = UIBezierPath()
@@ -343,7 +375,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.96565*width, y: 0.67331*height), controlPoint1: CGPoint(x: 0.97364*width, y: 0.64819*height), controlPoint2: CGPoint(x: 0.97303*width, y: 0.6682*height))
     path.addLine(to: CGPoint(x: 0.89737*width, y: 0.71075*height))
     addToScene(scene, path, depth, "LUZ", thirdLevel, color)
-    
+    addExhibitionText(scene, "LUZ", "LUZ", SCNVector3(path.center.x, path.center.y + 10, -120))
+
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.92794*width, y: 0.63308*height))
     path.addLine(to: CGPoint(x: 0.94545*width, y: 0.61293*height))
@@ -352,6 +385,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.92162*width, y: 0.62873*height))
     path.addCurve(to: CGPoint(x: 0.92794*width, y: 0.63308*height), controlPoint1: CGPoint(x: 0.92053*width, y: 0.63012*height), controlPoint2: CGPoint(x: 0.92383*width, y: 0.63228*height))
     addToScene(scene, path, depth, "PALABRAS", thirdLevel, color)
+    addExhibitionText(scene, "PALABRAS", "PALABRAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.94554*width, y: 0.61157*height))
@@ -372,6 +406,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.93592*width, y: 0.59604*height), controlPoint1: CGPoint(x: 0.93429*width, y: 0.59047*height), controlPoint2: CGPoint(x: 0.935*width, y: 0.59432*height))
     path.addLine(to: CGPoint(x: 0.94554*width, y: 0.61157*height))
     addToScene(scene, path, depth, "PATRONES", thirdLevel, color)
+    addExhibitionText(scene, "PATRONES", "PATRONES", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.93195*width, y: 0.52504*height))
@@ -383,6 +418,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.93388*width, y: 0.54198*height))
     path.addLine(to: CGPoint(x: 0.93195*width, y: 0.52504*height))
     addToScene(scene, path, depth, "TEXTURAS", thirdLevel, color)
+    addExhibitionText(scene, "TEXTURAS", "TEXTURAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.90819*width, y: 0.49727*height))
@@ -395,6 +431,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.90979*width, y: 0.50573*height))
     path.addLine(to: CGPoint(x: 0.90819*width, y: 0.49727*height))
     addToScene(scene, path, depth, "PALABRAS", thirdLevel, color)
+    addExhibitionText(scene, "PALABRAS", "PALABRAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.88335*width, y: 0.5761*height))
@@ -405,6 +442,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.88573*width, y: 0.55793*height), controlPoint1: CGPoint(x: 0.88805*width, y: 0.55462*height), controlPoint2: CGPoint(x: 0.88603*width, y: 0.55608*height))
     path.addLine(to: CGPoint(x: 0.88335*width, y: 0.5761*height))
     addToScene(scene, path, depth, "RELIEVE", thirdLevel, color)
+    addExhibitionText(scene, "RELIEVE", "RELIEVE", SCNVector3(path.center.x, path.center.y, -120))
 
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.85134*width, y: 0.50857*height))
@@ -421,7 +459,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.84872*width, y: 0.51067*height), controlPoint1: CGPoint(x: 0.84823*width, y: 0.51361*height), controlPoint2: CGPoint(x: 0.84789*width, y: 0.51185*height))
     path.addLine(to: CGPoint(x: 0.85134*width, y: 0.50857*height))
     addToScene(scene, path, depth, "HISTORIAS", thirdLevel, color)
-
+    addExhibitionText(scene, "HISTORIAS", "HISTORIAS", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.84744*width, y: 0.48742*height))
     path.addCurve(to: CGPoint(x: 0.85535*width, y: 0.48219*height), controlPoint1: CGPoint(x: 0.84863*width, y: 0.48583*height), controlPoint2: CGPoint(x: 0.85256*width, y: 0.48321*height))
@@ -432,7 +471,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.85003*width, y: 0.49796*height))
     path.addCurve(to: CGPoint(x: 0.84744*width, y: 0.48742*height), controlPoint1: CGPoint(x: 0.84462*width, y: 0.49753*height), controlPoint2: CGPoint(x: 0.84422*width, y: 0.49189*height))
     addToScene(scene, path, depth, "INFOLINK", thirdLevel, color)
-
+    addExhibitionText(scene, "INFOLINK", "INFOLINK", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.84272*width, y: 0.53505*height))
     path.addLine(to: CGPoint(x: 0.84698*width, y: 0.54405*height))
@@ -445,6 +485,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.8678*width, y: 0.54405*height), controlPoint1: CGPoint(x: 0.86903*width, y: 0.55732*height), controlPoint2: CGPoint(x: 0.86933*width, y: 0.54752*height))
     path.addCurve(to: CGPoint(x: 0.84272*width, y: 0.53505*height), controlPoint1: CGPoint(x: 0.86375*width, y: 0.53423*height), controlPoint2: CGPoint(x: 0.85075*width, y: 0.53127*height))
     addToScene(scene, path, depth, "MENSAJES", thirdLevel, color)
+    addExhibitionText(scene, "MENSAJES", "MENSAJES", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.76748*width, y: 0.59606*height))
@@ -464,6 +505,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.77303*width, y: 0.59286*height))
     path.addLine(to: CGPoint(x: 0.76748*width, y: 0.59606*height))
     addToScene(scene, path, depth, "COLOR", thirdLevel, color)
+    addExhibitionText(scene, "COLOR", "COLOR", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.74476*width, y: 0.59987*height))
@@ -477,6 +519,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.75355*width, y: 0.59286*height))
     path.addLine(to: CGPoint(x: 0.74476*width, y: 0.59987*height))
     addToScene(scene, path, depth, "COMPOSICIÓN", thirdLevel, color)
+    addExhibitionText(scene, "COMPOSICIÓN", "COMPOSICIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.68059*width, y: 0.45478*height))
@@ -485,6 +528,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.71339*width, y: 0.46082*height))
     path.addLine(to: CGPoint(x: 0.68059*width, y: 0.45478*height))
     addToScene(scene, path, depth, "MOVIMIENTO", thirdLevel, color)
+    addExhibitionText(scene, "MOVIMIENTO", "MOVIMIENTO", SCNVector3(path.center.x, CGFloat(path.center.y + 10), -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.7522*width, y: 0.46894*height))
@@ -495,6 +539,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.83416*width, y: 0.48401*height))
     path.addLine(to: CGPoint(x: 0.7522*width, y: 0.46894*height))
     addToScene(scene, path, depth, "ARTE", thirdLevel, color)
+    addExhibitionText(scene, "ARTE", "ARTE", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.66352*width, y: 0.5604*height))
@@ -518,6 +563,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.66352*width, y: 0.56269*height))
     path.addLine(to: CGPoint(x: 0.66352*width, y: 0.5604*height))
     addToScene(scene, path, depth, "PROPORCIÓN", thirdLevel, color)
+    addExhibitionText(scene, "PROPORCIÓN", "PROPORCIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.60077*width, y: 0.59709*height))
@@ -537,6 +583,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.60316*width, y: 0.60022*height))
     path.addCurve(to: CGPoint(x: 0.60077*width, y: 0.59709*height), controlPoint1: CGPoint(x: 0.60197*width, y: 0.59987*height), controlPoint2: CGPoint(x: 0.60069*width, y: 0.59838*height))
     addToScene(scene, path, depth, "SONIDOS EXPRESO", thirdLevel, color)
+    addExhibitionText(scene, "SONIDOS EXPRESO", "SONIDOS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.62343*width, y: 0.57886*height))
@@ -555,6 +602,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.62348*width, y: 0.58288*height))
     path.addLine(to: CGPoint(x: 0.62343*width, y: 0.57886*height))
     addToScene(scene, path, depth, "FIGURAS", thirdLevel, color)
+    addExhibitionText(scene, "FIGURAS", "FIGURAS", SCNVector3(path.center.x, path.center.y, -120))
     
     color = UIColor(red: 123/255, green: 68/255, blue: 136/255, alpha: 1)
     path = UIBezierPath()
@@ -597,6 +645,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.58442*width, y: 0.46907*height))
     path.addLine(to: CGPoint(x: 0.58689*width, y: 0.47108*height))
     addToScene(scene, path, depth, "SIMULADOR", thirdLevel, color)
+    addExhibitionText(scene, "SIMULADOR", "SIMULADOR", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.514*width, y: 0.4929*height))
@@ -613,6 +662,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.48485*width, y: 0.45388*height))
     path.addLine(to: CGPoint(x: 0.514*width, y: 0.4929*height))
     addToScene(scene, path, depth, "EXPLORACIÓN", thirdLevel, color)
+    addExhibitionText(scene, "EXPLORACIÓN", "EXPLORACIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.55125*width, y: 0.41375*height))
@@ -625,6 +675,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.54819*width, y: 0.41449*height))
     path.addCurve(to: CGPoint(x: 0.55125*width, y: 0.41375*height), controlPoint1: CGPoint(x: 0.54979*width, y: 0.41394*height), controlPoint2: CGPoint(x: 0.55049*width, y: 0.41359*height))
     addToScene(scene, path, depth, "ESCENARIOS", thirdLevel, color)
+    addExhibitionText(scene, "ESCENARIOS", "ESCENARIOS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.5702*width, y: 0.45122*height))
@@ -635,6 +686,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.56447*width, y: 0.45356*height), controlPoint1: CGPoint(x: 0.56061*width, y: 0.45174*height), controlPoint2: CGPoint(x: 0.56301*width, y: 0.45342*height))
     path.addCurve(to: CGPoint(x: 0.5702*width, y: 0.45122*height), controlPoint1: CGPoint(x: 0.56652*width, y: 0.45359*height), controlPoint2: CGPoint(x: 0.5695*width, y: 0.45257*height))
     addToScene(scene, path, depth, "EVIDENCIAS", thirdLevel, color)
+    addExhibitionText(scene, "EVIDENCIAS", "EVIDENCIAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.57711*width, y: 0.40889*height))
@@ -644,7 +696,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.57074*width, y: 0.41425*height), controlPoint1: CGPoint(x: 0.57222*width, y: 0.41907*height), controlPoint2: CGPoint(x: 0.57069*width, y: 0.41623*height))
     path.addCurve(to: CGPoint(x: 0.57711*width, y: 0.40889*height), controlPoint1: CGPoint(x: 0.57122*width, y: 0.41185*height), controlPoint2: CGPoint(x: 0.57403*width, y: 0.40889*height))
     addToScene(scene, path, depth, "FENÓMENOS", thirdLevel, color)
-    
+    addExhibitionText(scene, "FENÓMENOS", "FENÓMENOS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.45333*width, y: 0.40664*height))
@@ -655,6 +707,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addQuadCurve(to: CGPoint(x: 0.45516*width, y: 0.40657*height), controlPoint: CGPoint(x: 0.45509*width, y: 0.40657*height))
     path.addQuadCurve(to: CGPoint(x: 0.45333*width, y: 0.40664*height), controlPoint: CGPoint(x: 0.45524*width, y: 0.40657*height))
     addToScene(scene, path, depth, "GENERACIÓN", thirdLevel, color)
+    addExhibitionText(scene, "GENERACIÓN", "GENERACIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.59532*width, y: 0.40065*height))
@@ -671,6 +724,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.58946*width, y: 0.40065*height))
     path.addLine(to: CGPoint(x: 0.59532*width, y: 0.40065*height))
     addToScene(scene, path, depth, "INNOVACIÓN", thirdLevel, color)
+    addExhibitionText(scene, "INNOVACIÓN", "INNOVACIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.51085*width, y: 0.4013*height))
@@ -683,6 +737,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.51502*width, y: 0.41252*height))
     path.addLine(to: CGPoint(x: 0.51085*width, y: 0.4013*height))
     addToScene(scene, path, depth, "INTERPRETACIÓN", thirdLevel, color)
+    addExhibitionText(scene, "INTERPRETACIÓN", "INTERPRETACIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.49236*width, y: 0.39564*height))
@@ -703,6 +758,7 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.49235*width, y: 0.39185*height))
     path.addCurve(to: CGPoint(x: 0.49236*width, y: 0.39564*height), controlPoint1: CGPoint(x: 0.49126*width, y: 0.39279*height), controlPoint2: CGPoint(x: 0.49129*width, y: 0.39468*height))
     addToScene(scene, path, depth, "INTERDISCIPLINA", thirdLevel, color)
+    addExhibitionText(scene, "INTERDISCIPLINA", "INTERDISCIPLINA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.51651*width, y: 0.31659*height))
@@ -715,7 +771,8 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.50483*width, y: 0.31373*height))
     path.addCurve(to: CGPoint(x: 0.51651*width, y: 0.31659*height), controlPoint1: CGPoint(x: 0.50679*width, y: 0.31647*height), controlPoint2: CGPoint(x: 0.51251*width, y: 0.31812*height))
     addToScene(scene, path, depth, "BAYLAB", thirdLevel, color)
-    
+    addExhibitionText(scene, "BAYLAB", "BAYLAB", SCNVector3(path.center.x, path.center.y, -120))
+
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.00579 * width, y: 0.08299 * height))
@@ -774,6 +831,21 @@ func setupFloor0(_ scene: SCNScene, _ width: Double, _ height: Double){
     textNode.eulerAngles = SCNVector3(3.1416, 0, 0)
     textNode.name = "COMPRENDO"
     scene.rootNode.addChildNode(textNode)
+
+    /*
+    addExhibitionText(scene, "BAYLAB", "BAYLAB", SCNVector3(510, 280, -120))
+    
+    addExhibitionText(scene, "INTERDISCIPLINA", "INTERDISCIPLINA", SCNVector3(480, 350, -120))
+    
+    addExhibitionText(scene, "GENERACIÓN", "GENERACIÓN", SCNVector3(430, 395, -120))
+    
+    addExhibitionText(scene, "INTERPRETACIÓN", "INTERPRETACIÓN", SCNVector3(480, 420, -120))
+    
+    addExhibitionText(scene, "INNOVACIÓN", "INNOVACIÓN", SCNVector3(560, 365, -120))
+    
+    addExhibitionText(scene, "ESCENARIOS", "ESCENARIOS", SCNVector3(530, 440, -120))
+    */
+ 
     
     textGeometry = SCNText(string: "EXPRESO", extrusionDepth: 1)
     textGeometry.font = UIFont.boldSystemFont(ofSize: 16)
@@ -945,7 +1017,8 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.93194*width, y: 0.68038*height))
     path.addLine(to: CGPoint(x: 0.87963*width, y: 0.70741*height))
     addToScene(scene, path, depth, "ESPECIES", thirdLevel, color)
-
+    addExhibitionText(scene, "ESPECIES", "ESPECIES", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.96975*width, y: 0.64829*height))
     path.addLine(to: CGPoint(x: 0.95081*width, y: 0.65084*height))
@@ -967,7 +1040,8 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.95081*width, y: 0.51769*height))
     path.addLine(to: CGPoint(x: 0.96975*width, y: 0.64829*height))
     addToScene(scene, path, depth, "VIENTO", thirdLevel, color)
-
+    addExhibitionText(scene, "VIENTO", "VIENTO", SCNVector3(path.center.x, path.center.y, -120))
+    
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.83336*width, y: 0.49504*height))
     path.addLine(to: CGPoint(x: 0.90162*width, y: 0.50959*height))
@@ -977,6 +1051,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.84554*width, y: 0.47766*height), controlPoint1: CGPoint(x: 0.85599*width, y: 0.47707*height), controlPoint2: CGPoint(x: 0.84905*width, y: 0.47713*height))
     path.addCurve(to: CGPoint(x: 0.83336*width, y: 0.49504*height), controlPoint1: CGPoint(x: 0.83995*width, y: 0.48408*height), controlPoint2: CGPoint(x: 0.8304*width, y: 0.49151*height))
     addToScene(scene, path, depth, "MARIPOSAS", thirdLevel, color)
+    addExhibitionText(scene, "MARIPOSAS", "MARIPOSAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.73528*width, y: 0.56364*height))
@@ -989,6 +1064,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.73922*width, y: 0.56734*height), controlPoint1: CGPoint(x: 0.7395*width, y: 0.57026*height), controlPoint2: CGPoint(x: 0.73974*width, y: 0.56793*height))
     path.addLine(to: CGPoint(x: 0.73528*width, y: 0.56364*height))
     addToScene(scene, path, depth, "SUCULENTAS", thirdLevel, color)
+    addExhibitionText(scene, "SUCULENTAS", "SUCULENTAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.73195*width, y: 0.49285*height))
@@ -1000,6 +1076,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.72707*width, y: 0.49372*height), controlPoint1: CGPoint(x: 0.72218*width, y: 0.49905*height), controlPoint2: CGPoint(x: 0.72445*width, y: 0.49457*height))
     path.addCurve(to: CGPoint(x: 0.73195*width, y: 0.49285*height), controlPoint1: CGPoint(x: 0.72851*width, y: 0.49422*height), controlPoint2: CGPoint(x: 0.73095*width, y: 0.49424*height))
     addToScene(scene, path, depth, "CADENA", thirdLevel, color)
+    addExhibitionText(scene, "CADENA", "CADENA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.69713*width, y: 0.48918*height))
@@ -1008,6 +1085,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.69689*width, y: 0.54228*height))
     path.addLine(to: CGPoint(x: 0.69713*width, y: 0.48918*height))
     addToScene(scene, path, depth, "BIODIVERSIDAD", thirdLevel, color)
+    addExhibitionText(scene, "BIODIVERSIDAD", "BIODIVERSIDAD", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.63513*width, y: 0.45444*height))
@@ -1016,6 +1094,8 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.67465*width, y: 0.46204*height))
     path.addLine(to: CGPoint(x: 0.63513*width, y: 0.45444*height))
     addToScene(scene, path, depth, "ATMÓSFERA", thirdLevel, color)
+    addExhibitionText(scene, "ATMÓSFERA", "ATMÓSFERA", SCNVector3(path.center.x, path.center.y, -120))
+    
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.58673*width, y: 0.47357*height))
@@ -1024,6 +1104,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.58507*width, y: 0.48126*height))
     path.addLine(to: CGPoint(x: 0.58673*width, y: 0.47357*height))
     addToScene(scene, path, depth, "AIRE", thirdLevel, color)
+    addExhibitionText(scene, "AIRE", "AIRE", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.60791*width, y: 0.53305*height))
@@ -1053,6 +1134,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.62412*width, y: 0.53456*height))
     path.addLine(to: CGPoint(x: 0.60485*width, y: 0.53963*height))
     addToScene(scene, path, depth, "SERVICIOS", thirdLevel, color)
+    addExhibitionText(scene, "SERVICIOS", "SERVICIOS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.53007*width, y: 0.56804*height))
@@ -1061,6 +1143,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.49637*width, y: 0.58275*height), controlPoint1: CGPoint(x: 0.4948*width, y: 0.59045*height), controlPoint2: CGPoint(x: 0.49329*width, y: 0.58666*height))
     path.addCurve(to: CGPoint(x: 0.53007*width, y: 0.56804*height), controlPoint1: CGPoint(x: 0.51126*width, y: 0.57586*height), controlPoint2: CGPoint(x: 0.52811*width, y: 0.56356*height))
     addToScene(scene, path, depth, "SUPERFICIE", thirdLevel, color)
+    addExhibitionText(scene, "SUPERFICIE", "SUPERFICIE", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.53283*width, y: 0.56801*height))
@@ -1070,6 +1153,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.53283*width, y: 0.56488*height))
     path.addLine(to: CGPoint(x: 0.53283*width, y: 0.56801*height))
     addToScene(scene, path, depth, "ROCAS", thirdLevel, color)
+    addExhibitionText(scene, "ROCAS", "ROCAS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.52589*width, y: 0.46137*height))
@@ -1078,6 +1162,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.56677*width, y: 0.49401*height))
     path.addLine(to: CGPoint(x: 0.52589*width, y: 0.46137*height))
     addToScene(scene, path, depth, "SUELO", thirdLevel, color)
+    addExhibitionText(scene, "SUELO", "SUELO", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.56421*width, y: 0.53161*height))
@@ -1090,6 +1175,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.55888*width, y: 0.53694*height))
     path.addLine(to: CGPoint(x: 0.56421*width, y: 0.53161*height))
     addToScene(scene, path, depth, "LOMBRICOMPOSTA", thirdLevel, color)
+    addExhibitionText(scene, "LOMBRICOMPOSTA", "LOMBRICOMPOSTA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.57055*width, y: 0.53161*height))
@@ -1106,6 +1192,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.591*width, y: 0.50879*height), controlPoint1: CGPoint(x: 0.59566*width, y: 0.50699*height), controlPoint2: CGPoint(x: 0.59231*width, y: 0.50741*height))
     path.addLine(to: CGPoint(x: 0.57055*width, y: 0.53161*height))
     addToScene(scene, path, depth, "ORGANISMOS", thirdLevel, color)
+    addExhibitionText(scene, "ORGANISMOS", "ORGANISMOS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.44058*width, y: 0.3948*height))
@@ -1120,6 +1207,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.47409*width, y: 0.44176*height))
     path.addLine(to: CGPoint(x: 0.44058*width, y: 0.3948*height))
     addToScene(scene, path, depth, "NATURALEZA", thirdLevel, color)
+    addExhibitionText(scene, "NATURALEZA", "NATURALEZA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.56344*width, y: 0.36602*height))
@@ -1134,6 +1222,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.56262*width, y: 0.37313*height))
     path.addCurve(to: CGPoint(x: 0.56344*width, y: 0.36602*height), controlPoint1: CGPoint(x: 0.56015*width, y: 0.37133*height), controlPoint2: CGPoint(x: 0.5591*width, y: 0.36791*height))
     addToScene(scene, path, depth, "AGUA", thirdLevel, color)
+    addExhibitionText(scene, "AGUA", "AGUA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.60071*width, y: 0.38639*height))
@@ -1142,6 +1231,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.59589*width, y: 0.38981*height))
     path.addLine(to: CGPoint(x: 0.60071*width, y: 0.38639*height))
     addToScene(scene, path, depth, "ESTRATOS", thirdLevel, color)
+    addExhibitionText(scene, "ESTRATOS", "ESTRATOS", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.59601*width, y: 0.43026*height))
@@ -1150,7 +1240,8 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.61863*width, y: 0.45724*height))
     path.addCurve(to: CGPoint(x: 0.59601*width, y: 0.43026*height), controlPoint1: CGPoint(x: 0.59874*width, y: 0.45247*height), controlPoint2: CGPoint(x: 0.59682*width, y: 0.43911*height))
     addToScene(scene, path, depth, "MINERALES", thirdLevel, color)
-
+    addExhibitionText(scene, "MINERALES", "MINERALES", SCNVector3(path.center.x, path.center.y, -120))
+    
     color = UIColor(red: 86 / 255, green: 188/255, blue: 188/255, alpha: 1)
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.83297*width, y: 0.75397*height))
@@ -1177,6 +1268,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.69254*width, y: 0.88002*height))
     path.addLine(to: CGPoint(x: 0.69223*width, y: 0.91329*height))
     addToScene(scene, path, depth, "INVERNADERO", thirdLevel, color)
+    addExhibitionText(scene, "INVERNADERO", "INVERNADERO", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.69857*width, y: 0.8504*height))
@@ -1202,6 +1294,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.6985*width, y: 0.8486*height))
     path.addLine(to: CGPoint(x: 0.69857*width, y: 0.8504*height))
     addToScene(scene, path, depth, "PUENTE", thirdLevel, color)
+    addExhibitionText(scene, "PUENTE", "PUENTE", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.74069*width, y: 0.84048*height))
@@ -1214,6 +1307,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.74236*width, y: 0.84821*height), controlPoint1: CGPoint(x: 0.74695*width, y: 0.85212*height), controlPoint2: CGPoint(x: 0.74386*width, y: 0.84997*height))
     path.addCurve(to: CGPoint(x: 0.74069*width, y: 0.84048*height), controlPoint1: CGPoint(x: 0.74084*width, y: 0.84664*height), controlPoint2: CGPoint(x: 0.73925*width, y: 0.84336*height))
     addToScene(scene, path, depth, "FLORES", thirdLevel, color)
+    addExhibitionText(scene, "FLORES", "FLORES", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.74013*width, y: 0.88581*height))
@@ -1227,6 +1321,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.74013*width, y: 0.89167*height))
     path.addQuadCurve(to: CGPoint(x: 0.74013*width, y: 0.88581*height), controlPoint: CGPoint(x: 0.74013*width, y: 0.88594*height))
     addToScene(scene, path, depth, "CASITA", thirdLevel, color)
+    addExhibitionText(scene, "CASITA", "CASITA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.79615*width, y: 0.83054*height))
@@ -1235,6 +1330,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.80749*width, y: 0.83501*height))
     path.addLine(to: CGPoint(x: 0.79615*width, y: 0.83054*height))
     addToScene(scene, path, depth, "TRONCO", thirdLevel, color)
+    addExhibitionText(scene, "TRONCO", "TRONCO", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.79786*width, y: 0.80178*height))
@@ -1245,6 +1341,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.79526*width, y: 0.81291*height), controlPoint1: CGPoint(x: 0.79892*width, y: 0.81872*height), controlPoint2: CGPoint(x: 0.79587*width, y: 0.81533*height))
     path.addCurve(to: CGPoint(x: 0.79786*width, y: 0.80178*height), controlPoint1: CGPoint(x: 0.7941*width, y: 0.80936*height), controlPoint2: CGPoint(x: 0.7953*width, y: 0.80376*height))
     addToScene(scene, path, depth, "SUBMARINO", thirdLevel, color)
+    addExhibitionText(scene, "SUBMARINO", "SUBMARINO", SCNVector3(path.center.x, path.center.y, -120))
     
     color = UIColor(red: 56 / 255, green: 99 / 255, blue: 158 / 255, alpha: 1)
     path = UIBezierPath()
@@ -1260,7 +1357,6 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.36505*width, y: 0.63968*height))
     addToScene(scene, path, depth, "COMUNICO", secondLevel, color)
     
-    
     color = UIColor(red: 34 / 255, green: 59 / 255, blue: 94 / 255, alpha: 1)
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.44304*width, y: 0.7468*height))
@@ -1275,6 +1371,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.40038*width, y: 0.68749*height))
     path.addLine(to: CGPoint(x: 0.44304*width, y: 0.7468*height))
     addToScene(scene, path, depth, "TELEPRESENCIA", thirdLevel, color)
+    addExhibitionText(scene, "TELEPRESENCIA", "TELEPRESENCIA", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.48926*width, y: 0.81148*height))
@@ -1287,6 +1384,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.44455*width, y: 0.74939*height))
     path.addLine(to: CGPoint(x: 0.48926*width, y: 0.81148*height))
     addToScene(scene, path, depth, "RADIO", thirdLevel, color)
+    addExhibitionText(scene, "RADIO", "RADIO", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.53404*width, y: 0.78519*height))
@@ -1303,7 +1401,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addCurve(to: CGPoint(x: 0.53902*width, y: 0.79188*height), controlPoint1: CGPoint(x: 0.54342*width, y: 0.79968*height), controlPoint2: CGPoint(x: 0.5411*width, y: 0.7943*height))
     path.addLine(to: CGPoint(x: 0.53404*width, y: 0.78519*height))
     addToScene(scene, path, depth, "TELEVISIÓN", thirdLevel, color)
-    
+    addExhibitionText(scene, "TELEVISIÓN", "TELEVISIÓN", SCNVector3(path.center.x, path.center.y, -120))
     
     path = UIBezierPath()
     path.move(to: CGPoint(x: 0.61221*width, y: 0.91461*height))
@@ -1317,7 +1415,7 @@ func setupFloor1(_ scene: SCNScene, _ width: Double, _ height: Double){
     path.addLine(to: CGPoint(x: 0.68512*width, y: 0.91473*height))
     path.addLine(to: CGPoint(x: 0.61221*width, y: 0.91461*height))
     addToScene(scene, path, depth, "REDES", thirdLevel, color)
-    
+    addExhibitionText(scene, "REDES", "REDES", SCNVector3(path.center.x, path.center.y, -120))
     
     color = UIColor(red: 203 / 255, green: 226 / 255, blue: 187 / 255, alpha: 1)
     path = UIBezierPath()

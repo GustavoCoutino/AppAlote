@@ -318,7 +318,8 @@ struct Map: View {
 }
 
 #Preview {
-    Map(floor: 1).environmentObject(UserManager())
+    Map(floor: 0).environmentObject(UserManager())
 }
+
 
 
