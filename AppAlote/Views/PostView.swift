@@ -1,15 +1,9 @@
-//
-//  PostView.swift
-//  AppAlote
-//
-//  Created by Gustavo Coutiño on 21/11/24.
-//
-
 import SwiftUI
 
 struct PostView: View {
     let post: Post
-    
+    @EnvironmentObject var userManager: UserManager // Make sure to have access to userManager
+
     var body: some View {
         VStack {
             ProfileHeaderView(
@@ -24,7 +18,6 @@ struct PostView: View {
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.black)
                 
-            
             AsyncImage(url: URL(string: post.img ?? "")) { image in
                 image
                     .resizable()
@@ -38,9 +31,16 @@ struct PostView: View {
             Spacer()
         }
         .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.blue.opacity(0.2))
-                .shadow(radius: 5)
+            AsyncImage(url: URL(string: userManager.banner ?? "")) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped() // Ensures the image fills the background
+            } placeholder: {
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(Color.blue.opacity(0.2))
+                    .shadow(radius: 5)
+            }
         )
         .padding(.horizontal, 10)
     }

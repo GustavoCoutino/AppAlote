@@ -11,7 +11,6 @@ struct Post : Identifiable, Codable {
     let nombre : String
     let foto_perfil : String?
     let tarjeta : String?
-    let insignia : String?
     let descripcion : String?
     let img : String?
     let id_exhibicion : String?
