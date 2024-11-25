@@ -51,6 +51,7 @@ struct TarjetasView: View {
                 }
             }
             .padding()
+            Spacer().frame(height: 120)
         }
         .alert(isPresented: $showingAlert) {
             Alert(

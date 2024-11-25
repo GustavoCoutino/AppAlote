@@ -39,6 +39,7 @@ struct InsigniasView: View {
                 }
             }
             .padding()
+            Spacer().frame(height: 120)
         }
         .onAppear {
             Task {
