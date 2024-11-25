@@ -11,8 +11,8 @@ struct SocialView: View {
     @EnvironmentObject var userManager: UserManager
     @State private var isPublishViewSelected: Bool = false
 
-
     var body: some View {
+        /*
         VStack(spacing: 0) {
             VStack {
                 HStack {
@@ -48,21 +48,73 @@ struct SocialView: View {
 
             ScrollView {
                 ForEach(posts) { post in
-                    PostView(
-                        post: post
-                    )
+                    BannerViewPost(post: post)
                     .padding(.bottom, 20)
                 }
             }
             .padding(.bottom, 150)
         }
-        .onAppear {
-            Task {
-                posts = await userManager.getAllPosts()
+         
+         */
+        NavigationStack {
+            
+            ZStack{
+                VStack{
+                    HStack {
+                        Image("papalote-extendido")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 75)
+                            .padding(.leading, 16)
+                        Spacer()
+                        Button(action: {
+                            isPublishViewSelected = true
+                        }) {
+                            ZStack {
+                                Circle()
+                                    .fill(LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]),
+                                                         startPoint: .top, endPoint: .bottom))
+                                    .frame(width: 50, height: 50)
+                                Image(systemName: "plus")
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 24))
+                            }
+                        }.navigationDestination(isPresented: $isPublishViewSelected) {
+                            PublishView()
+                        }
+                    }
+                    .ignoresSafeArea()
+                    .frame(width: UIScreen.main.bounds.size.width)
+                    .padding(.vertical, 20)
+                    .background(Color(red: 210/255, green: 223/255, blue: 73/255))
+                    
+                    ScrollView {
+                        VStack{
+                            ForEach(posts) { post in
+                                BannerViewPost(post: post)
+                                .padding(.top, 20)
+                            }
+                        }
+                        .padding(.bottom, 150)
+                        .frame(maxWidth: .infinity)
+                        
+                    }
+                    
+                    .ignoresSafeArea()
+                    .offset(x: 0, y: -8)
+
+                }
+                .frame(maxHeight: UIScreen.main.bounds.size.height, alignment: .top)
+            }
+            .onAppear {
+                Task {
+                    posts = await userManager.getAllPosts()
+                }
             }
         }
     }
-
-   
 }
 
+#Preview {
+    SocialView().environmentObject(UserManager())
+}
