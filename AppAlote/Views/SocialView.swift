@@ -54,6 +54,7 @@ struct SocialView: View {
                     .padding(.bottom, 20)
                 }
             }
+            .padding(.bottom, 150)
         }
         .onAppear {
             Task {

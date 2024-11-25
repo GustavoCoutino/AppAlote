@@ -31,6 +31,10 @@ struct PostView: View {
             Spacer()
         }
         .background(
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.blue.opacity(0.2))
+                .shadow(radius: 5)
+            /*
             AsyncImage(url: URL(string: userManager.banner ?? "")) { image in
                 image
                     .resizable()
@@ -41,6 +45,7 @@ struct PostView: View {
                     .fill(Color.blue.opacity(0.2))
                     .shadow(radius: 5)
             }
+             */
         )
         .padding(.horizontal, 10)
     }
