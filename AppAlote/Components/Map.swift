@@ -165,7 +165,7 @@ struct MapSceneView: UIViewRepresentable {
                 if newZ >= -maxZoom && newZ <= -minZoom {
                     cameraNode.position = SCNVector3(
                         x: cameraNode.position.x + centerOffsetX * (1 - scale),
-                        y: cameraNode.position.y + centerOffsetY * (1 - scale), 
+                        y: cameraNode.position.y + centerOffsetY * (1 - scale),
                         z: newZ
                     )
                 }
@@ -269,7 +269,8 @@ struct Map: View {
         "ESTRATOS": 1,
         "NATURALEZA": 1,
         "AGUA": 1,
-        "TIENDA": 1,
+        "TIENDA": 0,
+        "IMAX": 0,
         "EXPOSICIONES TEMPORALES": 0
     ]
     @StateObject var model = MapViewModel()
