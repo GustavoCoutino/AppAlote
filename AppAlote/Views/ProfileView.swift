@@ -133,7 +133,7 @@ struct ProfileView: View {
                                 }
                             
                         }
-                        .padding(.top)}
+                        .padding(.top, 35)}
                     Divider()
                 }
                 

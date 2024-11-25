@@ -60,7 +60,7 @@ struct PageView: View {
 
 #Preview {
     PageView(
-        page: Page(img: "soil_layers", titulo_es: "Ejemplo", titulo_en: "Descripción de ejemplo", contenido_es: "Descripción de ejemplo", contenido_en: "Descripción de ejemplo", exhibicion: 1)
+        page: Page(img: "soil_layers", titulo_es: "Ejemplo", contenido_es: "Descripción de ejemplo", exhibicion: 1)
     )
 }
 

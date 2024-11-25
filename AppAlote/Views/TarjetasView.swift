@@ -21,7 +21,8 @@ struct TarjetasView: View {
                     ZStack {
                         AsyncImage(url: URL(string: card.imagen)) { image in image
                                 .resizable()
-                                .frame(height: 100)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(maxWidth: .infinity)
                                 .grayscale(card.obtenido ? 0 : 1)
                                 .opacity(card.obtenido ? 1 : 0.5)
                                 .onTapGesture {
@@ -37,11 +38,14 @@ struct TarjetasView: View {
                         }
                                                 
                         if userManager.banner == card.imagen {
-                            Image(systemName: "checkmark.circle.fill")
-                                .resizable()
-                                .foregroundColor(.green)
-                                .frame(width: 30, height: 30)
-                                .offset(x: 120, y: -30)
+                            HStack {
+                                Spacer()
+                                Image(systemName: "checkmark.circle.fill")
+                                    .resizable()
+                                    .foregroundColor(.green)
+                                    .frame(width: 30, height: 30)
+                                    .padding(.trailing, 10)
+                            }
                         }
                     }
                 }
