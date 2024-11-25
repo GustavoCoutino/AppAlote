@@ -80,7 +80,7 @@ struct BannerViewPost: View {
                                     .foregroundStyle(Color(red: 210/255, green: 223/255, blue: 73/255))
                             }
                             .shadow(radius: 5)
-                            .padding(.trailing, 10)
+                            .padding(.trailing, 15)
                         }
                         .navigationDestination(isPresented: $isExhibitionSelected) {
                             ExhibitionView(name: name)
@@ -132,6 +132,7 @@ struct BannerViewPost: View {
                 }
                 
             }
+            .frame(maxWidth: 500)
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .fill(Color(red: 210/255, green: 223/255, blue: 73/255).opacity(0.2))

@@ -96,8 +96,10 @@ struct SocialView: View {
                             }
                         }
                         .padding(.bottom, 150)
+                        .frame(maxWidth: .infinity)
                         
                     }
+                    
                     .ignoresSafeArea()
                     .offset(x: 0, y: -8)
 
