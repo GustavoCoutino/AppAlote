@@ -16,7 +16,9 @@ struct PublishView: View {
     @State private var showAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @State private var shouldDismiss = false
     @EnvironmentObject var userManager: UserManager
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,10 +37,17 @@ struct PublishView: View {
                             isLoading = true
                             Task {
                                 let imageData = selectedImage?.jpegData(compressionQuality: 0.8)
-                                await userManager.uploadPost(imageData: imageData, exhibitionId: selectedExhibitionId ?? 0, comment: comment)
+                                let isSuccess = await userManager.uploadPost(imageData: imageData, exhibitionId: selectedExhibitionId ?? 0, comment: comment)
                                 isLoading = false
-                                alertMessage = "Tu publicacion esta en revision para ser publicada"
-                                alertTitle = "Publicacion exitosa"
+
+                                if isSuccess {
+                                    alertMessage = "Tu publicacion esta en revision para ser publicada"
+                                    alertTitle = "Publicacion exitosa"
+                                    shouldDismiss = true
+                                } else {
+                                    alertMessage = "Ocurrió un error al publicar. Inténtalo de nuevo."
+                                    alertTitle = "Error"
+                                }
                                 showAlert = true
                             }
                         }) {
@@ -83,11 +92,14 @@ struct PublishView: View {
                 .padding(.top, 60)
             }
         }.alert(alertTitle, isPresented: $showAlert) {
-            Button("OK", role: .cancel) {}
+            Button("OK", role: .cancel) {
+                if shouldDismiss {
+                    dismiss()
+                }
+            }
         } message: {
             Text(alertMessage)
         }
-        
     }
 }
 

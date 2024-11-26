@@ -767,7 +767,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func uploadPost(imageData: Data?, exhibitionId: Int, comment: String) async {
+    func uploadPost(imageData: Data?, exhibitionId: Int, comment: String) async -> Bool {
             let url = URL(string: "https://papalote-backend.onrender.com/api/publicaciones/")!
             let boundary = UUID().uuidString
 
@@ -805,10 +805,12 @@ class UserManager: ObservableObject {
 
             do {
                 _ = try await URLSession.shared.data(for: request)
+                return true
             } catch {
                 postMessage = "Hubo un error al subir la publicacion"
                 print("Error uploading post: \(error.localizedDescription)")
             }
+        return false
         }
 
     
