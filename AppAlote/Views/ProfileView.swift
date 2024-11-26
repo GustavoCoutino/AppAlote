@@ -62,38 +62,46 @@ struct ProfileView: View {
                                 }
                                 
                             } else {
-                                if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
-                                    AsyncImage(url: url) { phase in
-                                        switch phase {
-                                        case .empty:
-                                            ZStack{
-                                                Circle()
-                                                    .frame(width: 100, height: 100)
-                                                    .foregroundStyle(Color(red: 210/255, green: 223/255, blue: 73/255))
-                                                ProgressView()
+                                ZStack{
+                                    Image(systemName: "circle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                    if let url = URL(string: !userManager.profilePicture.isEmpty ? userManager.profilePicture :  "profilepicture22") {
+                                        AsyncImage(url: url) { phase in
+                                            switch phase {
+                                            case .empty:
+                                                ZStack{
+                                                    Circle()
+                                                        .frame(width: 100, height: 100)
+                                                        .foregroundStyle(Color(red: 210/255, green: 223/255, blue: 73/255))
+                                                    ProgressView()
+                                                        .frame(width: 100, height: 100)
+                                                        .clipShape(Circle())
+                                                }
+                                                
+                                            case .success(let image):
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
                                                     .frame(width: 100, height: 100)
                                                     .clipShape(Circle())
+                                            default:
+                                                Image(systemName: "person.circle.fill")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 100, height: 100)
+                                                    .foregroundColor(.black)
+                                        
                                             }
-                                            
-                                        case .success(let image):
-                                            image
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 100, height: 100)
-                                                .clipShape(Circle())
-                                        default:
-                                            Image(systemName: "person.circle.fill")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 100, height: 100)
-                                                .foregroundColor(.black)
-                                    
+                                        }
+                                        .onTapGesture {
+                                            showingImagePicker = true
                                         }
                                     }
-                                    .onTapGesture {
-                                        showingImagePicker = true
-                                    }
                                 }
+                               
                             }
                                                         
                             Text(userManager.name+" "+userManager.lastName)

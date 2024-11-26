@@ -39,6 +39,7 @@ struct LogrosView: View {
                                 .frame(width: 150)
                             
                         }
+                        .frame(width: 150)
                         .padding(.horizontal)
                     }
                     .frame(maxWidth: .infinity)
