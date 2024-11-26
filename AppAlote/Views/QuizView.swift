@@ -63,7 +63,6 @@ struct QuizView: View {
             }
             .padding().fullScreenCover(isPresented: $showQuizCompletionModal) {
                 QuizCompletionModal(isPresented: $showQuizCompletionModal)
-                //LoadingView()
             }
         }
     }

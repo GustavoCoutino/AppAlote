@@ -47,6 +47,7 @@ class RouteCalculator: ObservableObject {
         let userScores = await userManager.fetchUserQuizScore()
         let sortedScores = userScores.sorted { $0.puntaje_quiz > $1.puntaje_quiz }
         let sortedZones = sortedScores.map { $0.zona }
+        print(sortedZones)
         UserDefaults.standard.set(sortedZones, forKey: "sortedZones")
     }
     

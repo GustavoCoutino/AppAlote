@@ -165,23 +165,23 @@ struct HomeView: View {
     }
     
     private func getZonaDetails(for zona: Int) -> (imageName: String, label: String, labelColor: Color) {
-            switch zona {
-            case 1:
-                return ("Expreso", "Expreso", .orange)
-            case 2:
-                return ("Pertenezco", "Pertenezco", .green)
-            case 3:
-                return ("Comunico", "Comunico", .blue)
-            case 4:
-                return ("Comprendo", "Comprendo", .purple)
-            case 5:
-                return ("Pequeños", "Pequeños", Color(red: 68/255, green: 103/255, blue: 196/255))
-            case 6:
-                return ("Soy", "Soy", .red)
-            default:
-                return ("", "Unknown", .black)
-            }
+        switch zona {
+        case 1:
+            return ("Pequeños", "Pequeños", Color(red: 127/255, green: 195/255, blue: 213/255))
+        case 2:
+            return ("Pertenezco", "Pertenezco", .green)
+        case 3:
+            return ("Comunico", "Comunico", .blue)
+        case 4:
+            return ("Comprendo", "Comprendo", Color(red: 0/255, green: 0/255, blue: 139/255))
+        case 5:
+            return ("Expreso", "Expreso", .orange)
+        case 6:
+            return ("Soy", "Soy", .red)
+        default:
+            return ("", "Unknown", .black)
         }
+    }
 }
 
 struct ZonaCardView: View {
