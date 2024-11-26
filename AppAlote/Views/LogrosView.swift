@@ -41,6 +41,7 @@ struct LogrosView: View {
                         }
                         .padding(.horizontal)
                     }
+                    .frame(maxWidth: .infinity)
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(radius: 5)
@@ -58,3 +59,6 @@ struct LogrosView: View {
 }
 
 
+#Preview{
+    LogrosView().environmentObject(UserManager())
+}

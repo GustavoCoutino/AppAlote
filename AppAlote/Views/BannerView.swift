@@ -16,30 +16,39 @@ struct BannerView: View {
     
     var body: some View {
         HStack {
-            if let url = URL(string: profilePicture) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: 50, height: 50)
-                            .padding(.leading, 20)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                            .padding(.leading, 20)
-                    default:
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                            .padding(.leading, 20)
-                            .foregroundColor(.black)
+            ZStack{
+                Image(systemName: "circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                    .padding(.leading, 20)
+                    .foregroundStyle(Color(red: 210/255, green: 223/255, blue: 73/255))
+                if let url = URL(string: profilePicture) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(width: 50, height: 50)
+                                .padding(.leading, 20)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                .padding(.leading, 20)
+                        default:
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                                .padding(.leading, 20)
+                                .foregroundStyle(.black)
+                        }
                     }
                 }
             }
+            
             if !name.isEmpty && !lastName.isEmpty {
                 Text("\(name) \(lastName)")
                 .font(.headline)
