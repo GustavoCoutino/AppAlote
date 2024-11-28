@@ -107,6 +107,7 @@ struct SignIn: View {
                                 .padding(.horizontal).bold()
                                 .frame(height: 35)
                                 .textInputAutocapitalization(.never)
+                                .autocorrectionDisabled(false)
                                 .background(Color(red:243/255, green: 246/255, blue: 205/255))
                                 .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
                         }

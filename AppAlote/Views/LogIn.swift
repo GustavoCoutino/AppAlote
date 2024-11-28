@@ -54,6 +54,7 @@ struct LogIn: View {
                         TextField("", text: $correo)
                             .padding(.horizontal).bold()
                             .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled(false)
                             .frame(height: 35)
                             .background(Color(red:243/255, green: 246/255, blue: 205/255))
                             .cornerRadius(20).shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
